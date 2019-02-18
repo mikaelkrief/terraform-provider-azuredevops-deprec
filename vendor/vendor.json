@@ -896,10 +896,22 @@
 			"revisionTime": "2018-08-28T14:53:44Z"
 		},
 		{
+			"checksumSHA1": "dyHZUFW/iNOK61O3mDKaM5ftLBo=",
+			"path": "github.com/mitchellh/gox",
+			"revision": "9cc487598128d0963ff9dcc51176e722788ec645",
+			"revisionTime": "2018-10-25T21:53:26Z"
+		},
+		{
 			"checksumSHA1": "gOIe6F97Mcq/PwZjG38FkxervzE=",
 			"path": "github.com/mitchellh/hashstructure",
 			"revision": "a38c50148365edc8df43c1580c48fb2b3a1e9cd7",
 			"revisionTime": "2018-08-28T14:53:49Z"
+		},
+		{
+			"checksumSHA1": "bw5tHPXhPEUdI11X2lSPBXwaNGI=",
+			"path": "github.com/mitchellh/iochan",
+			"revision": "b6e3aadd28864e14dae41ff5c7261455b1242d24",
+			"revisionTime": "2018-08-24T03:58:58Z"
 		},
 		{
 			"checksumSHA1": "J+g0oZePWp2zSIISD2dZZKTxmgg=",
