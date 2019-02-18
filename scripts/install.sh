@@ -5,6 +5,7 @@ XC_ARCH=${XC_ARCH:-"386 amd64 arm"}
 XC_OS=${XC_OS:-linux darwin windows}
 XC_EXCLUDE_OSARCH="!darwin/arm !darwin/386"
 VERSION=$1
+OUTPUTPATH=$2
 
 # clean up
 echo "-> running clean up...."
@@ -19,19 +20,19 @@ fi
 # we want to build statically linked binaries
 export CGO_ENABLED=0
 echo "-> building..."
-echo "gox -os="${XC_OS}" -arch="${XC_ARCH}" -osarch="${XC_EXCLUDE_OSARCH}" -output 'output/{{.OS}}_{{.Arch}}/terraform-provider-azuredevops_v${VERSION}'"
+echo "gox -os="${XC_OS}" -arch="${XC_ARCH}" -osarch="${XC_EXCLUDE_OSARCH}" -output '${OUTPUTPATH}/{{.OS}}_{{.Arch}}/terraform-provider-azuredevops_v${VERSION}'"
 gox \
     -os="${XC_OS}" \
     -arch="${XC_ARCH}" \
     -osarch="${XC_EXCLUDE_OSARCH}" \
-    -output "output/{{.OS}}_{{.Arch}}/terraform-provider-azuredevops_v${VERSION}" \
+    -output "${OUTPUTPATH}/{{.OS}}_{{.Arch}}/terraform-provider-azuredevops_v${VERSION}" \
     .
 
 
 # Zip and copy to the dist dir
 echo ""
 echo "Packaging..."
-for PLATFORM in $(find ./output -mindepth 1 -maxdepth 1 -type d); do
+for PLATFORM in $(find ${OUTPUTPATH} -mindepth 1 -maxdepth 1 -type d); do
     OSARCH=$(basename ${PLATFORM})
     echo "--> ${OSARCH}"
 
