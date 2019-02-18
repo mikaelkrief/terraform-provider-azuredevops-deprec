@@ -9,7 +9,7 @@ OUTPUTPATH=$2
 
 # clean up
 echo "-> running clean up...."
-rm -rf output/*
+rm -rf ${OUTPUTPATH}/*
 
 if ! which gox > /dev/null; then
     echo "-> installing gox..."
