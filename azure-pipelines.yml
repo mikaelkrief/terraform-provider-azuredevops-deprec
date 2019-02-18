@@ -21,3 +21,9 @@ steps:
     echo '##vso[task.prependpath]$(GOBIN)'
     echo '##vso[task.prependpath]$(GOROOT)/bin'
   displayName: 'Set up the Go workspace'
+- task: Bash@3
+  displayName: Install
+  inputs:
+    targetType: ./
+    filePath: scripts/buildgo.bash
+    arguments: '$(Build.BuildNumber) $(Build.BinariesDirectory)'
