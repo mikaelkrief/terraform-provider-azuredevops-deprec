@@ -45,4 +45,4 @@ echo ""
 echo ""
 echo "-----------------------------------"
 echo "Output:"
-ls -alh output/
+ls -alh ${OUTPUTPATH}/
