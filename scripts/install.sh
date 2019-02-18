@@ -2,8 +2,9 @@
 
 # define architecture we want to build
 XC_ARCH=${XC_ARCH:-"386 amd64 arm"}
-XC_OS=${XC_OS:-linux darwin}
+XC_OS=${XC_OS:-linux darwin windows}
 XC_EXCLUDE_OSARCH="!darwin/arm !darwin/386"
+VERSION=$1
 
 # clean up
 echo "-> running clean up...."
@@ -18,12 +19,12 @@ fi
 # we want to build statically linked binaries
 export CGO_ENABLED=0
 echo "-> building..."
-echo "gox -os="${XC_OS}" -arch="${XC_ARCH}" -osarch="${XC_EXCLUDE_OSARCH}" -output 'output/{{.OS}}_{{.Arch}}/terraform-provider-azuredevops'"
+echo "gox -os="${XC_OS}" -arch="${XC_ARCH}" -osarch="${XC_EXCLUDE_OSARCH}" -output 'output/{{.OS}}_{{.Arch}}/terraform-provider-azuredevops_v${VERSION}'"
 gox \
     -os="${XC_OS}" \
     -arch="${XC_ARCH}" \
     -osarch="${XC_EXCLUDE_OSARCH}" \
-    -output "output/{{.OS}}_{{.Arch}}/terraform-provider-azuredevops" \
+    -output "output/{{.OS}}_{{.Arch}}/terraform-provider-azuredevops_v${VERSION}" \
     .
 
 

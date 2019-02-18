@@ -2,11 +2,11 @@ package azuredevops
 
 import (
 	"fmt"
-	azuredevopssdk "go-azuredevops-sdk"
 	"testing"
 
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
+	azuredevopssdk "github.com/mikaelkrief/go-azuredevops-sdk"
 )
 
 func Test_projectCheck(t *testing.T) {
@@ -17,7 +17,7 @@ func Test_projectCheck(t *testing.T) {
 		CheckDestroy: testProjectDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: testProjectCheck_Basic,
+				Config: testProjectCheckBasic,
 				Check: resource.ComposeTestCheckFunc(
 					testProjectExist("azuredevops_project.test"),
 				),
@@ -26,7 +26,7 @@ func Test_projectCheck(t *testing.T) {
 	})
 }
 
-const testProjectCheck_Basic = `
+const testProjectCheckBasic = `
 resource "azuredevops_project" "test" {
 	name               = "test Terraform 2"
 	template_type_name = "agile1"

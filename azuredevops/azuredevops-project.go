@@ -3,13 +3,13 @@ package azuredevops
 import (
 	"encoding/json"
 	"fmt"
-	azuredevopssdk "go-azuredevops-sdk"
 	"log"
 	"strings"
+	"terraform-azuredevops/azuredevops/utils"
 	"time"
 
 	"github.com/hashicorp/terraform/helper/schema"
-	//azuredevopssdk "github.com/mikaelkrief/go-azuredevops-sdk"
+	azuredevopssdk "github.com/mikaelkrief/go-azuredevops-sdk"
 )
 
 func resourceProjectObject() *schema.Resource {
@@ -113,9 +113,8 @@ func resourceProjectCreate(d *schema.ResourceData, meta interface{}) error {
 
 	project.Capabilities = capabilities
 
-	PrettyPrint(project)
+	utils.PrettyPrint(project) //Log Request
 
-	// client.ShowProject(project)
 	id, err := client.CreateProject(project)
 	if err != nil {
 		return fmt.Errorf("Error creating project  %q: %+v", project.Name, err)
@@ -160,9 +159,6 @@ func resourceProjectUpdate(d *schema.ResourceData, meta interface{}) error {
 		return fmt.Errorf("The template type Id can't be changed")
 	}
 
-	//var name = d.Get("name").(string)
-	//var description = d.Get("description").(string)
-
 	var project = azuredevopssdk.Project{}
 	if d.HasChange("name") {
 		project.Name = d.Get("name").(string)
@@ -170,8 +166,6 @@ func resourceProjectUpdate(d *schema.ResourceData, meta interface{}) error {
 	if d.HasChange("description") {
 		project.Description = d.Get("description").(string)
 	}
-	//project.Capabilities = ""
-	//project.Capabilities.ProcessTemplate.TemplateTypeId = ""
 
 	b, err := json.Marshal(project)
 	log.Printf("[INFO] project of update. %s", string(b))
@@ -219,7 +213,6 @@ func resourceProjectRead(d *schema.ResourceData, meta interface{}) error {
 	d.Set("description", project.Description)
 	d.Set("visibility", project.Visibility)
 	d.Set("source_control_type", project.Capabilities.Versioncontrol.SourceControlType)
-	//d.Set("template_type_name", project.Capabilities.ProcessTemplate.TemplateTypeId)
 
 	return nil
 }
@@ -245,12 +238,4 @@ loop:
 		}
 	}
 	return nil
-}
-
-func PrettyPrint(v interface{}) (err error) {
-	b, err := json.MarshalIndent(v, "", "  ")
-	if err == nil {
-		log.Println(string(b))
-	}
-	return
 }
