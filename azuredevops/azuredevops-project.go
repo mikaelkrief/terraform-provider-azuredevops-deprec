@@ -3,10 +3,10 @@ package azuredevops
 import (
 	"encoding/json"
 	"fmt"
-	"log"
-	"time"
-
 	azuredevopssdk "go-azuredevops-sdk"
+	"log"
+	"strings"
+	"time"
 
 	"github.com/hashicorp/terraform/helper/schema"
 	//azuredevopssdk "github.com/mikaelkrief/go-azuredevops-sdk"
@@ -26,24 +26,48 @@ func resourceProjectObject() *schema.Resource {
 			},
 			"description": {
 				Type:     schema.TypeString,
-				Required: true,
+				Optional: true,
 				ForceNew: false,
 			},
 			"source_control_type": {
 				Type:     schema.TypeString,
-				Required: true,
+				Optional: true,
 				ForceNew: false,
+				Default:  "Git",
+				ValidateFunc: func(val interface{}, key string) (warns []string, errs []error) {
+					v := val
+					if v != "Git" && v != "TFVC" {
+						errs = append(errs, fmt.Errorf("%q must be Git or TFVC, got: %q", key, v))
+					}
+					return
+				},
 			},
-			"template_type_id": {
+			"template_type_name": {
 				Type:     schema.TypeString,
-				Required: true,
+				Optional: true,
 				ForceNew: false,
+				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+					return true
+				},
 			},
 			"visibility": {
 				Type:     schema.TypeString,
 				Optional: true,
 				ForceNew: false,
 				Default:  "private",
+				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+					if strings.ToLower(old) == strings.ToLower(new) {
+						return true
+					}
+					return false
+				},
+				ValidateFunc: func(val interface{}, key string) (warns []string, errs []error) {
+					v := strings.ToLower(val.(string))
+					if v != "private" && v != "public" {
+						errs = append(errs, fmt.Errorf("%q must be private or public, got: %q", key, v))
+					}
+					return
+				},
 			},
 		},
 	}
@@ -56,25 +80,40 @@ func periodicFunc(tick time.Time) {
 func resourceProjectCreate(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*azuredevopssdk.Client)
 
-	//var versioncontrol = azuredevopssdk.Versioncontrol{}
-	//versioncontrol.SourceControlType = d.Get("source_control_type").(string)
-
-	// var processTemplate = azuredevopssdk.ProcessTemplate{}
-	// processTemplate.TemplateTypeId = d.Get("template_type_id").(string)
-
-	//var capabilities = &azuredevopssdk.Capabilities{}
-	//capabilities.Versioncontrol = versioncontrol
-	//capabilities.ProcessTemplate = processTemplate
-
 	var project = azuredevopssdk.Project{}
 	project.Name = d.Get("name").(string)
 	project.Description = d.Get("description").(string)
-	//project.Capabilities = capabilities
-	project.Visibility = d.Get("visibility").(string)
-	project.Capabilities.Versioncontrol.SourceControlType = d.Get("source_control_type").(string)
-	project.Capabilities.ProcessTemplate.TemplateTypeId = d.Get("template_type_id").(string)
 
-	log.Printf(project.Name)
+	var versioncontrol = azuredevopssdk.Versioncontrol{}
+	versioncontrol.SourceControlType = d.Get("source_control_type").(string)
+
+	var processTemplate = azuredevopssdk.ProcessTemplate{}
+	log.Printf("TEST")
+	log.Printf(d.Get("template_type_name").(string))
+	if d.Get("template_type_name").(string) != "" {
+		var processname = d.Get("template_type_name").(string)
+		process, err := client.GetProcessId(processname)
+		if err != nil {
+			return fmt.Errorf("Error get process template id %+v", err)
+		}
+		log.Printf(process.Id)
+		processTemplate.TemplateTypeId = process.Id
+	} else {
+		process, err := client.GetDefaultProcess()
+		if err != nil {
+			return fmt.Errorf("Error get default process template %+v", err)
+		}
+		processTemplate.TemplateTypeId = process.Id
+		d.Set("template_type_name", process.Name)
+	}
+
+	var capabilities = &azuredevopssdk.Capabilities{}
+	capabilities.Versioncontrol = versioncontrol
+	capabilities.ProcessTemplate = processTemplate
+
+	project.Capabilities = capabilities
+
+	PrettyPrint(project)
 
 	// client.ShowProject(project)
 	id, err := client.CreateProject(project)
@@ -96,7 +135,7 @@ loop:
 
 	projectCreated, err := client.GetProject(project.Name)
 	if err != nil {
-		return fmt.Errorf("Error geting project  %q: %+v", project.Name)
+		return fmt.Errorf("Error getting project  %q:", project.Name)
 	}
 	var idproject = projectCreated.Id
 
@@ -117,7 +156,7 @@ func resourceProjectUpdate(d *schema.ResourceData, meta interface{}) error {
 		return fmt.Errorf("The source controle type can't be changed")
 	}
 
-	if d.HasChange("template_type_id") {
+	if d.HasChange("template_type_name") {
 		return fmt.Errorf("The template type Id can't be changed")
 	}
 
@@ -125,8 +164,12 @@ func resourceProjectUpdate(d *schema.ResourceData, meta interface{}) error {
 	//var description = d.Get("description").(string)
 
 	var project = azuredevopssdk.Project{}
-	project.Name = d.Get("name").(string)
-	project.Description = d.Get("description").(string)
+	if d.HasChange("name") {
+		project.Name = d.Get("name").(string)
+	}
+	if d.HasChange("description") {
+		project.Description = d.Get("description").(string)
+	}
 	//project.Capabilities = ""
 	//project.Capabilities.ProcessTemplate.TemplateTypeId = ""
 
@@ -176,13 +219,31 @@ func resourceProjectRead(d *schema.ResourceData, meta interface{}) error {
 	d.Set("description", project.Description)
 	d.Set("visibility", project.Visibility)
 	d.Set("source_control_type", project.Capabilities.Versioncontrol.SourceControlType)
-	d.Set("template_type_id", project.Capabilities.ProcessTemplate.TemplateTypeId)
+	//d.Set("template_type_name", project.Capabilities.ProcessTemplate.TemplateTypeId)
 
 	return nil
 }
 
 func resourceProjectDelete(d *schema.ResourceData, meta interface{}) error {
+	client := meta.(*azuredevopssdk.Client)
+	var projectid = d.Id()
 
+	id, err := client.DeleteProject(projectid)
+	if err != nil {
+		return fmt.Errorf("Error deleting project  %q: %+v", projectid, err)
+	}
+
+loop:
+	for t := range time.NewTicker(10 * time.Second).C {
+		periodicFunc(t)
+		status, err := client.GetOperation(id)
+		if err != nil {
+			return fmt.Errorf("Error getting project deleting operation  %q: %+v", id, err)
+		}
+		if status == "succeeded" {
+			break loop
+		}
+	}
 	return nil
 }
 
