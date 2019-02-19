@@ -3,11 +3,10 @@ package azuredevops
 import (
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/hashicorp/terraform/terraform"
-
-	// "github.com/mikaelkrief/go-azuredevops-sdk"
-	azuredevopssdk "go-azuredevops-sdk"
+	azuredevopssdk "github.com/mikaelkrief/go-azuredevops-sdk"
 )
 
+//Provider AzureDevOps
 func Provider() terraform.ResourceProvider {
 	return &schema.Provider{
 		Schema: map[string]*schema.Schema{

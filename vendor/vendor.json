@@ -853,10 +853,10 @@
 			"revisionTime": "2019-02-18T13:18:44Z"
 		},
 		{
-			"checksumSHA1": "hMoxbeNAv3Zs+V5vTlj9W9dM2hU=",
+			"checksumSHA1": "ZX8+pRwFyeo2ZpIyjOCDkEqP9hw=",
 			"path": "github.com/mikaelkrief/terraform-provider-azuredevops/azuredevops",
-			"revision": "c4a33b67f96ca9d7030b53a3bd95086963031eb8",
-			"revisionTime": "2019-02-18T13:14:59Z"
+			"revision": "79b0d270b25acd82be18d9af72caff610fa83162",
+			"revisionTime": "2019-02-19T11:19:34Z"
 		},
 		{
 			"checksumSHA1": "fgd40uACm+f6nmSUC+R9A9NtwGY=",
