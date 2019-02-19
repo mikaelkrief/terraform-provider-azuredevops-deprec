@@ -26,7 +26,7 @@ steps:
   displayName: Install
   inputs:
     targetType: "filePath"
-    filePath: scripts/buildgo.bash
+    filePath: $(modulePath)/scripts/buildgo.bash
     arguments: '$(Build.BuildNumber) $(Build.BinariesDirectory)'
     workingDirectory: '$(modulePath)'
 - script: |
