@@ -22,6 +22,9 @@ steps:
     echo '##vso[task.prependpath]$(GOROOT)/bin'
     printenv
   displayName: 'Set up the Go workspace'
+- script: |
+    tree -L 2
+  displayName: 'tree'
 - task: Bash@3
   displayName: Install
   inputs:
