@@ -853,12 +853,6 @@
 			"revisionTime": "2019-02-18T13:18:44Z"
 		},
 		{
-			"checksumSHA1": "ZX8+pRwFyeo2ZpIyjOCDkEqP9hw=",
-			"path": "github.com/mikaelkrief/terraform-provider-azuredevops/azuredevops",
-			"revision": "79b0d270b25acd82be18d9af72caff610fa83162",
-			"revisionTime": "2019-02-19T11:19:34Z"
-		},
-		{
 			"checksumSHA1": "fgd40uACm+f6nmSUC+R9A9NtwGY=",
 			"path": "github.com/mitchellh/cli",
 			"revision": "3d22a244be8aa6fb16ac24af0e195c08b7d973aa",
