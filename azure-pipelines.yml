@@ -20,6 +20,7 @@ steps:
     mv !(gopath) '$(modulePath)'
     echo '##vso[task.prependpath]$(GOBIN)'
     echo '##vso[task.prependpath]$(GOROOT)/bin'
+    printenv
   displayName: 'Set up the Go workspace'
 - task: Bash@3
   displayName: Install
@@ -27,6 +28,7 @@ steps:
     targetType: ./
     filePath: scripts/buildgo.bash
     arguments: '$(Build.BuildNumber) $(Build.BinariesDirectory)'
+    workingDirectory: '$(modulePath)'
 - task: GitHubRelease@0
   inputs:
     gitHubConnection: "GitHub connection 1"
