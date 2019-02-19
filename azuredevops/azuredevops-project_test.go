@@ -29,7 +29,7 @@ func Test_projectCheck(t *testing.T) {
 const testProjectCheckBasic = `
 resource "azuredevops_project" "test" {
 	name               = "test Terraform 2"
-	template_type_name = "agile1"
+	template_type_name = "agile"
   }
 `
 
