@@ -25,10 +25,16 @@ steps:
 - task: Bash@3
   displayName: Install
   inputs:
-    targetType: ./
+    targetType: "filePath"
     filePath: scripts/buildgo.bash
     arguments: '$(Build.BuildNumber) $(Build.BinariesDirectory)'
     workingDirectory: '$(modulePath)'
+- script: |
+   cd $(modulePath)
+   dir 
+   cd $(Build.BinariesDirectory)
+   dir
+  displayName: 'Set up the Go workspace'
 - task: GitHubRelease@0
   inputs:
     gitHubConnection: "GitHub connection 1"
