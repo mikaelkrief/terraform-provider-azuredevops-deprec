@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 	"strings"
-	"terraform-azuredevops/azuredevops/utils"
+	"terraform-provider-azuredevops/azuredevops/utils"
 	"time"
 
 	"github.com/hashicorp/terraform/helper/schema"
