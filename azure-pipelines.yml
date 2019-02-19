@@ -40,9 +40,9 @@ steps:
     gitHubConnection: "GitHub connection 1"
     repositoryName: "mikaelkrief/terraform-provider-azuredevops"
     action: 'create' # Options: create, edit, delete
-    target: '$(Build.SourceVersion)' # Required when action == Create || Action == Edit
+    target: '$(Build.BuildNumber)' # Required when action == Create || Action == Edit
     tagSource: 'auto' # Required when action == Create# Options: auto, manual
-    tag: $(Build.BuildNumber) # Required when action == Edit || Action == Delete || TagSource == Manual
+    #tag: $(Build.BuildNumber) # Required when action == Edit || Action == Delete || TagSource == Manual
     title: $(Build.BuildNumber) # Optional
     #releaseNotesSource: 'file' # Optional. Options: file, input
     #releaseNotesFile: # Optional
