@@ -23,6 +23,7 @@ steps:
     printenv
   displayName: 'Set up the Go workspace'
 - script: |
+    apt-get install tree
     tree -L 2
   displayName: 'tree'
 - task: Bash@3
