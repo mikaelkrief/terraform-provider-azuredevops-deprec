@@ -31,7 +31,7 @@ steps:
   inputs:
     targetType: "filePath"
     filePath: $(modulePath)/scripts/buildgo.bash
-    arguments: '$(Build.BuildNumber) $(Build.BinariesDirectory)'
+    arguments: $(Build.BuildNumber) $(Build.BinariesDirectory)
     workingDirectory: '$(modulePath)'
 - script: |
    cd $(modulePath)
