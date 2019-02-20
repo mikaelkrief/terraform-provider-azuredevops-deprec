@@ -29,20 +29,7 @@ steps:
     filePath: $(modulePath)/scripts/build-provider.bash
     arguments: $(Build.BuildNumber) $(Build.BinariesDirectory)
     workingDirectory: '$(modulePath)'
-- task: GitHubRelease@0
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
   inputs:
-    gitHubConnection: "GitHub connection 1"
-    repositoryName: "mikaelkrief/terraform-provider-azuredevops"
-    action: 'create' # Options: create, edit, delete
-    target: '$(Build.SourceVersion)' # Required when action == Create || Action == Edit
-    tagSource: 'auto' # Required when action == Create# Options: auto, manual
-    #tag: $(Build.BuildNumber) # Required when action == Edit || Action == Delete || TagSource == Manual
-    title: $(Build.BuildNumber) # Optional
-    #releaseNotesSource: 'file' # Optional. Options: file, input
-    #releaseNotesFile: # Optional
-    #releaseNotes: # Optional
-    assets: '$(Build.BinariesDirectory)/*.zip' # Optional
-    #assetUploadMode: 'delete' # Optional. Options: delete, replace
-    #isDraft: false # Optional
-    #isPreRelease: false # Optional
-    addChangeLog: true # Optional
+    PathtoPublish: '$(Build.BinariesDirectory)'
