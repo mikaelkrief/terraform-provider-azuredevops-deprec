@@ -9,12 +9,14 @@ import "time"
 
 const baseURL string = "https://dev.azure.com/"
 
+//Client client struct
 type Client struct {
 	client       *http.Client
 	organization string
 	encToken     string
 }
 
+//NewClientWith initialize a new client
 func NewClientWith(organization string, token string) (*Client, error) {
 	var netClient = &http.Client{
 		Timeout: time.Second * 10,
@@ -29,7 +31,12 @@ func basicAuth(token string) string {
 }
 
 func (s *Client) doRequest(req *http.Request) ([]byte, error) {
-	log.Printf("[SECRET] --> " + s.encToken)
+	// dispay log the truncated secret
+	runeSecret := []rune(s.encToken)
+	myShortSecret := string(runeSecret[0:6])
+	log.Printf("[SECRET] --> " + myShortSecret)
+	//----------------------------------------
+
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Add("Authorization", "Basic "+s.encToken)
 	client := &http.Client{}
@@ -48,7 +55,6 @@ func (s *Client) doRequest(req *http.Request) ([]byte, error) {
 		return body, nil
 	}
 
-	// fmt.Println(resp.StatusCode)
 	if 200 != resp.StatusCode {
 		if resp.StatusCode == 203 {
 			return nil, fmt.Errorf("%s", "BAD TOKEN")

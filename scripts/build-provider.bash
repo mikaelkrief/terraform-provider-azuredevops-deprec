@@ -4,7 +4,15 @@ OUTPUTPATH=$2
 package_name="terraform-provider-azuredevops_v"
 platforms=("windows/amd64" "windows/386" "darwin/amd64" "linux/amd64" "linux/arm" "linux/386")
 
+if [ -z "$1" ]
+  then
+    echo "No argument Version supplied"
+fi
 
+if [ -z "$2" ]
+  then
+    echo "No argument Ouput path supplied"
+fi
 
 # clean up
 echo "-> running clean up...."

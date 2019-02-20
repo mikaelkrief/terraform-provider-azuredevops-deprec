@@ -3,6 +3,8 @@ Azure DevOps Terraform Provider
 
 Terraform provider for [Azure DevOps](https://azure.microsoft.com/en-us/services/devops/)
 
+This provider use the Azure DevOps Go SDK provided in [this GitHub](https://github.com/mikaelkrief/go-azuredevops-sdk)
+
 General Requirements
 ------------
 

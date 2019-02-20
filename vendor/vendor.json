@@ -847,10 +847,10 @@
 			"revisionTime": "2018-08-30T10:17:45Z"
 		},
 		{
-			"checksumSHA1": "mpEqfmeVL2WDOMSShn6MlKkjazQ=",
+			"checksumSHA1": "FXdofDzHQmoYpwVMDXGijm2hdf4=",
 			"path": "github.com/mikaelkrief/go-azuredevops-sdk",
-			"revision": "1bc5c5bc9a65310bb80964d2ecd1f626c7d576f4",
-			"revisionTime": "2019-02-18T13:18:44Z"
+			"revision": "c07a442ccd81aabc4b00de54168e0dd25c72a1e6",
+			"revisionTime": "2019-02-20T14:39:46Z"
 		},
 		{
 			"checksumSHA1": "fgd40uACm+f6nmSUC+R9A9NtwGY=",
@@ -1446,5 +1446,5 @@
 			"revisionTime": "2019-02-15T16:15:30Z"
 		}
 	],
-	"rootPath": "terraform-azuredevops"
+	"rootPath": "terraform-provider-azuredevops"
 }

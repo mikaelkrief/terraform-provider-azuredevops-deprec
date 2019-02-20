@@ -2,7 +2,9 @@ package utils
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
+	"time"
 )
 
 //PrettyPrint json
@@ -12,4 +14,9 @@ func PrettyPrint(v interface{}) (err error) {
 		log.Println(string(b))
 	}
 	return
+}
+
+//PeriodicFunc tick
+func PeriodicFunc(tick time.Time) {
+	fmt.Println("Tick at: ", tick)
 }

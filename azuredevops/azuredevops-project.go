@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 	"strings"
-	"terraform-provider-azuredevops/azuredevops/utils"
+	utils "terraform-provider-azuredevops/azuredevops/utils"
 	"time"
 
 	"github.com/hashicorp/terraform/helper/schema"
@@ -46,9 +46,7 @@ func resourceProjectObject() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 				ForceNew: false,
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
-					return true
-				},
+				Computed: true,
 			},
 			"visibility": {
 				Type:     schema.TypeString,
@@ -73,10 +71,6 @@ func resourceProjectObject() *schema.Resource {
 	}
 }
 
-func periodicFunc(tick time.Time) {
-	fmt.Println("Tick at: ", tick)
-}
-
 func resourceProjectCreate(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*azuredevopssdk.Client)
 
@@ -88,15 +82,16 @@ func resourceProjectCreate(d *schema.ResourceData, meta interface{}) error {
 	versioncontrol.SourceControlType = d.Get("source_control_type").(string)
 
 	var processTemplate = azuredevopssdk.ProcessTemplate{}
-	log.Printf("TEST")
-	log.Printf(d.Get("template_type_name").(string))
 	if d.Get("template_type_name").(string) != "" {
 		var processname = d.Get("template_type_name").(string)
 		process, err := client.GetProcessId(processname)
 		if err != nil {
-			return fmt.Errorf("Error get process template id %+v", err)
+			return err
 		}
+
+		utils.PrettyPrint(process) //Log Request
 		log.Printf(process.Id)
+
 		processTemplate.TemplateTypeId = process.Id
 	} else {
 		process, err := client.GetDefaultProcess()
@@ -122,7 +117,7 @@ func resourceProjectCreate(d *schema.ResourceData, meta interface{}) error {
 
 loop:
 	for t := range time.NewTicker(10 * time.Second).C {
-		periodicFunc(t)
+		utils.PeriodicFunc(t)
 		status, err := client.GetOperation(id)
 		if err != nil {
 			return fmt.Errorf("Error getting project creating operation  %q: %+v", id, err)
@@ -134,12 +129,12 @@ loop:
 
 	projectCreated, err := client.GetProject(project.Name)
 	if err != nil {
-		return fmt.Errorf("Error getting project  %q:", project.Name)
+		return fmt.Errorf("Error getting project %v: ", project.Name)
 	}
 	var idproject = projectCreated.Id
 
 	d.SetId(idproject)
-	log.Printf(idproject)
+
 	if err != nil {
 		return err
 	}
@@ -179,7 +174,7 @@ func resourceProjectUpdate(d *schema.ResourceData, meta interface{}) error {
 
 loop:
 	for t := range time.NewTicker(10 * time.Second).C {
-		periodicFunc(t)
+		utils.PeriodicFunc(t)
 		status, err := client.GetOperation(id)
 		if err != nil {
 			return fmt.Errorf("Error getting project updating operation  %q: %+v", id, err)
@@ -228,7 +223,7 @@ func resourceProjectDelete(d *schema.ResourceData, meta interface{}) error {
 
 loop:
 	for t := range time.NewTicker(10 * time.Second).C {
-		periodicFunc(t)
+		utils.PeriodicFunc(t)
 		status, err := client.GetOperation(id)
 		if err != nil {
 			return fmt.Errorf("Error getting project deleting operation  %q: %+v", id, err)
