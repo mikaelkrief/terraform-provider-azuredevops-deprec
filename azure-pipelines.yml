@@ -22,6 +22,12 @@ steps:
     echo '##vso[task.prependpath]$(GOROOT)/bin'
     printenv
   displayName: 'Set up the Go workspace'
+- task: Go@0
+  displayName: 'go test'
+  inputs:
+    command: test
+    arguments: '-v'
+    workingDirectory: '$(modulePath)/azuredevops'
 - task: Bash@3
   displayName: Install
   inputs:
