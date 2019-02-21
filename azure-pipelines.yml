@@ -30,7 +30,7 @@ steps:
     workingDirectory: '$(modulePath)/azuredevops'
   env:
     AZURE_DEVOPS_TOKEN: "$(System.AccessToken)"
-    AZURE_DEVOPS_ORGANIZATION: "kriefmikael"
+    AZURE_DEVOPS_ORGANIZATION: "mikaelkrief"
 - task: Bash@3
   displayName: Install
   inputs:
