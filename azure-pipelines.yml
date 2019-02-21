@@ -29,6 +29,8 @@ steps:
     command: test
     arguments: '-v'
     workingDirectory: '$(modulePath)/azuredevops'
+  env:
+    AZURE_DEVOPS_TOKEN: "$(System.AccessToken)"
 - task: Bash@3
   displayName: Install
   inputs:
