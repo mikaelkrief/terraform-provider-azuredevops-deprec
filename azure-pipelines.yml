@@ -22,15 +22,25 @@ steps:
     echo '##vso[task.prependpath]$(GOROOT)/bin'
     printenv
   displayName: 'Set up the Go workspace'
-- task: Go@0
-  displayName: 'go test'
-  inputs:
-    command: test
-    arguments: '-v'
-    workingDirectory: '$(modulePath)/azuredevops'
+- script: |
+    go get github.com/jstemmer/go-junit-report
+    go get github.com/axw/gocov/gocov
+    go get github.com/AlekSi/gocov-xml
+    go get -u gopkg.in/matm/v1/gocov-html
+    go test -v -coverprofile=coverage.txt -covermode count ./azuredevops 2>&1 | go-junit-report > report.xml
+    gocov convert coverage.txt > coverage.json
+    gocov-xml < coverage.json > coverage.xml
+    mkdir coverage
+    gocov-html < coverage.json > coverage/index.html
+  workingDirectory: '$(modulePath)'
+  displayName: 'Run unit test'
   env:
     AZURE_DEVOPS_TOKEN: "$(System.AccessToken)"
     AZURE_DEVOPS_ORGANIZATION: "mikaelkrief"
+- task: PublishTestResults@2
+  inputs:
+    testRunner: JUnit
+    testResultsFiles: $(System.DefaultWorkingDirectory)/**/report.xml
 - task: Bash@3
   displayName: Install
   inputs:
