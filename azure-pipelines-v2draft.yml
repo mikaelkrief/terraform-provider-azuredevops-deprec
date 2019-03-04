@@ -22,18 +22,6 @@ steps:
     echo '##vso[task.prependpath]$(GOROOT)/bin'
     printenv
   displayName: 'Set up the Go workspace'
-- script: |
-    go get github.com/jstemmer/go-junit-report
-    go test -v ./azuredevops 2>&1 | go-junit-report > report.xml
-  workingDirectory: '$(modulePath)'
-  displayName: 'Run unit test'
-  env:
-    AZURE_DEVOPS_TOKEN: "$(System.AccessToken)"
-    AZURE_DEVOPS_ORGANIZATION: "mikaelkrief"
-- task: PublishTestResults@2
-  inputs:
-    testRunner: JUnit
-    testResultsFiles: $(System.DefaultWorkingDirectory)/**/report.xml
 - task: Bash@3
   displayName: Install
   inputs:

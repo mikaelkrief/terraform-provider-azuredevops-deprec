@@ -1,0 +1,452 @@
+---
+apiVersion: 5.1-preview
+baseUrl: 'https://dev.azure.com'
+extensions:
+  security:
+    - accessToken: []
+modelTypes:
+  - $id: '1'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: The class to represent a collection of REST reference links.
+    name:
+      fixed: false
+      raw: ReferenceLinks
+    properties:
+      - $id: '2'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            The readonly view of the links.  Because Reference links are
+            readonly, we only want to expose them as read only.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '3'
+          $type: DictionaryType
+          name:
+            fixed: false
+          supportsAdditionalProperties: false
+          valueType:
+            $id: '4'
+            $type: PrimaryType
+            knownPrimaryType: object
+            name:
+              fixed: false
+              raw: Object
+        name:
+          fixed: false
+          raw: links
+        realPath:
+          - links
+        serializedName: links
+    serializedName: ReferenceLinks
+  - $id: '5'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: ''
+    name:
+      fixed: false
+      raw: OperationResultReference
+    properties:
+      - $id: '6'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: URL to the operation result.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '7'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: resultUrl
+        realPath:
+          - resultUrl
+        serializedName: resultUrl
+    serializedName: OperationResultReference
+  - $id: '8'
+    $type: CompositeType
+    baseModelType:
+      $id: '15'
+      $type: CompositeType
+      containsConstantProperties: false
+      documentation: Reference for an async operation.
+      name:
+        fixed: false
+        raw: OperationReference
+      properties:
+        - $id: '16'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+            raw: Unique identifier for the operation.
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '17'
+            $type: PrimaryType
+            format: uuid
+            knownPrimaryType: uuid
+            name:
+              fixed: false
+              raw: Uuid
+          name:
+            fixed: false
+            raw: id
+          realPath:
+            - id
+          serializedName: id
+        - $id: '18'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+            raw: Unique identifier for the plugin.
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '19'
+            $type: PrimaryType
+            format: uuid
+            knownPrimaryType: uuid
+            name:
+              fixed: false
+              raw: Uuid
+          name:
+            fixed: false
+            raw: pluginId
+          realPath:
+            - pluginId
+          serializedName: pluginId
+        - $id: '20'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+            raw: The current status of the operation.
+          extensions:
+            x-ms-enum:
+              name: OperationStatus
+              values:
+                - description: The operation does not have a status set.
+                  value: notSet
+                - description: The operation has been queued.
+                  value: queued
+                - description: The operation is in progress.
+                  value: inProgress
+                - description: The operation was cancelled by the user.
+                  value: cancelled
+                - description: The operation completed successfully.
+                  value: succeeded
+                - description: The operation completed with a failure.
+                  value: failed
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '21'
+            $type: PrimaryType
+            knownPrimaryType: object
+            name:
+              fixed: false
+              raw: Object
+          name:
+            fixed: false
+            raw: status
+          realPath:
+            - status
+          serializedName: status
+        - $id: '22'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+            raw: URL to get the full operation object.
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '23'
+            $type: PrimaryType
+            knownPrimaryType: string
+            name:
+              fixed: false
+              raw: String
+          name:
+            fixed: false
+            raw: url
+          realPath:
+            - url
+          serializedName: url
+      serializedName: OperationReference
+    containsConstantProperties: false
+    documentation: Contains information about the progress or result of an async operation.
+    name:
+      fixed: false
+      raw: OperationModel
+    properties:
+      - $id: '9'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Links to other related objects.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $ref: '1'
+        name:
+          fixed: false
+          raw: _links
+        realPath:
+          - _links
+        serializedName: _links
+      - $id: '10'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Detailed messaged about the status of an operation.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '11'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: detailedMessage
+        realPath:
+          - detailedMessage
+        serializedName: detailedMessage
+      - $id: '12'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Result message for an operation.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '13'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: resultMessage
+        realPath:
+          - resultMessage
+        serializedName: resultMessage
+      - $id: '14'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: URL to the operation result.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $ref: '5'
+        name:
+          fixed: false
+          raw: resultUrl
+        realPath:
+          - resultUrl
+        serializedName: resultUrl
+    serializedName: Operation
+  - $ref: '15'
+modelsName: Models
+name: Operations
+namespace: Operation
+operations:
+  - methods:
+      - defaultResponse:
+          isNullable: true
+        deprecated: false
+        description: >-
+          Gets an operation from the the operationold using the given pluginId.
+
+
+          Some scenarios don’t require a pluginId. If a pluginId is not included
+          in the call then just the operationold will be used to find an
+          operation.
+        group:
+          fixed: false
+          raw: ''
+        hidden: false
+        httpMethod: get
+        isAbsoluteUrl: false
+        name:
+          fixed: false
+          raw: GetOperation
+        parameters:
+          - $id: '26'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The ID for the operation.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '27'
+              $type: PrimaryType
+              format: uuid
+              knownPrimaryType: uuid
+              name:
+                fixed: false
+                raw: Uuid
+            name:
+              fixed: false
+              raw: operationold
+            serializedName: operationold
+          - $id: '28'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of the Azure DevOps organization.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '29'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: organization
+            serializedName: organization
+          - $id: '30'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The ID for the plugin.
+            isConstant: false
+            isRequired: false
+            location: query
+            modelType:
+              $id: '31'
+              $type: PrimaryType
+              format: uuid
+              knownPrimaryType: uuid
+              name:
+                fixed: false
+                raw: Uuid
+            name:
+              fixed: false
+              raw: pluginId
+            serializedName: pluginId
+          - $id: '32'
+            clientProperty:
+              $ref: '24'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Version of the API to use.  This should be set to
+                '5.1-preview.1' to use this version of the api.
+            isConstant: false
+            isRequired: true
+            location: query
+            modelType:
+              $id: '33'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: api-version
+            serializedName: api-version
+        requestContentType: application/json; charset=utf-8
+        responseContentTypes:
+          - application/json
+        responses:
+          OK:
+            body:
+              $ref: '8'
+            isNullable: true
+        returnType:
+          body:
+            $ref: '8'
+          isNullable: true
+        serializedName: GetOperation
+        url: '/{organization}/_apis/operations/{operationold}'
+    name:
+      fixed: false
+      raw: ''
+    nameForProperty: Operations
+    typeName:
+      fixed: false
+properties:
+  - $id: '24'
+    collectionFormat: none
+    defaultValue:
+      fixed: false
+    documentation:
+      fixed: false
+      raw: >-
+        Version of the API to use.  This should be set to '5.1-preview.1' to use
+        this version of the api.
+    isConstant: false
+    isReadOnly: false
+    isRequired: true
+    modelType:
+      $id: '25'
+      $type: PrimaryType
+      knownPrimaryType: string
+      name:
+        fixed: false
+        raw: String
+    name:
+      fixed: false
+      raw: api-version
+    realPath:
+      - api-version
+    serializedName: api-version

@@ -1,0 +1,5889 @@
+---
+apiVersion: 5.1-preview
+baseUrl: 'https://dev.azure.com'
+enumTypes:
+  - $id: '287'
+    $type: EnumType
+    modelAsExtensible: false
+    modelAsString: false
+    name:
+      fixed: false
+      raw: ProjectState
+    underlyingType:
+      $id: '288'
+      $type: PrimaryType
+      knownPrimaryType: string
+      name:
+        fixed: false
+        raw: String
+    values:
+      - description: Project is in the process of being deleted.
+        name: deleting
+        serializedName: deleting
+      - description: Project is in the process of being created.
+        name: new
+        serializedName: new
+      - description: Project is completely created and ready to use.
+        name: wellFormed
+        serializedName: wellFormed
+      - description: >-
+          Project has been queued for creation, but the process has not yet
+          started.
+        name: createPending
+        serializedName: createPending
+      - description: All projects regardless of state.
+        name: all
+        serializedName: all
+      - description: Project has not been changed.
+        name: unchanged
+        serializedName: unchanged
+      - description: Project has been deleted.
+        name: deleted
+        serializedName: deleted
+extensions:
+  security:
+    - accessToken: []
+modelTypes:
+  - $id: '1'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: The class to represent a collection of REST reference links.
+    name:
+      fixed: false
+      raw: ReferenceLinks
+    properties:
+      - $id: '2'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            The readonly view of the links.  Because Reference links are
+            readonly, we only want to expose them as read only.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '3'
+          $type: DictionaryType
+          name:
+            fixed: false
+          supportsAdditionalProperties: false
+          valueType:
+            $id: '4'
+            $type: PrimaryType
+            knownPrimaryType: object
+            name:
+              fixed: false
+              raw: Object
+        name:
+          fixed: false
+          raw: links
+        realPath:
+          - links
+        serializedName: links
+    serializedName: ReferenceLinks
+  - $id: '5'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: ''
+    name:
+      fixed: false
+      raw: GraphSubjectBase
+    properties:
+      - $id: '6'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            This field contains zero or more interesting links about the graph
+            subject. These links may be invoked to obtain additional
+            relationships or more detailed information about this graph subject.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $ref: '1'
+        name:
+          fixed: false
+          raw: _links
+        realPath:
+          - _links
+        serializedName: _links
+      - $id: '7'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            The descriptor is the primary way to reference the graph subject
+            while the system is running. This field will uniquely identify the
+            same graph subject across both Accounts and Organizations.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '8'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: descriptor
+        realPath:
+          - descriptor
+        serializedName: descriptor
+      - $id: '9'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            This is the non-unique display name of the graph subject. To change
+            this field, you must alter its value in the source provider.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '10'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: displayName
+        realPath:
+          - displayName
+        serializedName: displayName
+      - $id: '11'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            This url is the full route to the source resource of this graph
+            subject.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '12'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: url
+        realPath:
+          - url
+        serializedName: url
+    serializedName: GraphSubjectBase
+  - $id: '13'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: ''
+    name:
+      fixed: false
+      raw: IdentityData
+    properties:
+      - $id: '14'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '15'
+          $type: SequenceType
+          elementType:
+            $id: '16'
+            $type: PrimaryType
+            format: uuid
+            knownPrimaryType: uuid
+            name:
+              fixed: false
+              raw: Uuid
+          name:
+            fixed: false
+        name:
+          fixed: false
+          raw: identityIds
+        realPath:
+          - identityIds
+        serializedName: identityIds
+    serializedName: IdentityData
+  - $id: '17'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: >-
+      An Identity descriptor is a wrapper for the identity type (Windows SID,
+      Passport) along with a unique identifier such as the SID or PUID.
+    name:
+      fixed: false
+      raw: IdentityDescriptor
+    properties:
+      - $id: '18'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            The unique identifier for this identity, not exceeding 256 chars,
+            which will be persisted.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '19'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: identifier
+        realPath:
+          - identifier
+        serializedName: identifier
+      - $id: '20'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: 'Type of descriptor (for example, Windows, Passport, etc.).'
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '21'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: identityType
+        realPath:
+          - identityType
+        serializedName: identityType
+    serializedName: IdentityDescriptor
+  - $id: '22'
+    $type: CompositeType
+    baseModelType:
+      $ref: '5'
+    containsConstantProperties: false
+    documentation: ''
+    name:
+      fixed: false
+      raw: IdentityRef
+    properties:
+      - $id: '23'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            Deprecated - Can be retrieved by querying the Graph user referenced
+            in the "self" entry of the IdentityRef "_links" dictionary
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '24'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: directoryAlias
+        realPath:
+          - directoryAlias
+        serializedName: directoryAlias
+      - $id: '25'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '26'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: id
+        realPath:
+          - id
+        serializedName: id
+      - $id: '27'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            Deprecated - Available in the "avatar" entry of the IdentityRef
+            "_links" dictionary
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '28'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: imageUrl
+        realPath:
+          - imageUrl
+        serializedName: imageUrl
+      - $id: '29'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            Deprecated - Can be retrieved by querying the Graph membership state
+            referenced in the "membershipState" entry of the GraphUser "_links"
+            dictionary
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '30'
+          $type: PrimaryType
+          knownPrimaryType: boolean
+          name:
+            fixed: false
+            raw: Boolean
+        name:
+          fixed: false
+          raw: inactive
+        realPath:
+          - inactive
+        serializedName: inactive
+      - $id: '31'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            Deprecated - Can be inferred from the subject type of the descriptor
+            (Descriptor.IsAadUserType/Descriptor.IsAadGroupType)
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '32'
+          $type: PrimaryType
+          knownPrimaryType: boolean
+          name:
+            fixed: false
+            raw: Boolean
+        name:
+          fixed: false
+          raw: isAadIdentity
+        realPath:
+          - isAadIdentity
+        serializedName: isAadIdentity
+      - $id: '33'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            Deprecated - Can be inferred from the subject type of the descriptor
+            (Descriptor.IsGroupType)
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '34'
+          $type: PrimaryType
+          knownPrimaryType: boolean
+          name:
+            fixed: false
+            raw: Boolean
+        name:
+          fixed: false
+          raw: isContainer
+        realPath:
+          - isContainer
+        serializedName: isContainer
+      - $id: '35'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '36'
+          $type: PrimaryType
+          knownPrimaryType: boolean
+          name:
+            fixed: false
+            raw: Boolean
+        name:
+          fixed: false
+          raw: isDeletedInOrigin
+        realPath:
+          - isDeletedInOrigin
+        serializedName: isDeletedInOrigin
+      - $id: '37'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            Deprecated - not in use in most preexisting implementations of
+            ToIdentityRef
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '38'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: profileUrl
+        realPath:
+          - profileUrl
+        serializedName: profileUrl
+      - $id: '39'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Deprecated - use Domain+PrincipalName instead
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '40'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: uniqueName
+        realPath:
+          - uniqueName
+        serializedName: uniqueName
+    serializedName: IdentityRef
+  - $id: '41'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: The JSON model for a JSON Patch operation
+    name:
+      fixed: false
+      raw: JsonPatchOperation
+    properties:
+      - $id: '42'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The path to copy from for the Move/Copy operation.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '43'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: from
+        realPath:
+          - from
+        serializedName: from
+      - $id: '44'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The patch operation
+        extensions:
+          x-ms-enum:
+            name: Operation
+            values:
+              - description: ''
+                value: add
+              - description: ''
+                value: remove
+              - description: ''
+                value: replace
+              - description: ''
+                value: move
+              - description: ''
+                value: copy
+              - description: ''
+                value: test
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '45'
+          $type: PrimaryType
+          knownPrimaryType: object
+          name:
+            fixed: false
+            raw: Object
+        name:
+          fixed: false
+          raw: op
+        realPath:
+          - op
+        serializedName: op
+      - $id: '46'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The path for the operation
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '47'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: path
+        realPath:
+          - path
+        serializedName: path
+      - $id: '48'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The value for the operation. This is either a primitive or a JToken.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '49'
+          $type: PrimaryType
+          knownPrimaryType: object
+          name:
+            fixed: false
+            raw: Object
+        name:
+          fixed: false
+          raw: value
+        realPath:
+          - value
+        serializedName: value
+    serializedName: JsonPatchOperation
+  - $id: '50'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: Reference for an async operation.
+    name:
+      fixed: false
+      raw: OperationReference
+    properties:
+      - $id: '51'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Unique identifier for the operation.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '52'
+          $type: PrimaryType
+          format: uuid
+          knownPrimaryType: uuid
+          name:
+            fixed: false
+            raw: Uuid
+        name:
+          fixed: false
+          raw: id
+        realPath:
+          - id
+        serializedName: id
+      - $id: '53'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Unique identifier for the plugin.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '54'
+          $type: PrimaryType
+          format: uuid
+          knownPrimaryType: uuid
+          name:
+            fixed: false
+            raw: Uuid
+        name:
+          fixed: false
+          raw: pluginId
+        realPath:
+          - pluginId
+        serializedName: pluginId
+      - $id: '55'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The current status of the operation.
+        extensions:
+          x-ms-enum:
+            name: OperationStatus
+            values:
+              - description: The operation does not have a status set.
+                value: notSet
+              - description: The operation has been queued.
+                value: queued
+              - description: The operation is in progress.
+                value: inProgress
+              - description: The operation was cancelled by the user.
+                value: cancelled
+              - description: The operation completed successfully.
+                value: succeeded
+              - description: The operation completed with a failure.
+                value: failed
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '56'
+          $type: PrimaryType
+          knownPrimaryType: object
+          name:
+            fixed: false
+            raw: Object
+        name:
+          fixed: false
+          raw: status
+        realPath:
+          - status
+        serializedName: status
+      - $id: '57'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: URL to get the full operation object.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '58'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: url
+        realPath:
+          - url
+        serializedName: url
+    serializedName: OperationReference
+  - $id: '59'
+    $type: CompositeType
+    baseModelType:
+      $id: '69'
+      $type: CompositeType
+      containsConstantProperties: false
+      documentation: ''
+      name:
+        fixed: false
+        raw: ProcessReference
+      properties:
+        - $id: '70'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '71'
+            $type: PrimaryType
+            knownPrimaryType: string
+            name:
+              fixed: false
+              raw: String
+          name:
+            fixed: false
+            raw: name
+          realPath:
+            - name
+          serializedName: name
+        - $id: '72'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '73'
+            $type: PrimaryType
+            knownPrimaryType: string
+            name:
+              fixed: false
+              raw: String
+          name:
+            fixed: false
+            raw: url
+          realPath:
+            - url
+          serializedName: url
+      serializedName: ProcessReference
+    containsConstantProperties: false
+    documentation: ''
+    name:
+      fixed: false
+      raw: Process
+    properties:
+      - $id: '60'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $ref: '1'
+        name:
+          fixed: false
+          raw: _links
+        realPath:
+          - _links
+        serializedName: _links
+      - $id: '61'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '62'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: description
+        realPath:
+          - description
+        serializedName: description
+      - $id: '63'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '64'
+          $type: PrimaryType
+          format: uuid
+          knownPrimaryType: uuid
+          name:
+            fixed: false
+            raw: Uuid
+        name:
+          fixed: false
+          raw: id
+        realPath:
+          - id
+        serializedName: id
+      - $id: '65'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '66'
+          $type: PrimaryType
+          knownPrimaryType: boolean
+          name:
+            fixed: false
+            raw: Boolean
+        name:
+          fixed: false
+          raw: isDefault
+        realPath:
+          - isDefault
+        serializedName: isDefault
+      - $id: '67'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        extensions:
+          x-ms-enum:
+            name: ProcessType
+            values:
+              - description: ''
+                value: system
+              - description: ''
+                value: custom
+              - description: ''
+                value: inherited
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '68'
+          $type: PrimaryType
+          knownPrimaryType: object
+          name:
+            fixed: false
+            raw: Object
+        name:
+          fixed: false
+          raw: type
+        realPath:
+          - type
+        serializedName: type
+    serializedName: Process
+  - $ref: '69'
+  - $id: '74'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: ''
+    name:
+      fixed: false
+      raw: ProjectAvatar
+    properties:
+      - $id: '75'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The avatar image represented as a byte array
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '76'
+          $type: SequenceType
+          elementType:
+            $id: '77'
+            $type: PrimaryType
+            format: byte
+            knownPrimaryType: byteArray
+            name:
+              fixed: false
+              raw: ByteArray
+          name:
+            fixed: false
+        name:
+          fixed: false
+          raw: image
+        realPath:
+          - image
+        serializedName: image
+    serializedName: ProjectAvatar
+  - $id: '78'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: A named value associated with a project.
+    name:
+      fixed: false
+      raw: ProjectProperty
+    properties:
+      - $id: '79'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The name of the property.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '80'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: name
+        realPath:
+          - name
+        serializedName: name
+      - $id: '81'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The value of the property.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '82'
+          $type: PrimaryType
+          knownPrimaryType: object
+          name:
+            fixed: false
+            raw: Object
+        name:
+          fixed: false
+          raw: value
+        realPath:
+          - value
+        serializedName: value
+    serializedName: ProjectProperty
+  - $id: '83'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: Contains information describing a project.
+    name:
+      fixed: false
+      raw: ProjectInfo
+    properties:
+      - $id: '84'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The abbreviated name of the project.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '85'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: abbreviation
+        realPath:
+          - abbreviation
+        serializedName: abbreviation
+      - $id: '86'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The description of the project.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '87'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: description
+        realPath:
+          - description
+        serializedName: description
+      - $id: '88'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The id of the project.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '89'
+          $type: PrimaryType
+          format: uuid
+          knownPrimaryType: uuid
+          name:
+            fixed: false
+            raw: Uuid
+        name:
+          fixed: false
+          raw: id
+        realPath:
+          - id
+        serializedName: id
+      - $id: '90'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The time that this project was last updated.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '91'
+          $type: PrimaryType
+          format: date-time
+          knownPrimaryType: dateTime
+          name:
+            fixed: false
+            raw: DateTime
+        name:
+          fixed: false
+          raw: lastUpdateTime
+        realPath:
+          - lastUpdateTime
+        serializedName: lastUpdateTime
+      - $id: '92'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The name of the project.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '93'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: name
+        realPath:
+          - name
+        serializedName: name
+      - $id: '94'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            A set of name-value pairs storing additional property data related
+            to the project.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '95'
+          $type: SequenceType
+          elementType:
+            $ref: '78'
+          name:
+            fixed: false
+        name:
+          fixed: false
+          raw: properties
+        realPath:
+          - properties
+        serializedName: properties
+      - $id: '96'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The current revision of the project.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '97'
+          $type: PrimaryType
+          format: int64
+          knownPrimaryType: long
+          name:
+            fixed: false
+            raw: Long
+        name:
+          fixed: false
+          raw: revision
+        realPath:
+          - revision
+        serializedName: revision
+      - $id: '98'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The current state of the project.
+        extensions:
+          x-ms-enum:
+            name: ProjectState
+            values:
+              - description: Project is in the process of being deleted.
+                value: deleting
+              - description: Project is in the process of being created.
+                value: new
+              - description: Project is completely created and ready to use.
+                value: wellFormed
+              - description: >-
+                  Project has been queued for creation, but the process has not
+                  yet started.
+                value: createPending
+              - description: All projects regardless of state.
+                value: all
+              - description: Project has not been changed.
+                value: unchanged
+              - description: Project has been deleted.
+                value: deleted
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '99'
+          $type: PrimaryType
+          knownPrimaryType: object
+          name:
+            fixed: false
+            raw: Object
+        name:
+          fixed: false
+          raw: state
+        realPath:
+          - state
+        serializedName: state
+      - $id: '100'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: A Uri that can be used to refer to this project.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '101'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: uri
+        realPath:
+          - uri
+        serializedName: uri
+      - $id: '102'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The version number of the project.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '103'
+          $type: PrimaryType
+          format: int64
+          knownPrimaryType: long
+          name:
+            fixed: false
+            raw: Long
+        name:
+          fixed: false
+          raw: version
+        realPath:
+          - version
+        serializedName: version
+      - $id: '104'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Indicates whom the project is visible to.
+        extensions:
+          x-ms-enum:
+            name: ProjectVisibility
+            values:
+              - description: The project is only visible to users with explicit access.
+                value: private
+              - description: The project is visible to all.
+                value: public
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '105'
+          $type: PrimaryType
+          knownPrimaryType: object
+          name:
+            fixed: false
+            raw: Object
+        name:
+          fixed: false
+          raw: visibility
+        realPath:
+          - visibility
+        serializedName: visibility
+    serializedName: ProjectInfo
+  - $id: '106'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: ''
+    name:
+      fixed: false
+      raw: ProjectMessage
+    properties:
+      - $id: '107'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $ref: '83'
+        name:
+          fixed: false
+          raw: project
+        realPath:
+          - project
+        serializedName: project
+      - $id: '108'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        extensions:
+          x-ms-enum:
+            name: ProjectChangeType
+            values:
+              - description: ''
+                value: modified
+              - description: ''
+                value: deleted
+              - description: ''
+                value: added
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '109'
+          $type: PrimaryType
+          knownPrimaryType: object
+          name:
+            fixed: false
+            raw: Object
+        name:
+          fixed: false
+          raw: projectChangeType
+        realPath:
+          - projectChangeType
+        serializedName: projectChangeType
+      - $id: '110'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '111'
+          $type: PrimaryType
+          knownPrimaryType: boolean
+          name:
+            fixed: false
+            raw: Boolean
+        name:
+          fixed: false
+          raw: shouldInvalidateSystemStore
+        realPath:
+          - shouldInvalidateSystemStore
+        serializedName: shouldInvalidateSystemStore
+    serializedName: ProjectMessage
+  - $id: '112'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: Represents the public key portion of an RSA asymmetric key.
+    name:
+      fixed: false
+      raw: PublicKey
+    properties:
+      - $id: '113'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Gets or sets the exponent for the public key.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '114'
+          $type: SequenceType
+          elementType:
+            $id: '115'
+            $type: PrimaryType
+            format: byte
+            knownPrimaryType: byteArray
+            name:
+              fixed: false
+              raw: ByteArray
+          name:
+            fixed: false
+        name:
+          fixed: false
+          raw: exponent
+        realPath:
+          - exponent
+        serializedName: exponent
+      - $id: '116'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Gets or sets the modulus for the public key.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '117'
+          $type: SequenceType
+          elementType:
+            $id: '118'
+            $type: PrimaryType
+            format: byte
+            knownPrimaryType: byteArray
+            name:
+              fixed: false
+              raw: ByteArray
+          name:
+            fixed: false
+        name:
+          fixed: false
+          raw: modulus
+        realPath:
+          - modulus
+        serializedName: modulus
+    serializedName: PublicKey
+  - $id: '119'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: ''
+    name:
+      fixed: false
+      raw: ProxyAuthorization
+    properties:
+      - $id: '120'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            Gets or sets the endpoint used to obtain access tokens from the
+            configured token service.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '121'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: authorizationUrl
+        realPath:
+          - authorizationUrl
+        serializedName: authorizationUrl
+      - $id: '122'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Gets or sets the client identifier for this proxy.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '123'
+          $type: PrimaryType
+          format: uuid
+          knownPrimaryType: uuid
+          name:
+            fixed: false
+            raw: Uuid
+        name:
+          fixed: false
+          raw: clientId
+        realPath:
+          - clientId
+        serializedName: clientId
+      - $id: '124'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Gets or sets the user identity to authorize for on-prem.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $ref: '17'
+        name:
+          fixed: false
+          raw: identity
+        realPath:
+          - identity
+        serializedName: identity
+      - $id: '125'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            Gets or sets the public key used to verify the identity of this
+            proxy. Only specify on hosted.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $ref: '112'
+        name:
+          fixed: false
+          raw: publicKey
+        realPath:
+          - publicKey
+        serializedName: publicKey
+    serializedName: ProxyAuthorization
+  - $id: '126'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: ''
+    name:
+      fixed: false
+      raw: Proxy
+    properties:
+      - $id: '127'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $ref: '119'
+        name:
+          fixed: false
+          raw: authorization
+        realPath:
+          - authorization
+        serializedName: authorization
+      - $id: '128'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: This is a description string
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '129'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: description
+        realPath:
+          - description
+        serializedName: description
+      - $id: '130'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The friendly name of the server
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '131'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: friendlyName
+        realPath:
+          - friendlyName
+        serializedName: friendlyName
+      - $id: '132'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '133'
+          $type: PrimaryType
+          knownPrimaryType: boolean
+          name:
+            fixed: false
+            raw: Boolean
+        name:
+          fixed: false
+          raw: globalDefault
+        realPath:
+          - globalDefault
+        serializedName: globalDefault
+      - $id: '134'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            This is a string representation of the site that the proxy server is
+            located in (e.g. "NA-WA-RED")
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '135'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: site
+        realPath:
+          - site
+        serializedName: site
+      - $id: '136'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '137'
+          $type: PrimaryType
+          knownPrimaryType: boolean
+          name:
+            fixed: false
+            raw: Boolean
+        name:
+          fixed: false
+          raw: siteDefault
+        realPath:
+          - siteDefault
+        serializedName: siteDefault
+      - $id: '138'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The URL of the proxy server
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '139'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: url
+        realPath:
+          - url
+        serializedName: url
+    serializedName: Proxy
+  - $id: '140'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: The Team Context for an operation.
+    name:
+      fixed: false
+      raw: TeamContext
+    properties:
+      - $id: '141'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The team project Id or name.  Ignored if ProjectId is set.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '142'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: project
+        realPath:
+          - project
+        serializedName: project
+      - $id: '143'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The Team Project ID.  Required if Project is not set.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '144'
+          $type: PrimaryType
+          format: uuid
+          knownPrimaryType: uuid
+          name:
+            fixed: false
+            raw: Uuid
+        name:
+          fixed: false
+          raw: projectId
+        realPath:
+          - projectId
+        serializedName: projectId
+      - $id: '145'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The Team Id or name.  Ignored if TeamId is set.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '146'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: team
+        realPath:
+          - team
+        serializedName: team
+      - $id: '147'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The Team Id
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '148'
+          $type: PrimaryType
+          format: uuid
+          knownPrimaryType: uuid
+          name:
+            fixed: false
+            raw: Uuid
+        name:
+          fixed: false
+          raw: teamId
+        realPath:
+          - teamId
+        serializedName: teamId
+    serializedName: TeamContext
+  - $id: '149'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: ''
+    name:
+      fixed: false
+      raw: TeamMember
+    properties:
+      - $id: '150'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $ref: '22'
+        name:
+          fixed: false
+          raw: identity
+        realPath:
+          - identity
+        serializedName: identity
+      - $id: '151'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '152'
+          $type: PrimaryType
+          knownPrimaryType: boolean
+          name:
+            fixed: false
+            raw: Boolean
+        name:
+          fixed: false
+          raw: isTeamAdmin
+        realPath:
+          - isTeamAdmin
+        serializedName: isTeamAdmin
+    serializedName: TeamMember
+  - $id: '153'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: ''
+    name:
+      fixed: false
+      raw: WebApiTeamRef
+    properties:
+      - $id: '154'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Team (Identity) Guid. A Team Foundation ID.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '155'
+          $type: PrimaryType
+          format: uuid
+          knownPrimaryType: uuid
+          name:
+            fixed: false
+            raw: Uuid
+        name:
+          fixed: false
+          raw: id
+        realPath:
+          - id
+        serializedName: id
+      - $id: '156'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Team name
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '157'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: name
+        realPath:
+          - name
+        serializedName: name
+      - $id: '158'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Team REST API Url
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '159'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: url
+        realPath:
+          - url
+        serializedName: url
+    serializedName: WebApiTeamRef
+  - $id: '160'
+    $type: CompositeType
+    baseModelType:
+      $id: '167'
+      $type: CompositeType
+      containsConstantProperties: false
+      documentation: Represents a shallow reference to a TeamProject.
+      name:
+        fixed: false
+        raw: TeamProjectReference
+      properties:
+        - $id: '168'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+            raw: Project abbreviation.
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '169'
+            $type: PrimaryType
+            knownPrimaryType: string
+            name:
+              fixed: false
+              raw: String
+          name:
+            fixed: false
+            raw: abbreviation
+          realPath:
+            - abbreviation
+          serializedName: abbreviation
+        - $id: '170'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+            raw: Url to default team identity image.
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '171'
+            $type: PrimaryType
+            knownPrimaryType: string
+            name:
+              fixed: false
+              raw: String
+          name:
+            fixed: false
+            raw: defaultTeamImageUrl
+          realPath:
+            - defaultTeamImageUrl
+          serializedName: defaultTeamImageUrl
+        - $id: '172'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+            raw: The project's description (if any).
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '173'
+            $type: PrimaryType
+            knownPrimaryType: string
+            name:
+              fixed: false
+              raw: String
+          name:
+            fixed: false
+            raw: description
+          realPath:
+            - description
+          serializedName: description
+        - $id: '174'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+            raw: Project identifier.
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '175'
+            $type: PrimaryType
+            format: uuid
+            knownPrimaryType: uuid
+            name:
+              fixed: false
+              raw: Uuid
+          name:
+            fixed: false
+            raw: id
+          realPath:
+            - id
+          serializedName: id
+        - $id: '176'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+            raw: Project last update time.
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '177'
+            $type: PrimaryType
+            format: date-time
+            knownPrimaryType: dateTime
+            name:
+              fixed: false
+              raw: DateTime
+          name:
+            fixed: false
+            raw: lastUpdateTime
+          realPath:
+            - lastUpdateTime
+          serializedName: lastUpdateTime
+        - $id: '178'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+            raw: Project name.
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '179'
+            $type: PrimaryType
+            knownPrimaryType: string
+            name:
+              fixed: false
+              raw: String
+          name:
+            fixed: false
+            raw: name
+          realPath:
+            - name
+          serializedName: name
+        - $id: '180'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+            raw: Project revision.
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '181'
+            $type: PrimaryType
+            format: int64
+            knownPrimaryType: long
+            name:
+              fixed: false
+              raw: Long
+          name:
+            fixed: false
+            raw: revision
+          realPath:
+            - revision
+          serializedName: revision
+        - $id: '182'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+            raw: Project state.
+          extensions:
+            x-ms-enum:
+              name: ProjectState
+              values:
+                - description: Project is in the process of being deleted.
+                  value: deleting
+                - description: Project is in the process of being created.
+                  value: new
+                - description: Project is completely created and ready to use.
+                  value: wellFormed
+                - description: >-
+                    Project has been queued for creation, but the process has
+                    not yet started.
+                  value: createPending
+                - description: All projects regardless of state.
+                  value: all
+                - description: Project has not been changed.
+                  value: unchanged
+                - description: Project has been deleted.
+                  value: deleted
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '183'
+            $type: PrimaryType
+            knownPrimaryType: object
+            name:
+              fixed: false
+              raw: Object
+          name:
+            fixed: false
+            raw: state
+          realPath:
+            - state
+          serializedName: state
+        - $id: '184'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+            raw: Url to the full version of the object.
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '185'
+            $type: PrimaryType
+            knownPrimaryType: string
+            name:
+              fixed: false
+              raw: String
+          name:
+            fixed: false
+            raw: url
+          realPath:
+            - url
+          serializedName: url
+        - $id: '186'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+            raw: Project visibility.
+          extensions:
+            x-ms-enum:
+              name: ProjectVisibility
+              values:
+                - description: The project is only visible to users with explicit access.
+                  value: private
+                - description: The project is visible to all.
+                  value: public
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '187'
+            $type: PrimaryType
+            knownPrimaryType: object
+            name:
+              fixed: false
+              raw: Object
+          name:
+            fixed: false
+            raw: visibility
+          realPath:
+            - visibility
+          serializedName: visibility
+      serializedName: TeamProjectReference
+    containsConstantProperties: false
+    documentation: Represents a Team Project object.
+    name:
+      fixed: false
+      raw: TeamProject
+    properties:
+      - $id: '161'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The links to other objects related to this object.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $ref: '1'
+        name:
+          fixed: false
+          raw: _links
+        realPath:
+          - _links
+        serializedName: _links
+      - $id: '162'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            Set of capabilities this project has (such as process template &
+            version control).
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '163'
+          $type: DictionaryType
+          name:
+            fixed: false
+          supportsAdditionalProperties: false
+          valueType:
+            $id: '164'
+            $type: DictionaryType
+            name:
+              fixed: false
+            supportsAdditionalProperties: false
+            valueType:
+              $id: '165'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+        name:
+          fixed: false
+          raw: capabilities
+        realPath:
+          - capabilities
+        serializedName: capabilities
+      - $id: '166'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The shallow ref to the default team.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $ref: '153'
+        name:
+          fixed: false
+          raw: defaultTeam
+        realPath:
+          - defaultTeam
+        serializedName: defaultTeam
+    serializedName: TeamProject
+  - $id: '188'
+    $type: CompositeType
+    baseModelType:
+      $id: '196'
+      $type: CompositeType
+      containsConstantProperties: false
+      documentation: Reference object for a TeamProjectCollection.
+      name:
+        fixed: false
+        raw: TeamProjectCollectionReference
+      properties:
+        - $id: '197'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+            raw: Collection Id.
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '198'
+            $type: PrimaryType
+            format: uuid
+            knownPrimaryType: uuid
+            name:
+              fixed: false
+              raw: Uuid
+          name:
+            fixed: false
+            raw: id
+          realPath:
+            - id
+          serializedName: id
+        - $id: '199'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+            raw: Collection Name.
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '200'
+            $type: PrimaryType
+            knownPrimaryType: string
+            name:
+              fixed: false
+              raw: String
+          name:
+            fixed: false
+            raw: name
+          realPath:
+            - name
+          serializedName: name
+        - $id: '201'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+            raw: Collection REST Url.
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '202'
+            $type: PrimaryType
+            knownPrimaryType: string
+            name:
+              fixed: false
+              raw: String
+          name:
+            fixed: false
+            raw: url
+          realPath:
+            - url
+          serializedName: url
+      serializedName: TeamProjectCollectionReference
+    containsConstantProperties: false
+    documentation: Data contract for a TeamProjectCollection.
+    name:
+      fixed: false
+      raw: TeamProjectCollection
+    properties:
+      - $id: '189'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The links to other objects related to this object.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $ref: '1'
+        name:
+          fixed: false
+          raw: _links
+        realPath:
+          - _links
+        serializedName: _links
+      - $id: '190'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Project collection description.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '191'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: description
+        realPath:
+          - description
+        serializedName: description
+      - $id: '192'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            Process customzation type on this collection. It can be Xml or
+            Inherited.
+        extensions:
+          x-ms-enum:
+            name: ProcessCustomizationType
+            values:
+              - description: Customization based on project-scoped xml customization
+                value: xml
+              - description: Customization based on process inheritance
+                value: inherited
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '193'
+          $type: PrimaryType
+          knownPrimaryType: object
+          name:
+            fixed: false
+            raw: Object
+        name:
+          fixed: false
+          raw: processCustomizationType
+        realPath:
+          - processCustomizationType
+        serializedName: processCustomizationType
+      - $id: '194'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Project collection state.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '195'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: state
+        realPath:
+          - state
+        serializedName: state
+    serializedName: TeamProjectCollection
+  - $ref: '196'
+  - $ref: '167'
+  - $id: '203'
+    $type: CompositeType
+    baseModelType:
+      $id: '210'
+      $type: CompositeType
+      containsConstantProperties: false
+      documentation: >-
+        A data transfer object that stores the metadata associated with the
+        temporary data.
+      name:
+        fixed: false
+        raw: TemporaryDataDTO
+      properties:
+        - $id: '211'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '212'
+            $type: PrimaryType
+            format: int32
+            knownPrimaryType: int
+            name:
+              fixed: false
+              raw: Int
+          name:
+            fixed: false
+            raw: expirationSeconds
+          realPath:
+            - expirationSeconds
+          serializedName: expirationSeconds
+        - $id: '213'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '214'
+            $type: PrimaryType
+            knownPrimaryType: string
+            name:
+              fixed: false
+              raw: String
+          name:
+            fixed: false
+            raw: origin
+          realPath:
+            - origin
+          serializedName: origin
+        - $id: '215'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '216'
+            $type: PrimaryType
+            knownPrimaryType: object
+            name:
+              fixed: false
+              raw: Object
+          name:
+            fixed: false
+            raw: value
+          realPath:
+            - value
+          serializedName: value
+      serializedName: TemporaryDataDTO
+    containsConstantProperties: false
+    documentation: >-
+      A data transfer object that stores the metadata associated with the
+      creation of temporary data.
+    name:
+      fixed: false
+      raw: TemporaryDataCreatedDTO
+    properties:
+      - $id: '204'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '205'
+          $type: PrimaryType
+          format: date-time
+          knownPrimaryType: dateTime
+          name:
+            fixed: false
+            raw: DateTime
+        name:
+          fixed: false
+          raw: expirationDate
+        realPath:
+          - expirationDate
+        serializedName: expirationDate
+      - $id: '206'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '207'
+          $type: PrimaryType
+          format: uuid
+          knownPrimaryType: uuid
+          name:
+            fixed: false
+            raw: Uuid
+        name:
+          fixed: false
+          raw: id
+        realPath:
+          - id
+        serializedName: id
+      - $id: '208'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '209'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: url
+        realPath:
+          - url
+        serializedName: url
+    serializedName: TemporaryDataCreatedDTO
+  - $ref: '210'
+  - $id: '217'
+    $type: CompositeType
+    baseModelType:
+      $id: '220'
+      $type: CompositeType
+      containsConstantProperties: false
+      documentation: ''
+      name:
+        fixed: false
+        raw: VssJsonCollectionWrapperBase
+      properties:
+        - $id: '221'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '222'
+            $type: PrimaryType
+            format: int32
+            knownPrimaryType: int
+            name:
+              fixed: false
+              raw: Int
+          name:
+            fixed: false
+            raw: count
+          realPath:
+            - count
+          serializedName: count
+      serializedName: VssJsonCollectionWrapperBase
+    containsConstantProperties: false
+    documentation: >-
+      This class is used to serialized collections as a single JSON object on
+      the wire, to avoid serializing JSON arrays directly to the client, which
+      can be a security hole
+    name:
+      fixed: false
+      raw: VssJsonCollectionWrapper
+    properties:
+      - $id: '218'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '219'
+          $type: PrimaryType
+          format: T
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: value
+        realPath:
+          - value
+        serializedName: value
+    serializedName: VssJsonCollectionWrapper
+  - $ref: '220'
+  - $id: '223'
+    $type: CompositeType
+    baseModelType:
+      $id: '234'
+      $type: CompositeType
+      containsConstantProperties: false
+      documentation: ''
+      name:
+        fixed: false
+        raw: WebApiConnectedServiceRef
+      properties:
+        - $id: '235'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '236'
+            $type: PrimaryType
+            knownPrimaryType: string
+            name:
+              fixed: false
+              raw: String
+          name:
+            fixed: false
+            raw: id
+          realPath:
+            - id
+          serializedName: id
+        - $id: '237'
+          collectionFormat: none
+          defaultValue:
+            fixed: false
+          documentation:
+            fixed: false
+          isConstant: false
+          isReadOnly: false
+          isRequired: false
+          modelType:
+            $id: '238'
+            $type: PrimaryType
+            knownPrimaryType: string
+            name:
+              fixed: false
+              raw: String
+          name:
+            fixed: false
+            raw: url
+          realPath:
+            - url
+          serializedName: url
+      serializedName: WebApiConnectedServiceRef
+    containsConstantProperties: false
+    documentation: ''
+    name:
+      fixed: false
+      raw: WebApiConnectedService
+    properties:
+      - $id: '224'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The user who did the OAuth authentication to created this service
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $ref: '22'
+        name:
+          fixed: false
+          raw: authenticatedBy
+        realPath:
+          - authenticatedBy
+        serializedName: authenticatedBy
+      - $id: '225'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Extra description on the service.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '226'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: description
+        realPath:
+          - description
+        serializedName: description
+      - $id: '227'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Friendly Name of service connection
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '228'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: friendlyName
+        realPath:
+          - friendlyName
+        serializedName: friendlyName
+      - $id: '229'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The kind of service.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '230'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: kind
+        realPath:
+          - kind
+        serializedName: kind
+      - $id: '231'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The project associated with this service
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $ref: '167'
+        name:
+          fixed: false
+          raw: project
+        realPath:
+          - project
+        serializedName: project
+      - $id: '232'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            Optional uri to connect directly to the service such as
+            https://windows.azure.com
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '233'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: serviceUri
+        realPath:
+          - serviceUri
+        serializedName: serviceUri
+    serializedName: WebApiConnectedService
+  - $id: '239'
+    $type: CompositeType
+    baseModelType:
+      $ref: '234'
+    containsConstantProperties: false
+    documentation: ''
+    name:
+      fixed: false
+      raw: WebApiConnectedServiceDetails
+    properties:
+      - $id: '240'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Meta data for service connection
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $ref: '223'
+        name:
+          fixed: false
+          raw: connectedServiceMetaData
+        realPath:
+          - connectedServiceMetaData
+        serializedName: connectedServiceMetaData
+      - $id: '241'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Credential info
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '242'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: credentialsXml
+        realPath:
+          - credentialsXml
+        serializedName: credentialsXml
+      - $id: '243'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: >-
+            Optional uri to connect directly to the service such as
+            https://windows.azure.com
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '244'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: endPoint
+        realPath:
+          - endPoint
+        serializedName: endPoint
+    serializedName: WebApiConnectedServiceDetails
+  - $ref: '234'
+  - $id: '245'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: >-
+      The representation of data needed to create a tag definition which is sent
+      across the wire.
+    name:
+      fixed: false
+      raw: WebApiCreateTagRequestData
+    properties:
+      - $id: '246'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Name of the tag definition that will be created.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '247'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: name
+        realPath:
+          - name
+        serializedName: name
+    serializedName: WebApiCreateTagRequestData
+  - $id: '248'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: ''
+    name:
+      fixed: false
+      raw: WebApiProjectCollectionRef
+    properties:
+      - $id: '249'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Collection Tfs Url (Host Url)
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '250'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: collectionUrl
+        realPath:
+          - collectionUrl
+        serializedName: collectionUrl
+      - $id: '251'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Collection Guid
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '252'
+          $type: PrimaryType
+          format: uuid
+          knownPrimaryType: uuid
+          name:
+            fixed: false
+            raw: Uuid
+        name:
+          fixed: false
+          raw: id
+        realPath:
+          - id
+        serializedName: id
+      - $id: '253'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Collection Name
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '254'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: name
+        realPath:
+          - name
+        serializedName: name
+      - $id: '255'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Collection REST Url
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '256'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: url
+        realPath:
+          - url
+        serializedName: url
+    serializedName: WebApiProjectCollectionRef
+  - $id: '257'
+    $type: CompositeType
+    baseModelType:
+      $ref: '167'
+    containsConstantProperties: false
+    documentation: ''
+    name:
+      fixed: false
+      raw: WebApiProject
+    properties:
+      - $id: '258'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Set of capabilities this project has
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '259'
+          $type: DictionaryType
+          name:
+            fixed: false
+          supportsAdditionalProperties: false
+          valueType:
+            $id: '260'
+            $type: DictionaryType
+            name:
+              fixed: false
+            supportsAdditionalProperties: false
+            valueType:
+              $id: '261'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+        name:
+          fixed: false
+          raw: capabilities
+        realPath:
+          - capabilities
+        serializedName: capabilities
+      - $id: '262'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Reference to collection which contains this project
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $ref: '248'
+        name:
+          fixed: false
+          raw: collection
+        realPath:
+          - collection
+        serializedName: collection
+      - $id: '263'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Default team for this project
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $ref: '153'
+        name:
+          fixed: false
+          raw: defaultTeam
+        realPath:
+          - defaultTeam
+        serializedName: defaultTeam
+    serializedName: WebApiProject
+  - $id: '264'
+    $type: CompositeType
+    baseModelType:
+      $ref: '248'
+    containsConstantProperties: false
+    documentation: ''
+    name:
+      fixed: false
+      raw: WebApiProjectCollection
+    properties:
+      - $id: '265'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Project collection description
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '266'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: description
+        realPath:
+          - description
+        serializedName: description
+      - $id: '267'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Project collection state
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '268'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: state
+        realPath:
+          - state
+        serializedName: state
+    serializedName: WebApiProjectCollection
+  - $id: '269'
+    $type: CompositeType
+    containsConstantProperties: false
+    documentation: The representation of a tag definition which is sent across the wire.
+    name:
+      fixed: false
+      raw: WebApiTagDefinition
+    properties:
+      - $id: '270'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Whether or not the tag definition is active.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '271'
+          $type: PrimaryType
+          knownPrimaryType: boolean
+          name:
+            fixed: false
+            raw: Boolean
+        name:
+          fixed: false
+          raw: active
+        realPath:
+          - active
+        serializedName: active
+      - $id: '272'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: ID of the tag definition.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '273'
+          $type: PrimaryType
+          format: uuid
+          knownPrimaryType: uuid
+          name:
+            fixed: false
+            raw: Uuid
+        name:
+          fixed: false
+          raw: id
+        realPath:
+          - id
+        serializedName: id
+      - $id: '274'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: The name of the tag definition.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '275'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: name
+        realPath:
+          - name
+        serializedName: name
+      - $id: '276'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Resource URL for the Tag Definition.
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '277'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: url
+        realPath:
+          - url
+        serializedName: url
+    serializedName: WebApiTagDefinition
+  - $id: '278'
+    $type: CompositeType
+    baseModelType:
+      $ref: '153'
+    containsConstantProperties: false
+    documentation: ''
+    name:
+      fixed: false
+      raw: WebApiTeam
+    properties:
+      - $id: '279'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Team description
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '280'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: description
+        realPath:
+          - description
+        serializedName: description
+      - $id: '281'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+          raw: Identity REST API Url to this team
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '282'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: identityUrl
+        realPath:
+          - identityUrl
+        serializedName: identityUrl
+      - $id: '283'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '284'
+          $type: PrimaryType
+          format: uuid
+          knownPrimaryType: uuid
+          name:
+            fixed: false
+            raw: Uuid
+        name:
+          fixed: false
+          raw: projectId
+        realPath:
+          - projectId
+        serializedName: projectId
+      - $id: '285'
+        collectionFormat: none
+        defaultValue:
+          fixed: false
+        documentation:
+          fixed: false
+        isConstant: false
+        isReadOnly: false
+        isRequired: false
+        modelType:
+          $id: '286'
+          $type: PrimaryType
+          knownPrimaryType: string
+          name:
+            fixed: false
+            raw: String
+        name:
+          fixed: false
+          raw: projectName
+        realPath:
+          - projectName
+        serializedName: projectName
+    serializedName: WebApiTeam
+modelsName: Models
+name: Core
+namespace: Core
+operations:
+  - methods:
+      - defaultResponse:
+          isNullable: true
+        deprecated: false
+        description: Get a list of processes.
+        extensions:
+          security:
+            - oauth2:
+                - vso.work
+        group:
+          fixed: false
+          raw: ''
+        hidden: false
+        httpMethod: get
+        isAbsoluteUrl: false
+        name:
+          fixed: false
+          raw: GetProcesses
+        parameters:
+          - $id: '295'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of the Azure DevOps organization.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '296'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: organization
+            serializedName: organization
+          - $id: '297'
+            clientProperty:
+              $ref: '289'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Version of the API to use.  This should be set to
+                '5.1-preview.1' to use this version of the api.
+            isConstant: false
+            isRequired: true
+            location: query
+            modelType:
+              $id: '298'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: api-version
+            serializedName: api-version
+        requestContentType: application/json; charset=utf-8
+        responseContentTypes:
+          - application/json
+        responses:
+          OK:
+            body:
+              $id: '299'
+              $type: SequenceType
+              elementType:
+                $ref: '59'
+              name:
+                fixed: false
+            isNullable: true
+        returnType:
+          body:
+            $ref: '299'
+          isNullable: true
+        serializedName: GetProcesses
+        url: '/{organization}/_apis/process/processes'
+      - defaultResponse:
+          isNullable: true
+        deprecated: false
+        description: Get a process by ID.
+        extensions:
+          security:
+            - oauth2:
+                - vso.work
+        group:
+          fixed: false
+          raw: ''
+        hidden: false
+        httpMethod: get
+        isAbsoluteUrl: false
+        name:
+          fixed: false
+          raw: GetProcessById
+        parameters:
+          - $id: '300'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of the Azure DevOps organization.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '301'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: organization
+            serializedName: organization
+          - $id: '302'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: ID for a process.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '303'
+              $type: PrimaryType
+              format: uuid
+              knownPrimaryType: uuid
+              name:
+                fixed: false
+                raw: Uuid
+            name:
+              fixed: false
+              raw: processId
+            serializedName: processId
+          - $id: '304'
+            clientProperty:
+              $ref: '289'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Version of the API to use.  This should be set to
+                '5.1-preview.1' to use this version of the api.
+            isConstant: false
+            isRequired: true
+            location: query
+            modelType:
+              $id: '305'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: api-version
+            serializedName: api-version
+        requestContentType: application/json; charset=utf-8
+        responseContentTypes:
+          - application/json
+        responses:
+          OK:
+            body:
+              $ref: '59'
+            isNullable: true
+        returnType:
+          body:
+            $ref: '59'
+          isNullable: true
+        serializedName: GetProcessById
+        url: '/{organization}/_apis/process/processes/{processId}'
+      - defaultResponse:
+          isNullable: true
+        deprecated: false
+        description: >-
+          Get all projects in the organization that the authenticated user has
+          access to.
+        extensions:
+          security:
+            - oauth2:
+                - vso.profile
+                - vso.project
+        group:
+          fixed: false
+          raw: ''
+        hidden: false
+        httpMethod: get
+        isAbsoluteUrl: false
+        name:
+          fixed: false
+          raw: GetProjects
+        parameters:
+          - $id: '306'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of the Azure DevOps organization.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '307'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: organization
+            serializedName: organization
+          - $id: '308'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Filter on team projects in a specific team project state
+                (default: WellFormed).
+            extensions:
+              x-ms-enum:
+                name: ProjectState
+                values:
+                  - description: Project is in the process of being deleted.
+                    value: deleting
+                  - description: Project is in the process of being created.
+                    value: new
+                  - description: Project is completely created and ready to use.
+                    value: wellFormed
+                  - description: >-
+                      Project has been queued for creation, but the process has
+                      not yet started.
+                    value: createPending
+                  - description: All projects regardless of state.
+                    value: all
+                  - description: Project has not been changed.
+                    value: unchanged
+                  - description: Project has been deleted.
+                    value: deleted
+            isConstant: false
+            isRequired: false
+            location: query
+            modelType:
+              $ref: '287'
+            name:
+              fixed: false
+              raw: stateFilter
+            serializedName: stateFilter
+          - $id: '309'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: ''
+            isConstant: false
+            isRequired: false
+            location: query
+            modelType:
+              $id: '310'
+              $type: PrimaryType
+              format: int32
+              knownPrimaryType: int
+              name:
+                fixed: false
+                raw: Int
+            name:
+              fixed: false
+              raw: $top
+            serializedName: $top
+          - $id: '311'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: ''
+            isConstant: false
+            isRequired: false
+            location: query
+            modelType:
+              $id: '312'
+              $type: PrimaryType
+              format: int32
+              knownPrimaryType: int
+              name:
+                fixed: false
+                raw: Int
+            name:
+              fixed: false
+              raw: $skip
+            serializedName: $skip
+          - $id: '313'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: ''
+            isConstant: false
+            isRequired: false
+            location: query
+            modelType:
+              $id: '314'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: continuationToken
+            serializedName: continuationToken
+          - $id: '315'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: ''
+            isConstant: false
+            isRequired: false
+            location: query
+            modelType:
+              $id: '316'
+              $type: PrimaryType
+              knownPrimaryType: boolean
+              name:
+                fixed: false
+                raw: Boolean
+            name:
+              fixed: false
+              raw: getDefaultTeamImageUrl
+            serializedName: getDefaultTeamImageUrl
+          - $id: '317'
+            clientProperty:
+              $ref: '289'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Version of the API to use.  This should be set to
+                '5.1-preview.4' to use this version of the api.
+            isConstant: false
+            isRequired: true
+            location: query
+            modelType:
+              $id: '318'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: api-version
+            serializedName: api-version
+        requestContentType: application/json; charset=utf-8
+        responseContentTypes:
+          - application/json
+        responses:
+          OK:
+            body:
+              $id: '319'
+              $type: SequenceType
+              elementType:
+                $ref: '167'
+              name:
+                fixed: false
+            isNullable: true
+        returnType:
+          body:
+            $ref: '319'
+          isNullable: true
+        serializedName: GetProjects
+        url: '/{organization}/_apis/projects'
+      - defaultResponse:
+          isNullable: true
+        deprecated: false
+        description: >-
+          Queues a project to be created. Use the
+          [GetOperation](../../operations/operations/get) to periodically check
+          for create project status.
+        extensions:
+          security:
+            - oauth2:
+                - vso.project_manage
+          x-ms-requestBody-index: '1'
+        group:
+          fixed: false
+          raw: ''
+        hidden: false
+        httpMethod: post
+        isAbsoluteUrl: false
+        name:
+          fixed: false
+          raw: QueueCreateProject
+        parameters:
+          - $id: '320'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of the Azure DevOps organization.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '321'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: organization
+            serializedName: organization
+          - $id: '322'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The project to create.
+            extensions:
+              x-ms-requestBody-name: body
+            isConstant: false
+            isRequired: true
+            location: body
+            modelType:
+              $ref: '160'
+            name:
+              fixed: false
+              raw: body
+            serializedName: body
+          - $id: '323'
+            clientProperty:
+              $ref: '289'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Version of the API to use.  This should be set to
+                '5.1-preview.4' to use this version of the api.
+            isConstant: false
+            isRequired: true
+            location: query
+            modelType:
+              $id: '324'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: api-version
+            serializedName: api-version
+        requestContentType: application/json; charset=utf-8
+        responseContentTypes:
+          - application/json
+        responses:
+          OK:
+            body:
+              $ref: '50'
+            isNullable: true
+        returnType:
+          body:
+            $ref: '50'
+          isNullable: true
+        serializedName: QueueCreateProject
+        url: '/{organization}/_apis/projects'
+      - defaultResponse:
+          isNullable: true
+        deprecated: false
+        description: >-
+          Get project with the specified id or name, optionally including
+          capabilities.
+        extensions:
+          security:
+            - oauth2:
+                - vso.profile
+                - vso.project
+        group:
+          fixed: false
+          raw: ''
+        hidden: false
+        httpMethod: get
+        isAbsoluteUrl: false
+        name:
+          fixed: false
+          raw: GetProject
+        parameters:
+          - $id: '325'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of the Azure DevOps organization.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '326'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: organization
+            serializedName: organization
+          - $id: '327'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: ''
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '328'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: projectId
+            serializedName: projectId
+          - $id: '329'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Include capabilities (such as source control) in the team
+                project result (default: false).
+            isConstant: false
+            isRequired: false
+            location: query
+            modelType:
+              $id: '330'
+              $type: PrimaryType
+              knownPrimaryType: boolean
+              name:
+                fixed: false
+                raw: Boolean
+            name:
+              fixed: false
+              raw: includeCapabilities
+            serializedName: includeCapabilities
+          - $id: '331'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: Search within renamed projects (that had such name in the past).
+            isConstant: false
+            isRequired: false
+            location: query
+            modelType:
+              $id: '332'
+              $type: PrimaryType
+              knownPrimaryType: boolean
+              name:
+                fixed: false
+                raw: Boolean
+            name:
+              fixed: false
+              raw: includeHistory
+            serializedName: includeHistory
+          - $id: '333'
+            clientProperty:
+              $ref: '289'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Version of the API to use.  This should be set to
+                '5.1-preview.4' to use this version of the api.
+            isConstant: false
+            isRequired: true
+            location: query
+            modelType:
+              $id: '334'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: api-version
+            serializedName: api-version
+        requestContentType: application/json; charset=utf-8
+        responseContentTypes:
+          - application/json
+        responses:
+          OK:
+            body:
+              $ref: '160'
+            isNullable: true
+        returnType:
+          body:
+            $ref: '160'
+          isNullable: true
+        serializedName: GetProject
+        url: '/{organization}/_apis/projects/{projectId}'
+      - defaultResponse:
+          isNullable: true
+        deprecated: false
+        description: >-
+          Queues a project to be deleted. Use the
+          [GetOperation](../../operations/operations/get) to periodically check
+          for delete project status.
+        extensions:
+          security:
+            - oauth2:
+                - vso.project_manage
+        group:
+          fixed: false
+          raw: ''
+        hidden: false
+        httpMethod: delete
+        isAbsoluteUrl: false
+        name:
+          fixed: false
+          raw: QueueDeleteProject
+        parameters:
+          - $id: '335'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of the Azure DevOps organization.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '336'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: organization
+            serializedName: organization
+          - $id: '337'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The project id of the project to delete.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '338'
+              $type: PrimaryType
+              format: uuid
+              knownPrimaryType: uuid
+              name:
+                fixed: false
+                raw: Uuid
+            name:
+              fixed: false
+              raw: projectId
+            serializedName: projectId
+          - $id: '339'
+            clientProperty:
+              $ref: '289'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Version of the API to use.  This should be set to
+                '5.1-preview.4' to use this version of the api.
+            isConstant: false
+            isRequired: true
+            location: query
+            modelType:
+              $id: '340'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: api-version
+            serializedName: api-version
+        requestContentType: application/json; charset=utf-8
+        responseContentTypes:
+          - application/json
+        responses:
+          OK:
+            body:
+              $ref: '50'
+            isNullable: true
+        returnType:
+          body:
+            $ref: '50'
+          isNullable: true
+        serializedName: QueueDeleteProject
+        url: '/{organization}/_apis/projects/{projectId}'
+      - defaultResponse:
+          isNullable: true
+        deprecated: false
+        description: >-
+          Update an existing project's name, abbreviation, description, or
+          restore a project.
+        extensions:
+          security:
+            - oauth2:
+                - vso.project_write
+          x-ms-requestBody-index: '1'
+        group:
+          fixed: false
+          raw: ''
+        hidden: false
+        httpMethod: patch
+        isAbsoluteUrl: false
+        name:
+          fixed: false
+          raw: UpdateProject
+        parameters:
+          - $id: '341'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of the Azure DevOps organization.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '342'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: organization
+            serializedName: organization
+          - $id: '343'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                The updates for the project. The state must be set to wellFormed
+                to restore the project.
+            extensions:
+              x-ms-requestBody-name: body
+            isConstant: false
+            isRequired: true
+            location: body
+            modelType:
+              $ref: '160'
+            name:
+              fixed: false
+              raw: body
+            serializedName: body
+          - $id: '344'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The project id of the project to update.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '345'
+              $type: PrimaryType
+              format: uuid
+              knownPrimaryType: uuid
+              name:
+                fixed: false
+                raw: Uuid
+            name:
+              fixed: false
+              raw: projectId
+            serializedName: projectId
+          - $id: '346'
+            clientProperty:
+              $ref: '289'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Version of the API to use.  This should be set to
+                '5.1-preview.4' to use this version of the api.
+            isConstant: false
+            isRequired: true
+            location: query
+            modelType:
+              $id: '347'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: api-version
+            serializedName: api-version
+        requestContentType: application/json; charset=utf-8
+        responseContentTypes:
+          - application/json
+        responses:
+          OK:
+            body:
+              $ref: '50'
+            isNullable: true
+        returnType:
+          body:
+            $ref: '50'
+          isNullable: true
+        serializedName: UpdateProject
+        url: '/{organization}/_apis/projects/{projectId}'
+      - defaultResponse:
+          isNullable: true
+        deprecated: false
+        description: Removes the avatar for the project
+        extensions:
+          security:
+            - oauth2:
+                - vso.project_manage
+        group:
+          fixed: false
+          raw: ''
+        hidden: false
+        httpMethod: delete
+        isAbsoluteUrl: false
+        name:
+          fixed: false
+          raw: RemoveProjectAvatar
+        parameters:
+          - $id: '348'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of the Azure DevOps organization.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '349'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: organization
+            serializedName: organization
+          - $id: '350'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The id or name of the project
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '351'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: projectId
+            serializedName: projectId
+          - $id: '352'
+            clientProperty:
+              $ref: '289'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Version of the API to use.  This should be set to
+                '5.1-preview.1' to use this version of the api.
+            isConstant: false
+            isRequired: true
+            location: query
+            modelType:
+              $id: '353'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: api-version
+            serializedName: api-version
+        requestContentType: application/json; charset=utf-8
+        responseContentTypes:
+          - application/json
+        responses:
+          OK:
+            isNullable: true
+        returnType:
+          isNullable: true
+        serializedName: RemoveProjectAvatar
+        url: '/{organization}/_apis/projects/{projectId}/avatar'
+      - defaultResponse:
+          isNullable: true
+        deprecated: false
+        description: Upload avatar for the project
+        extensions:
+          x-ms-requestBody-index: '1'
+        group:
+          fixed: false
+          raw: ''
+        hidden: false
+        httpMethod: put
+        isAbsoluteUrl: false
+        name:
+          fixed: false
+          raw: SetProjectAvatar
+        parameters:
+          - $id: '354'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of the Azure DevOps organization.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '355'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: organization
+            serializedName: organization
+          - $id: '356'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+            extensions:
+              x-ms-requestBody-name: body
+            isConstant: false
+            isRequired: true
+            location: body
+            modelType:
+              $ref: '74'
+            name:
+              fixed: false
+              raw: body
+            serializedName: body
+          - $id: '357'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The id or name of the project
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '358'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: projectId
+            serializedName: projectId
+          - $id: '359'
+            clientProperty:
+              $ref: '289'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Version of the API to use.  This should be set to
+                '5.1-preview.1' to use this version of the api.
+            isConstant: false
+            isRequired: true
+            location: query
+            modelType:
+              $id: '360'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: api-version
+            serializedName: api-version
+        requestContentType: application/json; charset=utf-8
+        responseContentTypes:
+          - application/json
+        responses:
+          OK:
+            isNullable: true
+        returnType:
+          isNullable: true
+        serializedName: SetProjectAvatar
+        url: '/{organization}/_apis/projects/{projectId}/avatar'
+      - defaultResponse:
+          isNullable: true
+        deprecated: false
+        description: Get a collection of team project properties.
+        extensions:
+          security:
+            - oauth2:
+                - vso.profile
+                - vso.project
+        group:
+          fixed: false
+          raw: ''
+        hidden: false
+        httpMethod: get
+        isAbsoluteUrl: false
+        name:
+          fixed: false
+          raw: GetProjectProperties
+        parameters:
+          - $id: '361'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of the Azure DevOps organization.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '362'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: organization
+            serializedName: organization
+          - $id: '363'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The team project ID.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '364'
+              $type: PrimaryType
+              format: uuid
+              knownPrimaryType: uuid
+              name:
+                fixed: false
+                raw: Uuid
+            name:
+              fixed: false
+              raw: projectId
+            serializedName: projectId
+          - $id: '365'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                A comma-delimited string of team project property names.
+                Wildcard characters ("?" and "*") are supported. If no key is
+                specified, all properties will be returned.
+            isConstant: false
+            isRequired: false
+            location: query
+            modelType:
+              $id: '366'
+              $type: PrimaryType
+              format: array (string)
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: keys
+            serializedName: keys
+          - $id: '367'
+            clientProperty:
+              $ref: '289'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Version of the API to use.  This should be set to
+                '5.1-preview.1' to use this version of the api.
+            isConstant: false
+            isRequired: true
+            location: query
+            modelType:
+              $id: '368'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: api-version
+            serializedName: api-version
+        requestContentType: application/json; charset=utf-8
+        responseContentTypes:
+          - application/json
+        responses:
+          OK:
+            body:
+              $id: '369'
+              $type: SequenceType
+              elementType:
+                $ref: '78'
+              name:
+                fixed: false
+            isNullable: true
+        returnType:
+          body:
+            $ref: '369'
+          isNullable: true
+        serializedName: GetProjectProperties
+        url: '/{organization}/_apis/projects/{projectId}/properties'
+      - defaultResponse:
+          isNullable: true
+        deprecated: false
+        description: 'Create, update, and delete team project properties.'
+        extensions:
+          security:
+            - oauth2:
+                - vso.project_write
+          x-ms-requestBody-index: '2'
+        group:
+          fixed: false
+          raw: ''
+        hidden: false
+        httpMethod: patch
+        isAbsoluteUrl: false
+        name:
+          fixed: false
+          raw: SetProjectProperties
+        parameters:
+          - $id: '370'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of the Azure DevOps organization.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '371'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: organization
+            serializedName: organization
+          - $id: '372'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The team project ID.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '373'
+              $type: PrimaryType
+              format: uuid
+              knownPrimaryType: uuid
+              name:
+                fixed: false
+                raw: Uuid
+            name:
+              fixed: false
+              raw: projectId
+            serializedName: projectId
+          - $id: '374'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                A JSON Patch document that represents an array of property
+                operations. See RFC 6902 for more details on JSON Patch. The
+                accepted operation verbs are Add and Remove, where Add is used
+                for both creating and updating properties. The path consists of
+                a forward slash and a property name.
+            extensions:
+              x-ms-requestBody-name: body
+            isConstant: false
+            isRequired: true
+            location: body
+            modelType:
+              $id: '375'
+              $type: PrimaryType
+              knownPrimaryType: object
+              name:
+                fixed: false
+                raw: Object
+            name:
+              fixed: false
+              raw: body
+            serializedName: body
+          - $id: '376'
+            clientProperty:
+              $ref: '289'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Version of the API to use.  This should be set to
+                '5.1-preview.1' to use this version of the api.
+            isConstant: false
+            isRequired: true
+            location: query
+            modelType:
+              $id: '377'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: api-version
+            serializedName: api-version
+        requestContentType: application/json-patch+json; charset=utf-8
+        responseContentTypes:
+          - application/json
+        responses:
+          OK:
+            isNullable: true
+        returnType:
+          isNullable: true
+        serializedName: SetProjectProperties
+        url: '/{organization}/_apis/projects/{projectId}/properties'
+      - defaultResponse:
+          isNullable: true
+        deprecated: false
+        description: |-
+          Create a team in a team project.
+
+          Possible failure scenarios
+          Invalid project name/ID (project doesn't exist) 404
+          Invalid team name or description 400
+          Team already exists 400
+          Insufficient privileges 400
+        extensions:
+          security:
+            - oauth2:
+                - vso.project_manage
+          x-ms-requestBody-index: '1'
+        group:
+          fixed: false
+          raw: ''
+        hidden: false
+        httpMethod: post
+        isAbsoluteUrl: false
+        name:
+          fixed: false
+          raw: CreateTeam
+        parameters:
+          - $id: '378'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of the Azure DevOps organization.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '379'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: organization
+            serializedName: organization
+          - $id: '380'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The team data used to create the team.
+            extensions:
+              x-ms-requestBody-name: body
+            isConstant: false
+            isRequired: true
+            location: body
+            modelType:
+              $ref: '278'
+            name:
+              fixed: false
+              raw: body
+            serializedName: body
+          - $id: '381'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                The name or ID (GUID) of the team project in which to create the
+                team.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '382'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: projectId
+            serializedName: projectId
+          - $id: '383'
+            clientProperty:
+              $ref: '289'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Version of the API to use.  This should be set to
+                '5.1-preview.2' to use this version of the api.
+            isConstant: false
+            isRequired: true
+            location: query
+            modelType:
+              $id: '384'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: api-version
+            serializedName: api-version
+        requestContentType: application/json; charset=utf-8
+        responseContentTypes:
+          - application/json
+        responses:
+          OK:
+            body:
+              $ref: '278'
+            isNullable: true
+        returnType:
+          body:
+            $ref: '278'
+          isNullable: true
+        serializedName: CreateTeam
+        url: '/{organization}/_apis/projects/{projectId}/teams'
+      - defaultResponse:
+          isNullable: true
+        deprecated: false
+        description: Get a list of teams.
+        extensions:
+          security:
+            - oauth2:
+                - vso.profile
+                - vso.project
+        group:
+          fixed: false
+          raw: ''
+        hidden: false
+        httpMethod: get
+        isAbsoluteUrl: false
+        name:
+          fixed: false
+          raw: GetTeams
+        parameters:
+          - $id: '385'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of the Azure DevOps organization.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '386'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: organization
+            serializedName: organization
+          - $id: '387'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: ''
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '388'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: projectId
+            serializedName: projectId
+          - $id: '389'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                If true return all the teams requesting user is member,
+                otherwise return all the teams user has read access
+            isConstant: false
+            isRequired: false
+            location: query
+            modelType:
+              $id: '390'
+              $type: PrimaryType
+              knownPrimaryType: boolean
+              name:
+                fixed: false
+                raw: Boolean
+            name:
+              fixed: false
+              raw: $mine
+            serializedName: $mine
+          - $id: '391'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: Maximum number of teams to return.
+            isConstant: false
+            isRequired: false
+            location: query
+            modelType:
+              $id: '392'
+              $type: PrimaryType
+              format: int32
+              knownPrimaryType: int
+              name:
+                fixed: false
+                raw: Int
+            name:
+              fixed: false
+              raw: $top
+            serializedName: $top
+          - $id: '393'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: Number of teams to skip.
+            isConstant: false
+            isRequired: false
+            location: query
+            modelType:
+              $id: '394'
+              $type: PrimaryType
+              format: int32
+              knownPrimaryType: int
+              name:
+                fixed: false
+                raw: Int
+            name:
+              fixed: false
+              raw: $skip
+            serializedName: $skip
+          - $id: '395'
+            clientProperty:
+              $ref: '289'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Version of the API to use.  This should be set to
+                '5.1-preview.2' to use this version of the api.
+            isConstant: false
+            isRequired: true
+            location: query
+            modelType:
+              $id: '396'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: api-version
+            serializedName: api-version
+        requestContentType: application/json; charset=utf-8
+        responseContentTypes:
+          - application/json
+        responses:
+          OK:
+            body:
+              $id: '397'
+              $type: SequenceType
+              elementType:
+                $ref: '278'
+              name:
+                fixed: false
+            isNullable: true
+        returnType:
+          body:
+            $ref: '397'
+          isNullable: true
+        serializedName: GetTeams
+        url: '/{organization}/_apis/projects/{projectId}/teams'
+      - defaultResponse:
+          isNullable: true
+        deprecated: false
+        description: Delete a team.
+        extensions:
+          security:
+            - oauth2:
+                - vso.project_manage
+        group:
+          fixed: false
+          raw: ''
+        hidden: false
+        httpMethod: delete
+        isAbsoluteUrl: false
+        name:
+          fixed: false
+          raw: DeleteTeam
+        parameters:
+          - $id: '398'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of the Azure DevOps organization.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '399'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: organization
+            serializedName: organization
+          - $id: '400'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                The name or ID (GUID) of the team project containing the team to
+                delete.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '401'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: projectId
+            serializedName: projectId
+          - $id: '402'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of ID of the team to delete.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '403'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: teamId
+            serializedName: teamId
+          - $id: '404'
+            clientProperty:
+              $ref: '289'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Version of the API to use.  This should be set to
+                '5.1-preview.2' to use this version of the api.
+            isConstant: false
+            isRequired: true
+            location: query
+            modelType:
+              $id: '405'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: api-version
+            serializedName: api-version
+        requestContentType: application/json; charset=utf-8
+        responseContentTypes:
+          - application/json
+        responses:
+          OK:
+            isNullable: true
+        returnType:
+          isNullable: true
+        serializedName: DeleteTeam
+        url: '/{organization}/_apis/projects/{projectId}/teams/{teamId}'
+      - defaultResponse:
+          isNullable: true
+        deprecated: false
+        description: Get a specific team.
+        extensions:
+          security:
+            - oauth2:
+                - vso.profile
+                - vso.project
+        group:
+          fixed: false
+          raw: ''
+        hidden: false
+        httpMethod: get
+        isAbsoluteUrl: false
+        name:
+          fixed: false
+          raw: GetTeam
+        parameters:
+          - $id: '406'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of the Azure DevOps organization.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '407'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: organization
+            serializedName: organization
+          - $id: '408'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name or ID (GUID) of the team project containing the team.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '409'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: projectId
+            serializedName: projectId
+          - $id: '410'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name or ID (GUID) of the team.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '411'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: teamId
+            serializedName: teamId
+          - $id: '412'
+            clientProperty:
+              $ref: '289'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Version of the API to use.  This should be set to
+                '5.1-preview.2' to use this version of the api.
+            isConstant: false
+            isRequired: true
+            location: query
+            modelType:
+              $id: '413'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: api-version
+            serializedName: api-version
+        requestContentType: application/json; charset=utf-8
+        responseContentTypes:
+          - application/json
+        responses:
+          OK:
+            body:
+              $ref: '278'
+            isNullable: true
+        returnType:
+          body:
+            $ref: '278'
+          isNullable: true
+        serializedName: GetTeam
+        url: '/{organization}/_apis/projects/{projectId}/teams/{teamId}'
+      - defaultResponse:
+          isNullable: true
+        deprecated: false
+        description: Update a team's name and/or description.
+        extensions:
+          security:
+            - oauth2:
+                - vso.project_write
+          x-ms-requestBody-index: '1'
+        group:
+          fixed: false
+          raw: ''
+        hidden: false
+        httpMethod: patch
+        isAbsoluteUrl: false
+        name:
+          fixed: false
+          raw: UpdateTeam
+        parameters:
+          - $id: '414'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of the Azure DevOps organization.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '415'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: organization
+            serializedName: organization
+          - $id: '416'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+            extensions:
+              x-ms-requestBody-name: body
+            isConstant: false
+            isRequired: true
+            location: body
+            modelType:
+              $ref: '278'
+            name:
+              fixed: false
+              raw: body
+            serializedName: body
+          - $id: '417'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                The name or ID (GUID) of the team project containing the team to
+                update.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '418'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: projectId
+            serializedName: projectId
+          - $id: '419'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of ID of the team to update.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '420'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: teamId
+            serializedName: teamId
+          - $id: '421'
+            clientProperty:
+              $ref: '289'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Version of the API to use.  This should be set to
+                '5.1-preview.2' to use this version of the api.
+            isConstant: false
+            isRequired: true
+            location: query
+            modelType:
+              $id: '422'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: api-version
+            serializedName: api-version
+        requestContentType: application/json; charset=utf-8
+        responseContentTypes:
+          - application/json
+        responses:
+          OK:
+            body:
+              $ref: '278'
+            isNullable: true
+        returnType:
+          body:
+            $ref: '278'
+          isNullable: true
+        serializedName: UpdateTeam
+        url: '/{organization}/_apis/projects/{projectId}/teams/{teamId}'
+      - defaultResponse:
+          isNullable: true
+        deprecated: false
+        description: Get a list of members for a specific team.
+        extensions:
+          security:
+            - oauth2:
+                - vso.profile
+                - vso.project
+        group:
+          fixed: false
+          raw: ''
+        hidden: false
+        httpMethod: get
+        isAbsoluteUrl: false
+        name:
+          fixed: false
+          raw: GetTeamMembersWithExtendedProperties
+        parameters:
+          - $id: '423'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of the Azure DevOps organization.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '424'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: organization
+            serializedName: organization
+          - $id: '425'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name or ID (GUID) of the team project the team belongs to.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '426'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: projectId
+            serializedName: projectId
+          - $id: '427'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name or ID (GUID) of the team .
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '428'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: teamId
+            serializedName: teamId
+          - $id: '429'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: ''
+            isConstant: false
+            isRequired: false
+            location: query
+            modelType:
+              $id: '430'
+              $type: PrimaryType
+              format: int32
+              knownPrimaryType: int
+              name:
+                fixed: false
+                raw: Int
+            name:
+              fixed: false
+              raw: $top
+            serializedName: $top
+          - $id: '431'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: ''
+            isConstant: false
+            isRequired: false
+            location: query
+            modelType:
+              $id: '432'
+              $type: PrimaryType
+              format: int32
+              knownPrimaryType: int
+              name:
+                fixed: false
+                raw: Int
+            name:
+              fixed: false
+              raw: $skip
+            serializedName: $skip
+          - $id: '433'
+            clientProperty:
+              $ref: '289'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Version of the API to use.  This should be set to
+                '5.1-preview.2' to use this version of the api.
+            isConstant: false
+            isRequired: true
+            location: query
+            modelType:
+              $id: '434'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: api-version
+            serializedName: api-version
+        requestContentType: application/json; charset=utf-8
+        responseContentTypes:
+          - application/json
+        responses:
+          OK:
+            body:
+              $id: '435'
+              $type: SequenceType
+              elementType:
+                $ref: '149'
+              name:
+                fixed: false
+            isNullable: true
+        returnType:
+          body:
+            $ref: '435'
+          isNullable: true
+        serializedName: GetTeamMembersWithExtendedProperties
+        url: '/{organization}/_apis/projects/{projectId}/teams/{teamId}/members'
+      - defaultResponse:
+          isNullable: true
+        deprecated: false
+        description: Get a list of all teams.
+        extensions:
+          security:
+            - oauth2:
+                - vso.project
+        group:
+          fixed: false
+          raw: ''
+        hidden: false
+        httpMethod: get
+        isAbsoluteUrl: false
+        name:
+          fixed: false
+          raw: GetAllTeams
+        parameters:
+          - $id: '436'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: The name of the Azure DevOps organization.
+            isConstant: false
+            isRequired: true
+            location: path
+            modelType:
+              $id: '437'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: organization
+            serializedName: organization
+          - $id: '438'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                If true return all the teams requesting user is member,
+                otherwise return all the teams user has read access
+            isConstant: false
+            isRequired: false
+            location: query
+            modelType:
+              $id: '439'
+              $type: PrimaryType
+              knownPrimaryType: boolean
+              name:
+                fixed: false
+                raw: Boolean
+            name:
+              fixed: false
+              raw: $mine
+            serializedName: $mine
+          - $id: '440'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: Maximum number of teams to return.
+            isConstant: false
+            isRequired: false
+            location: query
+            modelType:
+              $id: '441'
+              $type: PrimaryType
+              format: int32
+              knownPrimaryType: int
+              name:
+                fixed: false
+                raw: Int
+            name:
+              fixed: false
+              raw: $top
+            serializedName: $top
+          - $id: '442'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: Number of teams to skip.
+            isConstant: false
+            isRequired: false
+            location: query
+            modelType:
+              $id: '443'
+              $type: PrimaryType
+              format: int32
+              knownPrimaryType: int
+              name:
+                fixed: false
+                raw: Int
+            name:
+              fixed: false
+              raw: $skip
+            serializedName: $skip
+          - $id: '444'
+            clientProperty:
+              $ref: '289'
+            collectionFormat: none
+            defaultValue:
+              fixed: false
+            documentation:
+              fixed: false
+              raw: >-
+                Version of the API to use.  This should be set to
+                '5.1-preview.2' to use this version of the api.
+            isConstant: false
+            isRequired: true
+            location: query
+            modelType:
+              $id: '445'
+              $type: PrimaryType
+              knownPrimaryType: string
+              name:
+                fixed: false
+                raw: String
+            name:
+              fixed: false
+              raw: api-version
+            serializedName: api-version
+        requestContentType: application/json; charset=utf-8
+        responseContentTypes:
+          - application/json
+        responses:
+          OK:
+            body:
+              $id: '446'
+              $type: SequenceType
+              elementType:
+                $ref: '278'
+              name:
+                fixed: false
+            isNullable: true
+        returnType:
+          body:
+            $ref: '446'
+          isNullable: true
+        serializedName: GetAllTeams
+        url: '/{organization}/_apis/teams'
+    name:
+      fixed: false
+      raw: ''
+    nameForProperty: Core
+    typeName:
+      fixed: false
+properties:
+  - $id: '289'
+    collectionFormat: none
+    defaultValue:
+      fixed: false
+    documentation:
+      fixed: false
+      raw: >-
+        Version of the API to use.  This should be set to '5.1-preview.1' to use
+        this version of the api.
+    isConstant: false
+    isReadOnly: false
+    isRequired: true
+    modelType:
+      $id: '290'
+      $type: PrimaryType
+      knownPrimaryType: string
+      name:
+        fixed: false
+        raw: String
+    name:
+      fixed: false
+      raw: api-version
+    realPath:
+      - api-version
+    serializedName: api-version
+  - $id: '291'
+    collectionFormat: none
+    defaultValue:
+      fixed: false
+    documentation:
+      fixed: false
+      raw: >-
+        Version of the API to use.  This should be set to '5.1-preview.2' to use
+        this version of the api.
+    isConstant: false
+    isReadOnly: false
+    isRequired: true
+    modelType:
+      $id: '292'
+      $type: PrimaryType
+      knownPrimaryType: string
+      name:
+        fixed: false
+        raw: String
+    name:
+      fixed: false
+      raw: ApiVersion1
+    realPath:
+      - api-version
+    serializedName: api-version
+  - $id: '293'
+    collectionFormat: none
+    defaultValue:
+      fixed: false
+    documentation:
+      fixed: false
+      raw: >-
+        Version of the API to use.  This should be set to '5.1-preview.4' to use
+        this version of the api.
+    isConstant: false
+    isReadOnly: false
+    isRequired: true
+    modelType:
+      $id: '294'
+      $type: PrimaryType
+      knownPrimaryType: string
+      name:
+        fixed: false
+        raw: String
+    name:
+      fixed: false
+      raw: ApiVersion2
+    realPath:
+      - api-version
+    serializedName: api-version
