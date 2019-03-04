@@ -51,3 +51,8 @@ resource "azuredevops_project" "project" {
   source_control_type = "Git"
 }
 ```
+
+The Documentation
+------------------------
+
+The complete documentaion of the provider is [here](https://azure-devops-terraform-provider.gitbook.io/project/)
