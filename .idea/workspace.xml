@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="df51c5c6-774d-4731-8f88-da7acec929d1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/azuredevops/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/azuredevops/azuredevops-project.go" beforeDir="false" afterPath="$PROJECT_DIR$/azuredevops/azuredevops-project.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/azuredevops/azuredevops-project_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/azuredevops/azuredevops-project_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/azuredevops/provider.go" beforeDir="false" afterPath="$PROJECT_DIR$/azuredevops/provider.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/azuredevops/provider_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/azuredevops/provider_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/github.com/hashicorp/hcl/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/github.com/hashicorp/hcl/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/github.com/mikaelkrief/go-azuredevops-sdk/azuredevops.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/github.com/mikaelkrief/go-azuredevops-sdk/azuredevops_operations.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/github.com/mikaelkrief/go-azuredevops-sdk/azuredevops_processes.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/github.com/mikaelkrief/go-azuredevops-sdk/azuredevops_projects.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/github.com/mikaelkrief/go-azuredevops-sdk/types_operation.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/github.com/mikaelkrief/go-azuredevops-sdk/types_processes.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/github.com/mikaelkrief/go-azuredevops-sdk/types_project.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/github.com/mitchellh/copystructure/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/github.com/mitchellh/copystructure/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/vendor.json" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/vendor.json" afterDir="false" />
-    </list>
+    <list default="true" id="df51c5c6-774d-4731-8f88-da7acec929d1" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +31,7 @@
         <entry file="file://$PROJECT_DIR$/azuredevops/azuredevops-project_test.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
-              <caret line="11" column="27" lean-forward="true" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+              <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
               <folding>
                 <element signature="e#21#256#0" expanded="true" />
               </folding>
@@ -60,8 +42,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/azuredevops/provider_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="24" column="1" lean-forward="true" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
+            <state relative-caret-position="187">
+              <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
               <folding>
                 <element signature="e#21#141#0" expanded="true" />
               </folding>
@@ -109,7 +91,7 @@
         <entry file="file://$PROJECT_DIR$/azuredevops/config.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="765">
-              <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
+              <caret line="45" selection-start-line="45" selection-end-line="45" />
               <folding>
                 <element signature="e#21#287#0" expanded="true" />
               </folding>
@@ -133,7 +115,7 @@
         <entry file="file://$PROJECT_DIR$/azuredevops/azuredevops-project.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
-              <caret line="12" column="1" lean-forward="true" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+              <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
               <folding>
                 <element signature="e#21#256#0" expanded="true" />
               </folding>
@@ -183,11 +165,11 @@
         <option value="$PROJECT_DIR$/../go-azuredevops-sdk/build/5.1-preview/client.go" />
         <option value="$PROJECT_DIR$/../go-azuredevops-sdk/core/5.1-preview/client.go" />
         <option value="$PROJECT_DIR$/azuredevops/azuredevops-project_test.go" />
-        <option value="$PROJECT_DIR$/azuredevops/provider_test.go" />
         <option value="$PROJECT_DIR$/exclude.txt" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/azuredevops/azuredevops-project.go" />
         <option value="$PROJECT_DIR$/azuredevops/config.go" />
+        <option value="$PROJECT_DIR$/azuredevops/provider_test.go" />
       </list>
     </option>
   </component>
@@ -309,6 +291,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4858681" visible="true" weight="0.16195373" />
       <window_info id="Structure" order="1" sideWeight="0.5141319" side_tool="true" weight="0.23971723" />
@@ -356,6 +339,10 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Rebuild with the new version of the SDK" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rebuild with the new version of the SDK" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -653,7 +640,7 @@
     <entry file="file://$PROJECT_DIR$/azuredevops/azuredevops-project.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
-          <caret line="12" column="1" lean-forward="true" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+          <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
           <folding>
             <element signature="e#21#256#0" expanded="true" />
           </folding>
@@ -663,7 +650,7 @@
     <entry file="file://$PROJECT_DIR$/azuredevops/azuredevops-project_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
-          <caret line="11" column="27" lean-forward="true" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+          <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
           <folding>
             <element signature="e#21#256#0" expanded="true" />
           </folding>
@@ -673,7 +660,7 @@
     <entry file="file://$PROJECT_DIR$/azuredevops/config.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="765">
-          <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
+          <caret line="45" selection-start-line="45" selection-end-line="45" />
           <folding>
             <element signature="e#21#287#0" expanded="true" />
           </folding>
@@ -692,8 +679,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/azuredevops/provider_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="1" lean-forward="true" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
+        <state relative-caret-position="187">
+          <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
           <folding>
             <element signature="e#21#141#0" expanded="true" />
           </folding>
