@@ -7,7 +7,6 @@ import (
 
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
-	azuredevopssdk "github.com/mikaelkrief/go-azuredevops-sdk"
 )
 
 func Test_projectCheck(t *testing.T) {
@@ -52,14 +51,18 @@ func testProjectCheckBasicWithTemplate() string {
 }
 
 func testProjectDestroy(s *terraform.State) error {
-	conn := testAccProvider.Meta().(*azuredevopssdk.Client)
+	conn := testAccProvider.Meta().(*AzureDevOpsClient)
+	client := testAccProvider.Meta().(*AzureDevOpsClient).coreClient
+	ctx := testAccProvider.Meta().(*AzureDevOpsClient).StopContext
 
 	for _, rs := range s.RootModule().Resources {
 		if rs.Type != "azuredevops_check" {
 			continue
 		}
 
-		project, err := conn.GetProject(rs.Primary.ID)
+		var includecapa = true
+		var includehisto = false
+		project, err := client.GetProject(ctx, conn.organization, rs.Primary.ID, &includecapa, &includehisto)
 
 		if &project != nil {
 			return fmt.Errorf("Bad: Project %q still exists", rs.Primary.ID)
@@ -83,9 +86,11 @@ func testProjectExist(name string) resource.TestCheckFunc {
 			return fmt.Errorf("Not found: %s", name)
 		}
 
-		conn := testAccProvider.Meta().(*azuredevopssdk.Client)
+		c := testAccProvider.Meta().(*AzureDevOpsClient)
+		conn := testAccProvider.Meta().(*AzureDevOpsClient).coreClient
+		ctx := testAccProvider.Meta().(*AzureDevOpsClient).StopContext
 
-		project, err := conn.GetProject(rs.Primary.ID)
+		project, err := conn.GetProject(ctx, c.organization, rs.Primary.ID, nil, nil)
 
 		if err != nil {
 			return err

@@ -3,12 +3,11 @@ package azuredevops
 import (
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/hashicorp/terraform/terraform"
-	azuredevopssdk "github.com/mikaelkrief/go-azuredevops-sdk"
 )
 
 //Provider AzureDevOps
 func Provider() terraform.ResourceProvider {
-	return &schema.Provider{
+	p := &schema.Provider{
 		Schema: map[string]*schema.Schema{
 			"organization": {
 				Type:        schema.TypeString,
@@ -26,13 +25,33 @@ func Provider() terraform.ResourceProvider {
 		ResourcesMap: map[string]*schema.Resource{
 			"azuredevops_project": resourceProjectObject(),
 		},
-		ConfigureFunc: configureProvider,
 	}
+
+	p.ConfigureFunc = providerConfigure(p)
+
+	return p
 }
 
-func configureProvider(d *schema.ResourceData) (interface{}, error) {
-	organization := d.Get("organization").(string)
-	token := d.Get("token").(string)
+func providerConfigure(p *schema.Provider) schema.ConfigureFunc {
+	return func(d *schema.ResourceData) (interface{}, error) {
+		organization := d.Get("organization").(string)
+		token := d.Get("token").(string)
 
-	return azuredevopssdk.NewClientWith(organization, token)
+		client, err := getAzDOClient(organization, token)
+		if err != nil {
+			return nil, err
+		}
+
+		client.StopContext = p.StopContext()
+
+		// replaces the context between tests
+		p.MetaReset = func() error {
+			client.StopContext = p.StopContext()
+			return nil
+		}
+
+		return client, nil
+
+	}
+
 }

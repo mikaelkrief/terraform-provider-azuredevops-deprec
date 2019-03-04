@@ -1,15 +1,15 @@
 package azuredevops
 
 import (
-	"encoding/json"
 	"fmt"
+	"github.com/mikaelkrief/go-azuredevops-sdk/core/5.1-preview"
+	"github.com/satori/go.uuid"
 	"log"
 	"strings"
-	utils "terraform-provider-azuredevops/azuredevops/utils"
+	"terraform-provider-azuredevops/azuredevops/utils"
 	"time"
 
 	"github.com/hashicorp/terraform/helper/schema"
-	azuredevopssdk "github.com/mikaelkrief/go-azuredevops-sdk"
 )
 
 func resourceProjectObject() *schema.Resource {
@@ -72,68 +72,65 @@ func resourceProjectObject() *schema.Resource {
 }
 
 func resourceProjectCreate(d *schema.ResourceData, meta interface{}) error {
-	client := meta.(*azuredevopssdk.Client)
+	c := meta.(*AzureDevOpsClient)
+	client := meta.(*AzureDevOpsClient).coreClient
+	clientoperation := meta.(*AzureDevOpsClient).operationClient
+	ctx := meta.(*AzureDevOpsClient).StopContext
 
-	var project = azuredevopssdk.Project{}
-	project.Name = d.Get("name").(string)
-	project.Description = d.Get("description").(string)
+	var name = d.Get("name").(string)
+	var description = d.Get("description").(string)
+	var sourcecontroltype = d.Get("source_control_type").(string)
 
-	var versioncontrol = azuredevopssdk.Versioncontrol{}
-	versioncontrol.SourceControlType = d.Get("source_control_type").(string)
+	process, err := getProcessByName(meta, d.Get("template_type_name").(string))
+	if err != nil {
+		return err
+	}
 
-	var processTemplate = azuredevopssdk.ProcessTemplate{}
-	if d.Get("template_type_name").(string) != "" {
-		var processname = d.Get("template_type_name").(string)
-		process, err := client.GetProcessId(processname)
-		if err != nil {
-			return err
-		}
+	var processid = process.ID.String()
+	teamProject := core.TeamProject{
+		Name:        &name,
+		Description: &description,
+		Capabilities: map[string]map[string]*string{
+			"processTemplate": {
+				"templateTypeId": &processid,
+			},
+			"versioncontrol": {
+				"sourceControlType": &sourcecontroltype,
+			},
+		},
+	}
 
-		utils.PrettyPrint(process) //Log Request
-		log.Printf(process.Id)
-
-		processTemplate.TemplateTypeId = process.Id
-	} else {
-		process, err := client.GetDefaultProcess()
-		if err != nil {
-			return fmt.Errorf("Error get default process template %+v", err)
-		}
-		processTemplate.TemplateTypeId = process.Id
+	if d.Get("template_type_name").(string) == "" {
 		d.Set("template_type_name", process.Name)
 	}
 
-	var capabilities = &azuredevopssdk.Capabilities{}
-	capabilities.Versioncontrol = versioncontrol
-	capabilities.ProcessTemplate = processTemplate
+	operation, err := client.QueueCreateProject(ctx, c.organization, teamProject)
 
-	project.Capabilities = capabilities
+	utils.PrettyPrint(teamProject) //Log Request
 
-	utils.PrettyPrint(project) //Log Request
-
-	id, err := client.CreateProject(project)
 	if err != nil {
-		return fmt.Errorf("Error creating project  %q: %+v", project.Name, err)
+		return fmt.Errorf("Error creating project  %q: %+v", *teamProject.Name, err)
 	}
 
 loop:
 	for t := range time.NewTicker(10 * time.Second).C {
 		utils.PeriodicFunc(t)
-		status, err := client.GetOperation(id)
+		op, err := clientoperation.GetOperation(ctx, *operation.ID, c.organization, nil)
 		if err != nil {
-			return fmt.Errorf("Error getting project creating operation  %q: %+v", id, err)
+			return fmt.Errorf("Error getting project creating operation  %q: %+v", op.ID, err)
 		}
-		if status == "succeeded" {
+		if op.Status == "succeeded" {
 			break loop
 		}
 	}
 
-	projectCreated, err := client.GetProject(project.Name)
+	projectCreated, err := client.GetProject(ctx, c.organization, *teamProject.Name, nil, nil)
 	if err != nil {
-		return fmt.Errorf("Error getting project %v: ", project.Name)
+		return fmt.Errorf("Error getting project %v: ", teamProject.Name)
 	}
-	var idproject = projectCreated.Id
+	var idproject = projectCreated.ID
 
-	d.SetId(idproject)
+	d.SetId(idproject.String())
 
 	if err != nil {
 		return err
@@ -141,45 +138,100 @@ loop:
 	return nil
 }
 
+func getProcessByName(meta interface{}, processname string) (process core.Process, err error) {
+	c := meta.(*AzureDevOpsClient)
+	client := c.coreClient
+	ctx := c.StopContext
+	var processToApply = core.Process{}
+
+	if processname != "" {
+		var ProcessName = processname
+		process, err := client.GetProcessIdbyName(ctx, c.organization, ProcessName)
+		if err != nil {
+			return processToApply, fmt.Errorf("error get process template %q: %+v", ProcessName, err)
+		}
+
+		utils.PrettyPrint(process) //Log Request
+		log.Printf(*process.Name)
+		processToApply = *process
+		return processToApply, nil
+	} else {
+		process, err := client.GetDefaultProcess(ctx, c.organization)
+		if err != nil {
+			return *process, fmt.Errorf("error get default process template %+v", err)
+		}
+		return *process, nil
+	}
+
+}
+
+func resourceProjectRead(d *schema.ResourceData, meta interface{}) error {
+
+	c := meta.(*AzureDevOpsClient)
+	client := meta.(*AzureDevOpsClient).coreClient
+	ctx := meta.(*AzureDevOpsClient).StopContext
+
+	var projectname = d.Get("name").(string)
+	var includecapa = true
+	var includehisto = false
+	project, err := client.GetProject(ctx, c.organization, projectname, &includecapa, &includehisto)
+	if err != nil {
+		d.SetId("")
+		return fmt.Errorf("Error getting project  %q: %+v", projectname, err)
+	}
+
+	d.Set("name", project.Name)
+	d.Set("description", project.Description)
+	d.Set("visibility", project.Visibility)
+	d.Set("source_control_type", project.Capabilities["versioncontrol"]["sourceControlType"])
+
+	return nil
+}
+
 func resourceProjectUpdate(d *schema.ResourceData, meta interface{}) error {
-	client := meta.(*azuredevopssdk.Client)
+
+	c := meta.(*AzureDevOpsClient)
+	client := meta.(*AzureDevOpsClient).coreClient
+	clientoperation := meta.(*AzureDevOpsClient).operationClient
+	ctx := meta.(*AzureDevOpsClient).StopContext
 
 	d.Partial(true)
 
 	if d.HasChange("source_control_type") {
-		return fmt.Errorf("The source controle type can't be changed")
+		return fmt.Errorf("The source controle type %q can't be changed", d.Get("source_control_type").(string))
 	}
 
 	if d.HasChange("template_type_name") {
-		return fmt.Errorf("The template type Id can't be changed")
+		return fmt.Errorf("the template type Id can't be changed")
 	}
 
-	var project = azuredevopssdk.Project{}
+	var name = d.Get("name").(string)
+	var description = d.Get("description").(string)
+	teamProject := core.TeamProject{}
+
 	if d.HasChange("name") {
-		project.Name = d.Get("name").(string)
+		teamProject.Name = &name
 	}
 	if d.HasChange("description") {
-		project.Description = d.Get("description").(string)
+		teamProject.Description = &description
 	}
 
-	b, err := json.Marshal(project)
-	log.Printf("[INFO] project of update. %s", string(b))
-
 	var projectid = d.Id()
+	idUUID, err := uuid.FromString(projectid)
+	op, err := client.UpdateProject(ctx, c.organization, teamProject, idUUID)
 
-	id, err := client.UpdateProject(projectid, project)
 	if err != nil {
-		return fmt.Errorf("Error updating project  %q: %+v", project.Name, err)
+		return fmt.Errorf("Error updating project  %q: %+v", name, err)
 	}
 
 loop:
 	for t := range time.NewTicker(10 * time.Second).C {
 		utils.PeriodicFunc(t)
-		status, err := client.GetOperation(id)
+		op, err := clientoperation.GetOperation(ctx, *op.ID, c.organization, nil)
 		if err != nil {
-			return fmt.Errorf("Error getting project updating operation  %q: %+v", id, err)
+			return fmt.Errorf("Error getting project creating operation  %q: %+v", op.ID, err)
 		}
-		if status == "succeeded" {
+		if op.Status == "succeeded" {
 			break loop
 		}
 	}
@@ -191,32 +243,19 @@ loop:
 	}
 	d.Partial(false)
 	return nil
-
-}
-
-func resourceProjectRead(d *schema.ResourceData, meta interface{}) error {
-
-	client := meta.(*azuredevopssdk.Client)
-	var projectname = d.Get("name").(string)
-	project, err := client.GetProject(projectname)
-	if err != nil {
-		d.SetId("")
-		return fmt.Errorf("Error getting project  %q: %+v", projectname, err)
-	}
-
-	d.Set("name", project.Name)
-	d.Set("description", project.Description)
-	d.Set("visibility", project.Visibility)
-	d.Set("source_control_type", project.Capabilities.Versioncontrol.SourceControlType)
-
-	return nil
 }
 
 func resourceProjectDelete(d *schema.ResourceData, meta interface{}) error {
-	client := meta.(*azuredevopssdk.Client)
-	var projectid = d.Id()
 
-	id, err := client.DeleteProject(projectid)
+	c := meta.(*AzureDevOpsClient)
+	client := meta.(*AzureDevOpsClient).coreClient
+	clientoperation := meta.(*AzureDevOpsClient).operationClient
+	ctx := meta.(*AzureDevOpsClient).StopContext
+
+	var projectid = d.Id()
+	idUUID, err := uuid.FromString(projectid)
+
+	op, err := client.QueueDeleteProject(ctx, c.organization, idUUID)
 	if err != nil {
 		return fmt.Errorf("Error deleting project  %q: %+v", projectid, err)
 	}
@@ -224,13 +263,14 @@ func resourceProjectDelete(d *schema.ResourceData, meta interface{}) error {
 loop:
 	for t := range time.NewTicker(10 * time.Second).C {
 		utils.PeriodicFunc(t)
-		status, err := client.GetOperation(id)
+		op, err := clientoperation.GetOperation(ctx, *op.ID, c.organization, nil)
 		if err != nil {
-			return fmt.Errorf("Error getting project deleting operation  %q: %+v", id, err)
+			return fmt.Errorf("Error getting project creating operation  %q: %+v", op.ID, err)
 		}
-		if status == "succeeded" {
+		if op.Status == "succeeded" {
 			break loop
 		}
 	}
+
 	return nil
 }
