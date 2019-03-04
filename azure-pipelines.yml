@@ -24,7 +24,14 @@ steps:
   displayName: 'Set up the Go workspace'
 - script: |
     go get github.com/jstemmer/go-junit-report
-    go test -v ./azuredevops 2>&1 | go-junit-report > report.xml
+    go get github.com/axw/gocov/gocov
+    go get github.com/AlekSi/gocov-xml
+    go get -u gopkg.in/matm/v1/gocov-html
+    go test -v -coverprofile=coverage.txt -covermode count ./azuredevops 2>&1 | go-junit-report > report.xml
+    gocov convert coverage.txt > coverage.json
+    gocov-xml < coverage.json > coverage.xml
+    mkdir coverage
+    gocov-html < coverage.json > coverage/index.html
   workingDirectory: '$(modulePath)'
   displayName: 'Run unit test'
   env:
