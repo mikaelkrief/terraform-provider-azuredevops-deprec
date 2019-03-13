@@ -37,7 +37,7 @@ func testProjectCheckBasicMinimal() string {
 		`resource "azuredevops_project" "test1" {
 			name  = "project-%v"
   }
-`, utils.String(5))
+`, utils.StringRandom(5))
 }
 
 func testProjectCheckBasicWithTemplate() string {
@@ -47,7 +47,7 @@ func testProjectCheckBasicWithTemplate() string {
 			description = "description test for project"
 			template_type_name="scrum"
 		  }
-`, utils.String(5))
+`, utils.StringRandom(5))
 }
 
 func testProjectDestroy(s *terraform.State) error {

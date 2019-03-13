@@ -666,7 +666,9 @@ type Definition struct {
 	JobTimeoutInMinutes *int32    `json:"jobTimeoutInMinutes,omitempty"`
 	Options             *[]Option `json:"options,omitempty"`
 	// Process - The build process.
-	Process *Process `json:"process,omitempty"`
+	DesignerProcess *DesignerProcess `json:"process,omitempty"`
+	DockerProcess *DockerProcess `json:"process,omitempty"`
+	YamlProcess *YamlProcess `json:"process,omitempty"`
 	// ProcessParameters - The process parameters for this definition.
 	ProcessParameters *ProcessParameters    `json:"processParameters,omitempty"`
 	Properties        *PropertiesCollection `json:"properties,omitempty"`
@@ -746,9 +748,20 @@ func (d Definition) MarshalJSON() ([]byte, error) {
 	if d.Options != nil {
 		objectMap["options"] = d.Options
 	}
-	if d.Process != nil {
-		objectMap["process"] = d.Process
+	if d.DesignerProcess != nil {
+		objectMap["process"] = d.DesignerProcess
 	}
+
+
+	if d.DockerProcess != nil {
+		objectMap["process"] = d.DockerProcess
+	}
+
+
+	if d.YamlProcess != nil {
+		objectMap["process"] = d.YamlProcess
+	}
+
 	if d.ProcessParameters != nil {
 		objectMap["processParameters"] = d.ProcessParameters
 	}

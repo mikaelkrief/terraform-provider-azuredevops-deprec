@@ -23,7 +23,7 @@ func Provider() terraform.ResourceProvider {
 			},
 		},
 		ResourcesMap: map[string]*schema.Resource{
-			"azuredevops_project": resourceProjectObject(),
+			"azuredevops_project":          resourceProjectObject(),
 			"azuredevops_build_definition": resourceBuildDefinitionObject(),
 		},
 	}

@@ -2,11 +2,11 @@ package azuredevops
 
 import (
 	"fmt"
-	"testing"
-	"terraform-provider-azuredevops/azuredevops/utils"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
 	"strconv"
+	"terraform-provider-azuredevops/azuredevops/utils"
+	"testing"
 )
 
 func Test_buildDefinitionCheck(t *testing.T) {
@@ -28,11 +28,23 @@ func Test_buildDefinitionCheck(t *testing.T) {
 
 func testBuildDefCheckBasicMinimal() string {
 	return fmt.Sprintf(
-		`resource "azuredevops_build_definition" "test1" {
-			name  = "build-def-%v"
-			project_id ="test"
+		`
+
+  resource "azuredevops_project" "test1" {
+			name  = "project-%v"
   }
-`, utils.String(5))
+   resource "azuredevops_build_definition" "test1" {
+			name  = "build-def-%v"
+			project_id ="${azuredevops_project.test1.name}"
+			repository {
+				name = "${azuredevops_project.test1.name}"
+				type = "TfsGit"
+			}
+			phase {
+				name = "phase1"
+			}
+  }
+`, utils.StringRandom(5), utils.StringRandom(3))
 }
 
 func testBuildDefinitionDestroy(s *terraform.State) error {
@@ -47,7 +59,7 @@ func testBuildDefinitionDestroy(s *terraform.State) error {
 
 		defid, err := strconv.ParseInt(rs.Primary.ID, 10, 32)
 		projectid := rs.Primary.Attributes["project_id"]
-		build, err := client.GetDefinition(ctx, conn.organization,projectid, int32(defid), nil,nil,"",nil)
+		build, err := client.GetDefinition(ctx, conn.organization, projectid, int32(defid), nil, nil, "", nil)
 
 		if &build != nil {
 			return fmt.Errorf("Bad: Build Definition %q still exists", rs.Primary.ID)
@@ -71,15 +83,13 @@ func testBuildDefExist(name string) resource.TestCheckFunc {
 			return fmt.Errorf("Not found: %s", name)
 		}
 
-
 		c := testAccProvider.Meta().(*AzureDevOpsClient)
 		client := testAccProvider.Meta().(*AzureDevOpsClient).buildClient
 		ctx := testAccProvider.Meta().(*AzureDevOpsClient).StopContext
 
 		projectid := rs.Primary.Attributes["project_id"]
 		defid, err := strconv.ParseInt(rs.Primary.ID, 10, 32)
-		build, err := client.GetDefinition(ctx, c.organization,projectid, int32(defid), nil,nil,"",nil)
-
+		build, err := client.GetDefinition(ctx, c.organization, projectid, int32(defid), nil, nil, "", nil)
 
 		if err != nil {
 			return err
