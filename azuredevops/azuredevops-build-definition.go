@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/mikaelkrief/go-azuredevops-sdk/build/5.1-preview"
+	"log"
 	"strconv"
 	"terraform-provider-azuredevops/azuredevops/utils"
+	"time"
 )
 
 func resourceBuildDefinitionObject() *schema.Resource {
@@ -41,10 +43,16 @@ func resourceBuildDefinitionObject() *schema.Resource {
 							Required: true,
 							ForceNew: false,
 						},
+						"branch": {
+							Type:     schema.TypeString,
+							Required: true,
+							ForceNew: false,
+						},
+
 					},
 				},
 			},
-			"phase": {
+			"designer_phase": {
 				Type:     schema.TypeList,
 				Required: true,
 				Elem: &schema.Resource{
@@ -78,6 +86,10 @@ func ExpandRepository(input interface{}) *build.Repository {
 		defRepo.Type = utils.String(v.(string))
 	}
 
+	if v, ok := repo["branch"]; ok {
+		defRepo.DefaultBranch = utils.String(v.(string))
+	}
+
 	return &defRepo
 }
 
@@ -108,13 +120,21 @@ func resourceBuildDefinitionCreate(d *schema.ResourceData, meta interface{}) err
 	var project = d.Get("project_id").(string)
 	var name = d.Get("name").(string)
 	var typeprocess = int32(1)
+	var poolAgent = "Hosted VS2017"
 
 	definition := build.Definition{
 		Name:       &name,
 		Repository: ExpandRepository(d.Get("repository")),
 		DesignerProcess: &build.DesignerProcess{
 			Type:   &typeprocess,
-			Phases: ExpandPhases(d.Get("phase")),
+			Phases: ExpandPhases(d.Get("designer_phase")),
+		},
+		Queue: &build.AgentPoolQueue{
+			Name: &poolAgent,
+			Pool: &build.TaskAgentPoolReference{
+				Name: &poolAgent,
+			},
+
 		},
 	}
 
@@ -128,18 +148,21 @@ func resourceBuildDefinitionCreate(d *schema.ResourceData, meta interface{}) err
 		return fmt.Errorf("Error creating build definition  %q: %+v", "", err)
 	}
 
-	//var buildid = builddef.ID
-	//buildCreated, err2 := client.GetDefinition(ctx, c.organization, project, buildid, nil, nil, "", nil)
+	time.Sleep(100 * time.Millisecond)
 
-	//if err2 != nil {
-	//	return fmt.Errorf("Error getting build definition %v: ", builddef.Name)
-	//}
-	var iddefinition = builddef.ID
+	var buildid = builddef.ID
+	buildCreated, err2 := client.GetDefinition(ctx, c.organization, project, *buildid, nil, nil, "", nil)
 
-	d.SetId(string(*iddefinition))
+	if err2 != nil {
+		return fmt.Errorf("Error getting build definition %v: ", builddef.Name)
+	}
 
+	var id = strconv.Itoa(int(int32(*buildCreated.ID)))
+	d.SetId(id)
 
-	return nil
+	log.Print(d.Id())
+
+	return resourceBuildDefinitionRead(d, meta)
 }
 
 func resourceBuildDefinitionRead(d *schema.ResourceData, meta interface{}) error {
@@ -149,9 +172,9 @@ func resourceBuildDefinitionRead(d *schema.ResourceData, meta interface{}) error
 	ctx := meta.(*AzureDevOpsClient).StopContext
 
 	var defname = d.Get("name").(string)
-
+	var id = d.Id()
 	projectid := d.Get("project_id").(string)
-	defid, err := strconv.ParseInt(d.Id(), 10, 32)
+	defid, err := strconv.ParseInt(id, 10, 32)
 	build, err := client.GetDefinition(ctx, c.organization, projectid, int32(defid), nil, nil, "", nil)
 
 	if err != nil {
@@ -206,16 +229,15 @@ func resourceBuildDefinitionDelete(d *schema.ResourceData, meta interface{}) err
 	ctx := meta.(*AzureDevOpsClient).StopContext
 
 	var project = d.Get("project_id").(string)
-
-	definitionId, err := strconv.ParseInt(d.Id(), 10, 32)
+	definitionId, err := strconv.Atoi(d.Id())
 	if err != nil {
 		return err
 	}
 
-	builddef, err := client.DeleteDefinition(ctx, c.organization, project, int32(definitionId))
+	builddef, err2 := client.DeleteDefinition(ctx, c.organization, project, int32(definitionId))
 
-	if err != nil {
-		return fmt.Errorf("Error deleting build definition  %q: %+v", definitionId, err)
+	if err2 != nil {
+		return fmt.Errorf("Error deleting build definition  %q: %+v", definitionId, err2)
 	}
 	utils.PrettyPrint(builddef)
 

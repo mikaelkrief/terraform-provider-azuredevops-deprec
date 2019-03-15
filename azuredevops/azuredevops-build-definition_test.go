@@ -39,8 +39,9 @@ func testBuildDefCheckBasicMinimal() string {
 			repository {
 				name = "${azuredevops_project.test1.name}"
 				type = "TfsGit"
+                branch = "master"
 			}
-			phase {
+			designer_phase {
 				name = "phase1"
 			}
   }

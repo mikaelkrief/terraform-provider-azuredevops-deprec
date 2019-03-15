@@ -30,10 +30,7 @@ func TestProvider_impl(t *testing.T) {
 
 func testAccPreCheck(t *testing.T) {
 
-	//for test
-	os.Setenv("AZURE_DEVOPS_ORGANIZATION", "kriefmikael")
-	os.Setenv("AZURE_DEVOPS_TOKEN", "n52lndfsxv55ai4njcpletcuoz77omuwajflpvyhc6u5zdrb3ioq")
-
+	
 	if v := os.Getenv("AZURE_DEVOPS_ORGANIZATION"); v == "" {
 		t.Fatal("AZURE_DEVOPS_ORGANIZATION must be set for acceptance tests")
 	}
