@@ -5,9 +5,10 @@ package build
 
 import (
 	"encoding/json"
+
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/date"
-	"github.com/satori/go.uuid"
+	uuid "github.com/satori/go.uuid"
 )
 
 // The package's fully qualified name.
@@ -667,8 +668,8 @@ type Definition struct {
 	Options             *[]Option `json:"options,omitempty"`
 	// Process - The build process.
 	DesignerProcess *DesignerProcess `json:"process,omitempty"`
-	DockerProcess *DockerProcess `json:"process,omitempty"`
-	YamlProcess *YamlProcess `json:"process,omitempty"`
+	//DockerProcess *DockerProcess `json:"process,omitempty"`
+	//YamlProcess *YamlProcess `json:"process,omitempty"`
 	// ProcessParameters - The process parameters for this definition.
 	ProcessParameters *ProcessParameters    `json:"processParameters,omitempty"`
 	Properties        *PropertiesCollection `json:"properties,omitempty"`
@@ -752,15 +753,13 @@ func (d Definition) MarshalJSON() ([]byte, error) {
 		objectMap["process"] = d.DesignerProcess
 	}
 
-
-	if d.DockerProcess != nil {
+	/*if d.DockerProcess != nil {
 		objectMap["process"] = d.DockerProcess
 	}
 
-
 	if d.YamlProcess != nil {
 		objectMap["process"] = d.YamlProcess
-	}
+	}*/
 
 	if d.ProcessParameters != nil {
 		objectMap["processParameters"] = d.ProcessParameters

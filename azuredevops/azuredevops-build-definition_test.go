@@ -43,6 +43,46 @@ func testBuildDefCheckBasicMinimal() string {
 			}
 			designer_phase {
 				name = "phase1"
+				steps {
+					display_name="teststep"
+					task_id = "d9bafed4-0b18-4f58-968d-86655b4d2ce9"
+					inputs = {
+							failOnStderr= "false"
+							script= "echo Write your commands here↵↵echo Use the environment variables input below to pass secret variables to this script"
+							workingDirectory= ""
+					}
+				}
+
+				steps {
+					display_name="teststep2"
+					task_id = "d9bafed4-0b18-4f58-968d-86655b4d2ce9"
+					inputs = {
+							failOnStderr= "false"
+							script= "echo Write your commands here↵↵echo Use the environment variables input below to pass secret variables to this script"
+							workingDirectory= ""
+					}
+				}
+				
+			}
+
+			designer_phase {
+				name = "phase2"
+				steps {
+					display_name="teststep3"
+					task_id = "d9bafed4-0b18-4f58-968d-86655b4d2ce9"
+					inputs = {
+							failOnStderr= "false"
+							script= "echo Write your commands here↵↵echo Use the environment variables input below to pass secret variables to this script"
+							workingDirectory= ""
+					}
+				}
+
+				
+				
+			}
+
+			queue {
+            	pool_name ="Hosted VS2017"
 			}
   }
 `, utils.StringRandom(5), utils.StringRandom(3))
