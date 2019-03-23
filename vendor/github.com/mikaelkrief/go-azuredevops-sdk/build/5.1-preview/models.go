@@ -667,9 +667,7 @@ type Definition struct {
 	JobTimeoutInMinutes *int32    `json:"jobTimeoutInMinutes,omitempty"`
 	Options             *[]Option `json:"options,omitempty"`
 	// Process - The build process.
-	DesignerProcess *DesignerProcess `json:"process,omitempty"`
-	//DockerProcess *DockerProcess `json:"process,omitempty"`
-	//YamlProcess *YamlProcess `json:"process,omitempty"`
+	Process *Process `json:"process,omitempty"`
 	// ProcessParameters - The process parameters for this definition.
 	ProcessParameters *ProcessParameters    `json:"processParameters,omitempty"`
 	Properties        *PropertiesCollection `json:"properties,omitempty"`
@@ -749,8 +747,8 @@ func (d Definition) MarshalJSON() ([]byte, error) {
 	if d.Options != nil {
 		objectMap["options"] = d.Options
 	}
-	if d.DesignerProcess != nil {
-		objectMap["process"] = d.DesignerProcess
+	if d.Process != nil {
+		objectMap["process"] = d.Process
 	}
 
 	/*if d.DockerProcess != nil {
@@ -2166,10 +2164,10 @@ type PhaseTarget struct {
 }
 
 // Process represents a build process.
-type Process struct {
+//type Process struct {
 	// Type - The type of the process.
-	Type *int32 `json:"type,omitempty"`
-}
+//	Type *int32 `json:"type,omitempty"`
+//}
 
 // ProcessParameters ...
 type ProcessParameters struct {
@@ -3194,4 +3192,18 @@ type YamlProcess struct {
 	YamlFilename *string `json:"yamlFilename,omitempty"`
 	// Type - The type of the process.
 	Type *int32 `json:"type,omitempty"`
+}
+
+type Process struct {
+	Errors *[]string `json:"errors,omitempty"`
+	// Resources - The resources used by the build definition.
+	Resources *ProcessResources `json:"resources,omitempty"`
+	// YamlFilename - The YAML filename.
+	YamlFilename *string `json:"yamlFilename,omitempty"`
+	// Type - The type of the process.
+	Type *int32 `json:"type,omitempty"`
+
+	Phases *[]Phase `json:"phases,omitempty"`
+	// Target - The target for the build process.
+	Target *DesignerProcessTarget `json:"target,omitempty"`
 }

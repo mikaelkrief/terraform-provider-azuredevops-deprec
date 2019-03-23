@@ -15,18 +15,29 @@ resource "azuredevops_build_definition" "test1" {
   name       = "build-def-${random_id.project_name.hex}"
   project_id = "${azuredevops_project.project.name}"
 
+  buildnumber_format = "1.0$(rev:.r)" #Optionnal
+
   repository {
     name   = "${azuredevops_project.project.name}"
     type   = "TfsGit"
     branch = "master"
   }
 
+  			variables {
+  				variable {
+  					name ="test2"
+                  	value ="ok"
+  				}
+  			}
+
+
   designer_phase {
     name = "phase1"
 
-    steps {
-      display_name = "teststep"
-      task_id      = "d9bafed4-0b18-4f58-968d-86655b4d2ce9"
+    step {
+      display_name       = "teststep"
+      task_id            = "d9bafed4-0b18-4f58-968d-86655b4d2ce9"
+      task_version       = "2.*"      
 
       inputs = {
         failOnStderr     = "false"
@@ -35,14 +46,19 @@ resource "azuredevops_build_definition" "test1" {
       }
     }
 
-    steps {
-      display_name = "teststep2"
-      task_id      = "d9bafed4-0b18-4f58-968d-86655b4d2ce9"
+    step {
+      display_name      = "teststep2"
+      task_id           = "d9bafed4-0b18-4f58-968d-86655b4d2ce9"
+      task_version      = "2.*"
+      enabled           = false                                  #Optionnal
+      continue_on_error = false                                  #Optionnal
+      condition         = "always()"                             #Optionnal
+      timeout_in_minutes = 50                                     #Optionnal
 
       inputs = {
         failOnStderr     = "false"
-        script           = "echo Write your commands here\necho Use the environment variables input below to pass secret variables to this script"
-        workingDirectory = ""
+        script           = "echo Write your step 2"
+        workingDirectory = "$$(Buid.SourcesDirectory)"
       }
     }
   }
@@ -50,14 +66,24 @@ resource "azuredevops_build_definition" "test1" {
   designer_phase {
     name = "phase2"
 
-    steps {
-      display_name = "teststep3"
-      task_id      = "d9bafed4-0b18-4f58-968d-86655b4d2ce9"
+    step {
+      display_name   = "teststep3"
+      task_id        = "d9bafed4-0b18-4f58-968d-86655b4d2ce9"
+      task_version   = "2.*"
+      enabled        = true                                   #Optionnal
+      always_run     = false                                  #Optionnal
+      reference_name = "testouput"                            #Optionnal
 
       inputs = {
-        failOnStderr     = "false"
+        failOnStderr     = "true"
         script           = "echo Write your commands here\necho Use the environment variables input below to pass secret variables to this script"
         workingDirectory = ""
+      }
+
+      #Optionnal
+      environment_variables = {
+        var1 = "key1"
+        var2 = "key2"
       }
     }
   }

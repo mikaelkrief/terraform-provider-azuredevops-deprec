@@ -11,6 +11,7 @@ import (
 	"time"
 )
 
+//noinspection GoInvalidCompositeLiteral
 func resourceBuildDefinitionObject() *schema.Resource {
 	return &schema.Resource{
 		Create: resourceBuildDefinitionCreate,
@@ -27,6 +28,11 @@ func resourceBuildDefinitionObject() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
+			},
+			"buildnumber_format": {
+				Type:     schema.TypeString,
+				Optional: true,
+				Default:  "$(date:yyyyMMdd)$(rev:.r)",
 			},
 			"repository": {
 				Type:     schema.TypeList,
@@ -49,7 +55,41 @@ func resourceBuildDefinitionObject() *schema.Resource {
 							Required: true,
 							ForceNew: false,
 						},
-
+					},
+				},
+			},
+			"variables": {
+				Type:     schema.TypeList,
+				Optional: true,
+				MaxItems: 1,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"variable": {
+							Type:     schema.TypeList,
+							Required: true,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									"name": {
+										Type:     schema.TypeString,
+										Required: true,
+									},
+									"value": {
+										Type:     schema.TypeString,
+										Required: true,
+									},
+									"allow_override": {
+										Type:     schema.TypeBool,
+										Optional: true,
+										Default:  true,
+									},
+									"is_secret": {
+										Type:     schema.TypeBool,
+										Optional: true,
+										Default:  false,
+									},
+								},
+							},
+						},
 					},
 				},
 			},
@@ -63,8 +103,8 @@ func resourceBuildDefinitionObject() *schema.Resource {
 							Required: true,
 							ForceNew: false,
 						},
-						"steps": {
-							Type:        schema.TypeList,
+						"step": {
+							Type:     schema.TypeList,
 							Required: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
@@ -72,26 +112,67 @@ func resourceBuildDefinitionObject() *schema.Resource {
 										Type:     schema.TypeString,
 										Required: true,
 									},
-									"enabled":{
-										Type:     schema.TypeBool,
-										Optional:true,
-										Default: true,
-									},
 									"task_id": {
 										Type:     schema.TypeString,
 										Required: true,
 									},
-									"inputs" : {
+									"task_version": {
+										Type:     schema.TypeString,
+										Required: true,
+									},
+									"task_type": {
+										Type:     schema.TypeString,
+										Optional: true,
+										Default:  "task",
+									},
+									"inputs": {
 										Type:     schema.TypeMap,
 										Required: true,
 									},
-
+									"enabled": {
+										Type:     schema.TypeBool,
+										Optional: true,
+										Default:  true,
+									},
+									"always_run": {
+										Type:     schema.TypeBool,
+										Optional: true,
+										Default:  true,
+									},
+									"continue_on_error": {
+										Type:     schema.TypeBool,
+										Optional: true,
+										Default:  false,
+									},
+									"condition": {
+										Type:     schema.TypeString,
+										Optional: true,
+										Default:  "succeeded()",
+										/*ValidateFunc: validation.StringInSlice([]string{
+											"succeededOrFailed()",
+											"succeeded()",
+											"always()",
+											"failed()",
+											OR ANY string for custom
+										}, true),*/
+									},
+									"timeout_in_minutes": {
+										Type:     schema.TypeInt,
+										Optional: true,
+										Default:  0,
+									},
+									"reference_name": {
+										Type:     schema.TypeString,
+										Optional: true,
+									},
+									"environment_variables": {
+										Type:     schema.TypeMap,
+										Optional: true,
+									},
 								},
 							},
 						},
-
 					},
-
 				},
 			},
 			"queue": {
@@ -206,7 +287,7 @@ func ExpandPhases(input interface{}) *[]build.Phase {
 			phase.Name = utils.String(v.(string))
 
 		}
-		if v, ok := conf["steps"]; ok {
+		if v, ok := conf["step"]; ok {
 			phase.Steps = ExpandStepsPhase(v.([]interface{}))
 
 		}
@@ -216,7 +297,7 @@ func ExpandPhases(input interface{}) *[]build.Phase {
 	return &phases
 }
 
-func FlattenPhases(d *schema.ResourceData,input *build.DesignerProcess) []map[string]interface{} {
+func FlattenPhases(d *schema.ResourceData, input *build.Process) []map[string]interface{} {
 
 	results := make([]map[string]interface{}, 0)
 	result := make(map[string]interface{})
@@ -228,7 +309,7 @@ func FlattenPhases(d *schema.ResourceData,input *build.DesignerProcess) []map[st
 		}
 
 		if v.Steps != nil {
-			result["steps"] = FlattenStepsPhase(d, *v.Steps)
+			result["step"] = FlattenStepsPhase(d, *v.Steps)
 		}
 		results = append(results, result)
 		fmt.Printf("i %d", i)
@@ -253,6 +334,33 @@ func ExpandStepsPhase(input interface{}) *[]build.DefinitionStep {
 		if v, ok := conf["inputs"]; ok {
 			step.Inputs = expandMaps(v.(map[string]interface{}))
 		}
+		if v, ok := conf["enabled"]; ok {
+			step.Enabled = utils.Bool(v.(bool))
+		}
+
+		if v, ok := conf["always_run"]; ok {
+			step.AlwaysRun = utils.Bool(v.(bool))
+		}
+
+		if v, ok := conf["continue_on_error"]; ok {
+			step.ContinueOnError = utils.Bool(v.(bool))
+		}
+
+		if v, ok := conf["condition"]; ok {
+			step.Condition = utils.String(v.(string))
+		}
+
+		if v, ok := conf["timeout_in_minutes"].(int); ok {
+			step.TimeoutInMinutes = utils.Int32(int32(v))
+		}
+
+		if v, ok := conf["reference_name"]; ok {
+			step.RefName = utils.String(v.(string))
+		}
+
+		if v, ok := conf["environment_variables"]; ok {
+			step.Environment = expandMaps(v.(map[string]interface{}))
+		}
 
 		if v, ok := conf["task_id"]; ok {
 			task := build.TaskDefinitionReference{}
@@ -261,6 +369,13 @@ func ExpandStepsPhase(input interface{}) *[]build.DefinitionStep {
 				fmt.Errorf("Error convert uuid  %q: %+v", v.(string), err)
 			}
 			task.ID = &idUUID
+			if v, ok := conf["task_version"]; ok {
+				task.VersionSpec = utils.String(v.(string))
+			}
+			if v, ok := conf["task_type"]; ok {
+				task.DefinitionType = utils.String(v.(string))
+			}
+
 			step.Task = &task
 		}
 
@@ -276,17 +391,50 @@ func FlattenStepsPhase(d *schema.ResourceData, input []build.DefinitionStep) []m
 	for i, v := range input {
 		result := make(map[string]interface{})
 
-
 		if v.Inputs != nil {
-			flattenInputs(d, v.Inputs)
+			flattenMaps(d, v.Inputs, "inputs")
 		}
 
 		if v.DisplayName != nil {
 			result["display_name"] = *v.DisplayName
 		}
 
+		if v.Enabled != nil {
+			result["enabled"] = *v.Enabled
+		}
+
+		if v.AlwaysRun != nil {
+			result["always_run"] = *v.AlwaysRun
+		}
+
+		if v.ContinueOnError != nil {
+			result["continue_on_error"] = *v.ContinueOnError
+		}
+
+		if v.Condition != nil {
+			result["condition"] = *v.Condition
+		}
+
+		if v.TimeoutInMinutes != nil {
+			result["timeout_in_minutes"] = int(*v.TimeoutInMinutes)
+		}
+
+		if v.RefName != nil {
+			result["reference_name"] = *v.RefName
+		}
+
+		if v.Environment != nil {
+			flattenMaps(d, v.Inputs, "environment_variables")
+		}
+
 		if v.Task.ID != nil {
 			result["task_id"] = *v.Task.ID
+		}
+		if v.Task.VersionSpec != nil {
+			result["task_version"] = *v.Task.VersionSpec
+		}
+		if v.Task.DefinitionType != nil {
+			result["task_type"] = *v.Task.DefinitionType
 		}
 		fmt.Printf("i %d", i)
 		results = append(results, result)
@@ -317,7 +465,7 @@ func expandMaps(maps map[string]interface{}) map[string]*string {
 	return output
 }
 
-func flattenInputs(d *schema.ResourceData, mapMap map[string]*string) {
+func flattenMaps(d *schema.ResourceData, mapMap map[string]*string, schemaKey string) {
 
 	// If tagsMap is nil, len(tagsMap) will be 0.
 	output := make(map[string]interface{}, len(mapMap))
@@ -326,8 +474,100 @@ func flattenInputs(d *schema.ResourceData, mapMap map[string]*string) {
 		output[i] = *v
 	}
 
-	d.Set("inputs", output)
+	d.Set(schemaKey, output)
 }
+
+/*func expandVariables(d *schema.ResourceData) (map[string]*build.DefinitionVariable, error) {
+	vars := d.Get("variable").(*schema.Set).List()
+	//varstab := vars.(map[string]interface{})
+	variables := make(map[string]*build.DefinitionVariable, len(vars))
+
+	for _, sgVar := range vars {
+
+		sgVar := sgVar.(map[string]interface{})
+		name := sgVar["name"].(string)
+		value := sgVar["value"].(string)
+		allowOverride := sgVar["allow_override"].(bool)
+		isSecret := sgVar["is_secret"].(bool)
+		variable := build.DefinitionVariable{
+			Value:         &value,
+			AllowOverride: &allowOverride,
+			IsSecret:      &isSecret,
+		}
+		valuemap := variable
+
+		variables[name] = &valuemap
+	}
+
+	return variables, nil
+}*/
+
+func expandVariables(input interface{}) map[string]*build.DefinitionVariable {
+	configs := input.([]interface{})
+
+	variables := configs[0].(map[string]interface{})
+
+
+	if v, ok := variables["variable"]; ok {
+		vars := v.([]interface{})
+		_variables := make(map[string]*build.DefinitionVariable, len(vars))
+
+		for _, sgVar := range vars {
+
+			sgVar := sgVar.(map[string]interface{})
+			name := sgVar["name"].(string)
+			value := sgVar["value"].(string)
+			allowOverride := sgVar["allow_override"].(bool)
+			isSecret := sgVar["is_secret"].(bool)
+			variable := build.DefinitionVariable{
+				Value:         &value,
+				AllowOverride: &allowOverride,
+				IsSecret:      &isSecret,
+			}
+			valuemap := variable
+
+			_variables[name] = &valuemap
+		}
+
+		return  _variables
+
+	}
+	return nil
+}
+
+func FlattenVariables(d *schema.ResourceData, input map[string]*build.DefinitionVariable) map[string]interface{} {
+	resultvar := make(map[string]interface{})
+	results := make([]map[string]interface{}, 0)
+
+	for key, v := range input {
+		result := make(map[string]interface{})
+
+		if v.IsSecret != nil {
+			result["is_secret"] = *v.IsSecret
+		}
+
+		if v.AllowOverride != nil {
+			result["allow_override"] = *v.AllowOverride
+		}
+
+		if v.Value != nil {
+			result["value"] = *v.Value
+		}
+
+		result["name"] = key
+
+		results = append(results, result)
+
+	}
+	resultvar["variables"] = results
+
+
+
+	return  resultvar
+
+}
+
+
 
 func resourceBuildDefinitionCreate(d *schema.ResourceData, meta interface{}) error {
 
@@ -337,17 +577,23 @@ func resourceBuildDefinitionCreate(d *schema.ResourceData, meta interface{}) err
 
 	var project = d.Get("project_id").(string)
 	var name = d.Get("name").(string)
+	var buildnumberformat = d.Get("buildnumber_format").(string)
 	var typeprocess = int32(1)
-
+	buildVars := expandVariables(d.Get("variables"))
+	/*if varsErr != nil {
+		return fmt.Errorf("Error Building list of Variables: %+v", varsErr)
+	}*/
 
 	definition := build.Definition{
-		Name:       &name,
-		Repository: ExpandRepository(d.Get("repository")),
-		DesignerProcess: &build.DesignerProcess{
+		Name:              &name,
+		BuildNumberFormat: &buildnumberformat,
+		Repository:        ExpandRepository(d.Get("repository")),
+		Process: &build.Process{
 			Type:   &typeprocess,
 			Phases: ExpandPhases(d.Get("designer_phase")),
 		},
-		Queue: ExpandPoolQueue (d.Get("queue")),
+		Queue:     ExpandPoolQueue(d.Get("queue")),
+		Variables: buildVars,
 	}
 
 	utils.PrettyPrint(definition)
@@ -395,9 +641,11 @@ func resourceBuildDefinitionRead(d *schema.ResourceData, meta interface{}) error
 	}
 
 	d.Set("name", build.Name)
-	d.Set("repository", FlattenRepository (build.Repository))
-	d.Set("queue", FlattenPoolQueue (build.Queue))
-	d.Set("designer_phase", FlattenPhases(d, build.DesignerProcess))
+	d.Set("repository", FlattenRepository(build.Repository))
+	d.Set("queue", FlattenPoolQueue(build.Queue))
+	d.Set("designer_phase", FlattenPhases(d, build.Process))
+	d.Set("buildnumber_format", build.BuildNumberFormat)
+	d.Set("variables", FlattenVariables(d, build.Variables))
 
 	return nil
 }
@@ -413,18 +661,27 @@ func resourceBuildDefinitionUpdate(d *schema.ResourceData, meta interface{}) err
 	var project = d.Get("project_id").(string)
 	var name = d.Get("name").(string)
 	var typeprocess = int32(1)
+	var buildnumberformat = d.Get("buildnumber_format").(string)
+	definitionId, err := strconv.ParseInt(d.Id(), 10, 32)
+	var defid = int32(definitionId)
+
+	listRev, err := client.GetDefinitionRevisions(ctx, c.organization, project, int32(definitionId))
+	var countRev = len(*listRev.Value)
+	var newRevision = int32(countRev)
 
 	definition := build.Definition{
-		Name:       &name,
-		Repository: ExpandRepository(d.Get("repository")),
-		DesignerProcess: &build.DesignerProcess{
+		ID:                &defid,
+		Name:              &name,
+		BuildNumberFormat: &buildnumberformat,
+		Repository:        ExpandRepository(d.Get("repository")),
+		Process: &build.Process{
 			Type:   &typeprocess,
 			Phases: ExpandPhases(d.Get("designer_phase")),
 		},
-		Queue: ExpandPoolQueue (d.Get("queue")),
+		Queue:    ExpandPoolQueue(d.Get("queue")),
+		Revision: &newRevision,
 	}
 
-	definitionId, err := strconv.ParseInt(d.Id(), 10, 32)
 	if err != nil {
 		return err
 	}

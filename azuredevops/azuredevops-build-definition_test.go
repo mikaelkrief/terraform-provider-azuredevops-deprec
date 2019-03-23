@@ -36,45 +36,72 @@ func testBuildDefCheckBasicMinimal() string {
    resource "azuredevops_build_definition" "test1" {
 			name  = "build-def-%v"
 			project_id ="${azuredevops_project.test1.name}"
+			buildnumber_format = "1.0$(rev:.r)"
 			repository {
 				name = "${azuredevops_project.test1.name}"
 				type = "TfsGit"
                 branch = "master"
 			}
+			variables {
+				variable {
+					name ="test"
+                	value ="ok"
+				}
+			}
 			designer_phase {
 				name = "phase1"
-				steps {
+				step {
 					display_name="teststep"
 					task_id = "d9bafed4-0b18-4f58-968d-86655b4d2ce9"
+					task_version ="2.*"
+					enabled = true
+					always_run = true
+					condition = "always()"
 					inputs = {
 							failOnStderr= "false"
 							script= "echo Write your commands here↵↵echo Use the environment variables input below to pass secret variables to this script"
 							workingDirectory= ""
 					}
+					
 				}
 
-				steps {
+				step {
 					display_name="teststep2"
 					task_id = "d9bafed4-0b18-4f58-968d-86655b4d2ce9"
+					task_version ="2.*"
+					enabled = true
+					always_run = false
+					continue_on_error = true
+					timeout_in_minutes = 50
 					inputs = {
 							failOnStderr= "false"
 							script= "echo Write your commands here↵↵echo Use the environment variables input below to pass secret variables to this script"
 							workingDirectory= ""
 					}
+					environment_variables = {
+							var1 = "key1"
+							var2 = "key2"
+					}
+					
 				}
 				
 			}
 
 			designer_phase {
 				name = "phase2"
-				steps {
+				step {
 					display_name="teststep3"
 					task_id = "d9bafed4-0b18-4f58-968d-86655b4d2ce9"
+					task_version ="2.*"
+					enabled = false
+					continue_on_error = false
+					reference_name ="testrefname"
 					inputs = {
 							failOnStderr= "false"
 							script= "echo Write your commands here↵↵echo Use the environment variables input below to pass secret variables to this script"
 							workingDirectory= ""
 					}
+					
 				}
 
 				
