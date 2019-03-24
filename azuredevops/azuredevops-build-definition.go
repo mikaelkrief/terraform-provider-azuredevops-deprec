@@ -507,7 +507,6 @@ func expandVariables(input interface{}) map[string]*build.DefinitionVariable {
 
 	variables := configs[0].(map[string]interface{})
 
-
 	if v, ok := variables["variable"]; ok {
 		vars := v.([]interface{})
 		_variables := make(map[string]*build.DefinitionVariable, len(vars))
@@ -529,7 +528,7 @@ func expandVariables(input interface{}) map[string]*build.DefinitionVariable {
 			_variables[name] = &valuemap
 		}
 
-		return  _variables
+		return _variables
 
 	}
 	return nil
@@ -561,13 +560,9 @@ func FlattenVariables(d *schema.ResourceData, input map[string]*build.Definition
 	}
 	resultvar["variables"] = results
 
-
-
-	return  resultvar
+	return resultvar
 
 }
-
-
 
 func resourceBuildDefinitionCreate(d *schema.ResourceData, meta interface{}) error {
 
@@ -668,6 +663,7 @@ func resourceBuildDefinitionUpdate(d *schema.ResourceData, meta interface{}) err
 	listRev, err := client.GetDefinitionRevisions(ctx, c.organization, project, int32(definitionId))
 	var countRev = len(*listRev.Value)
 	var newRevision = int32(countRev)
+	buildVars := expandVariables(d.Get("variables"))
 
 	definition := build.Definition{
 		ID:                &defid,
@@ -678,8 +674,9 @@ func resourceBuildDefinitionUpdate(d *schema.ResourceData, meta interface{}) err
 			Type:   &typeprocess,
 			Phases: ExpandPhases(d.Get("designer_phase")),
 		},
-		Queue:    ExpandPoolQueue(d.Get("queue")),
-		Revision: &newRevision,
+		Queue:     ExpandPoolQueue(d.Get("queue")),
+		Variables: buildVars,
+		Revision:  &newRevision,
 	}
 
 	if err != nil {

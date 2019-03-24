@@ -23,21 +23,28 @@ resource "azuredevops_build_definition" "test1" {
     branch = "master"
   }
 
-  			variables {
-  				variable {
-  					name ="test2"
-                  	value ="ok"
-  				}
-  			}
+  variables {
+    variable {
+      name  = "test3"
+      value = "ok"
+    }
 
+    variable {
+      name      = "test4"
+      value     = "ok2"
+      is_secret = true
+    }
+
+
+  }
 
   designer_phase {
     name = "phase1"
 
     step {
-      display_name       = "teststep"
-      task_id            = "d9bafed4-0b18-4f58-968d-86655b4d2ce9"
-      task_version       = "2.*"      
+      display_name = "teststep"
+      task_id      = "d9bafed4-0b18-4f58-968d-86655b4d2ce9"
+      task_version = "2.*"
 
       inputs = {
         failOnStderr     = "false"
@@ -47,12 +54,12 @@ resource "azuredevops_build_definition" "test1" {
     }
 
     step {
-      display_name      = "teststep2"
-      task_id           = "d9bafed4-0b18-4f58-968d-86655b4d2ce9"
-      task_version      = "2.*"
-      enabled           = false                                  #Optionnal
-      continue_on_error = false                                  #Optionnal
-      condition         = "always()"                             #Optionnal
+      display_name       = "teststep2"
+      task_id            = "d9bafed4-0b18-4f58-968d-86655b4d2ce9"
+      task_version       = "2.*"
+      enabled            = false                                  #Optionnal
+      continue_on_error  = false                                  #Optionnal
+      condition          = "always()"                             #Optionnal
       timeout_in_minutes = 50                                     #Optionnal
 
       inputs = {
