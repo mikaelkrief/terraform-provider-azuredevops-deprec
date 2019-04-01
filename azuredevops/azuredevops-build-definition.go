@@ -24,6 +24,10 @@ func resourceBuildDefinitionObject() *schema.Resource {
 				Required: true,
 				ForceNew: false,
 			},
+			"description": {
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"project_id": {
 				Type:     schema.TypeString,
 				Required: true,
@@ -33,6 +37,11 @@ func resourceBuildDefinitionObject() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 				Default:  "$(date:yyyyMMdd)$(rev:.r)",
+			},
+			"badge_enabled": {
+				Type:     schema.TypeBool,
+				Optional: true,
+				Default:  true,
 			},
 			"repository": {
 				Type:     schema.TypeList,
@@ -477,31 +486,6 @@ func flattenMaps(d *schema.ResourceData, mapMap map[string]*string, schemaKey st
 	d.Set(schemaKey, output)
 }
 
-/*func expandVariables(d *schema.ResourceData) (map[string]*build.DefinitionVariable, error) {
-	vars := d.Get("variable").(*schema.Set).List()
-	//varstab := vars.(map[string]interface{})
-	variables := make(map[string]*build.DefinitionVariable, len(vars))
-
-	for _, sgVar := range vars {
-
-		sgVar := sgVar.(map[string]interface{})
-		name := sgVar["name"].(string)
-		value := sgVar["value"].(string)
-		allowOverride := sgVar["allow_override"].(bool)
-		isSecret := sgVar["is_secret"].(bool)
-		variable := build.DefinitionVariable{
-			Value:         &value,
-			AllowOverride: &allowOverride,
-			IsSecret:      &isSecret,
-		}
-		valuemap := variable
-
-		variables[name] = &valuemap
-	}
-
-	return variables, nil
-}*/
-
 func expandVariables(input interface{}) map[string]*build.DefinitionVariable {
 	configs := input.([]interface{})
 
@@ -571,17 +555,17 @@ func resourceBuildDefinitionCreate(d *schema.ResourceData, meta interface{}) err
 	ctx := meta.(*AzureDevOpsClient).StopContext
 
 	var project = d.Get("project_id").(string)
-	var name = d.Get("name").(string)
+	/*var name = d.Get("name").(string)
 	var buildnumberformat = d.Get("buildnumber_format").(string)
+	var badgeenabled = d.Get("badge_enabled").(bool)
 	var typeprocess = int32(1)
 	buildVars := expandVariables(d.Get("variables"))
-	/*if varsErr != nil {
-		return fmt.Errorf("Error Building list of Variables: %+v", varsErr)
-	}*/
+
 
 	definition := build.Definition{
 		Name:              &name,
 		BuildNumberFormat: &buildnumberformat,
+		BadgeEnabled:      &badgeenabled,
 		Repository:        ExpandRepository(d.Get("repository")),
 		Process: &build.Process{
 			Type:   &typeprocess,
@@ -589,7 +573,8 @@ func resourceBuildDefinitionCreate(d *schema.ResourceData, meta interface{}) err
 		},
 		Queue:     ExpandPoolQueue(d.Get("queue")),
 		Variables: buildVars,
-	}
+	}*/
+	var definition = SetBuildDefinition(d)
 
 	utils.PrettyPrint(definition)
 
@@ -618,6 +603,95 @@ func resourceBuildDefinitionCreate(d *schema.ResourceData, meta interface{}) err
 	return resourceBuildDefinitionRead(d, meta)
 }
 
+func resourceBuildDefinitionUpdate(d *schema.ResourceData, meta interface{}) error {
+
+	c := meta.(*AzureDevOpsClient)
+	client := meta.(*AzureDevOpsClient).buildClient
+	ctx := meta.(*AzureDevOpsClient).StopContext
+
+	d.Partial(true)
+
+	/*var name = d.Get("name").(string)
+	var typeprocess = int32(1)
+	var buildnumberformat = d.Get("buildnumber_format").(string)
+	var badgeenabled = d.Get("badge_enabled").(bool)
+	buildVars := expandVariables(d.Get("variables"))*/
+	definitionId, err := strconv.ParseInt(d.Id(), 10, 32)
+	var defid = int32(definitionId)
+
+	var project = d.Get("project_id").(string)
+	listRev, err := client.GetDefinitionRevisions(ctx, c.organization, project, int32(definitionId))
+	var countRev = len(*listRev.Value)
+	var newRevision = int32(countRev)
+
+	/*
+		definition := build.Definition{
+			ID:                &defid,
+			Name:              &name,
+			BuildNumberFormat: &buildnumberformat,
+			BadgeEnabled:      &badgeenabled,
+			Repository:        ExpandRepository(d.Get("repository")),
+			Process: &build.Process{
+				Type:   &typeprocess,
+				Phases: ExpandPhases(d.Get("designer_phase")),
+			},
+			Queue:     ExpandPoolQueue(d.Get("queue")),
+			Variables: buildVars,
+			Revision:  &newRevision,
+		}*/
+
+	var definition = SetBuildDefinition(d)
+	definition.ID = &defid
+	definition.Revision = &newRevision
+
+	if err != nil {
+		return err
+	}
+	builddef, err := client.UpdateDefinition(ctx, c.organization, definition, project, int32(definitionId), nil, nil)
+
+	if err != nil {
+		return fmt.Errorf("Error updating build definition  %q: %+v",d.Get("name").(string) , err)
+	}
+
+	utils.PrettyPrint(builddef)
+	d.SetId(d.Id())
+
+	if err != nil {
+		return err
+	}
+	d.Partial(false)
+	return nil
+}
+
+func SetBuildDefinition(d *schema.ResourceData) build.Definition {
+
+	var name = d.Get("name").(string)
+	var descrtiption = d.Get("description").(string)
+	var buildnumberformat = d.Get("buildnumber_format").(string)
+	var badgeenabled = d.Get("badge_enabled").(bool)
+	var typeprocess = int32(1)
+	buildVars := expandVariables(d.Get("variables"))
+	/*if varsErr != nil {
+		return fmt.Errorf("Error Building list of Variables: %+v", varsErr)
+	}*/
+
+	definition := build.Definition{
+		Name:              &name,
+		Description:       &descrtiption,
+		BuildNumberFormat: &buildnumberformat,
+		BadgeEnabled:      &badgeenabled,
+		Repository:        ExpandRepository(d.Get("repository")),
+		Process: &build.Process{
+			Type:   &typeprocess,
+			Phases: ExpandPhases(d.Get("designer_phase")),
+		},
+		Queue:     ExpandPoolQueue(d.Get("queue")),
+		Variables: buildVars,
+	}
+
+	return definition
+}
+
 func resourceBuildDefinitionRead(d *schema.ResourceData, meta interface{}) error {
 
 	c := meta.(*AzureDevOpsClient)
@@ -636,65 +710,14 @@ func resourceBuildDefinitionRead(d *schema.ResourceData, meta interface{}) error
 	}
 
 	d.Set("name", build.Name)
+	d.Set("description", build.Description)
+	d.Set("badge_enabled", build.BadgeEnabled)
 	d.Set("repository", FlattenRepository(build.Repository))
 	d.Set("queue", FlattenPoolQueue(build.Queue))
 	d.Set("designer_phase", FlattenPhases(d, build.Process))
 	d.Set("buildnumber_format", build.BuildNumberFormat)
 	d.Set("variables", FlattenVariables(d, build.Variables))
 
-	return nil
-}
-
-func resourceBuildDefinitionUpdate(d *schema.ResourceData, meta interface{}) error {
-
-	c := meta.(*AzureDevOpsClient)
-	client := meta.(*AzureDevOpsClient).buildClient
-	ctx := meta.(*AzureDevOpsClient).StopContext
-
-	d.Partial(true)
-
-	var project = d.Get("project_id").(string)
-	var name = d.Get("name").(string)
-	var typeprocess = int32(1)
-	var buildnumberformat = d.Get("buildnumber_format").(string)
-	definitionId, err := strconv.ParseInt(d.Id(), 10, 32)
-	var defid = int32(definitionId)
-
-	listRev, err := client.GetDefinitionRevisions(ctx, c.organization, project, int32(definitionId))
-	var countRev = len(*listRev.Value)
-	var newRevision = int32(countRev)
-	buildVars := expandVariables(d.Get("variables"))
-
-	definition := build.Definition{
-		ID:                &defid,
-		Name:              &name,
-		BuildNumberFormat: &buildnumberformat,
-		Repository:        ExpandRepository(d.Get("repository")),
-		Process: &build.Process{
-			Type:   &typeprocess,
-			Phases: ExpandPhases(d.Get("designer_phase")),
-		},
-		Queue:     ExpandPoolQueue(d.Get("queue")),
-		Variables: buildVars,
-		Revision:  &newRevision,
-	}
-
-	if err != nil {
-		return err
-	}
-	builddef, err := client.UpdateDefinition(ctx, c.organization, definition, project, int32(definitionId), nil, nil)
-
-	if err != nil {
-		return fmt.Errorf("Error updating build definition  %q: %+v", name, err)
-	}
-
-	utils.PrettyPrint(builddef)
-	d.SetId(d.Id())
-
-	if err != nil {
-		return err
-	}
-	d.Partial(false)
 	return nil
 }
 

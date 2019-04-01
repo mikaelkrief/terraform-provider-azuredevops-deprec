@@ -17,6 +17,10 @@ resource "azuredevops_build_definition" "test1" {
 
   buildnumber_format = "1.0$(rev:.r)" #Optionnal
 
+  badge_enabled = false #Optionnal (default true)
+
+  description = "It' definition created by Terraform"
+
   repository {
     name   = "${azuredevops_project.project.name}"
     type   = "TfsGit"

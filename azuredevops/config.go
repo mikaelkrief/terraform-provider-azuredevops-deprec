@@ -37,7 +37,7 @@ func getAzDOClient(_organization string, _token string) (*AzureDevOpsClient, err
 		token:        _token,
 	}
 
-	auth := autorest.NewBasicAuthorizer(_token)
+	auth := autorest.NewBasicAuthorizer("", _token)
 	auth.WithAuthorization()
 
 	client.registerBuildServiceClients(auth)

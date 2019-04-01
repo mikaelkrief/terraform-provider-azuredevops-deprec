@@ -37,6 +37,8 @@ func testBuildDefCheckBasicMinimal() string {
 			name  = "build-def-%v"
 			project_id ="${azuredevops_project.test1.name}"
 			buildnumber_format = "1.0$(rev:.r)"
+			badge_enabled = false
+			description ="It's buiild definition created by Terraform"
 			repository {
 				name = "${azuredevops_project.test1.name}"
 				type = "TfsGit"

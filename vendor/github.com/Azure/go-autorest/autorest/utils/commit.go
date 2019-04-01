@@ -1,4 +1,4 @@
-package autorest
+package utils
 
 // Copyright 2017 Microsoft Corporation
 //
@@ -15,27 +15,18 @@ package autorest
 //  limitations under the License.
 
 import (
-	"fmt"
-	"runtime"
+	"bytes"
+	"os/exec"
 )
 
-const number = "v11.6.0"
-
-var (
-	userAgent = fmt.Sprintf("Go/%s (%s-%s) go-autorest/%s",
-		runtime.Version(),
-		runtime.GOARCH,
-		runtime.GOOS,
-		number,
-	)
-)
-
-// UserAgent returns a string containing the Go version, system architecture and OS, and the go-autorest version.
-func UserAgent() string {
-	return userAgent
-}
-
-// Version returns the semantic version (see http://semver.org).
-func Version() string {
-	return number
+// GetCommit returns git HEAD (short)
+func GetCommit() string {
+	cmd := exec.Command("git", "rev-parse", "HEAD")
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	err := cmd.Run()
+	if err != nil {
+		return ""
+	}
+	return string(out.Bytes()[:7])
 }
