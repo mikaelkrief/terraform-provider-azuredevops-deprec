@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="df51c5c6-774d-4731-8f88-da7acec929d1" name="Default Changelist" comment="" />
+    <list default="true" id="df51c5c6-774d-4731-8f88-da7acec929d1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/azuredevops/provider.go" beforeDir="false" afterPath="$PROJECT_DIR$/azuredevops/provider.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/azuredevops/provider_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/azuredevops/provider_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/terraform-provider-azuredevops" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,20 +35,44 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/azuredevops/azuredevops-project_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
-              <folding>
-                <element signature="e#21#256#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="68">
+              <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/azuredevops/azuredevops-build-definition_test.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="37" column="38" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/github.com/mikaelkrief/go-azuredevops-sdk/build/5.1-preview/client.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="53618">
+              <caret line="3163" column="115" selection-start-line="3163" selection-start-column="97" selection-end-line="3163" selection-end-column="115" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/azuredevops/azuredevops-build-definition.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="18" column="27" lean-forward="true" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/azuredevops/provider_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+            <state relative-caret-position="561">
+              <caret line="33" column="54" selection-start-line="33" selection-start-column="54" selection-end-line="33" selection-end-column="54" />
               <folding>
                 <element signature="e#21#141#0" expanded="true" />
               </folding>
@@ -52,49 +81,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/azuredevops/utils/utils.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="8" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/azuredevops/utils/random.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="8" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/exclude.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="90" selection-start-line="4" selection-start-column="90" selection-end-line="4" selection-end-column="90" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/azuredevops/config.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="45" selection-start-line="45" selection-end-line="45" />
-              <folding>
-                <element signature="e#21#287#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="442">
+              <caret line="33" column="27" selection-start-line="33" selection-start-column="27" selection-end-line="33" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -102,8 +92,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/azuredevops/provider.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+            <state relative-caret-position="561">
+              <caret line="33" column="1" lean-forward="true" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
               <folding>
                 <element signature="e#21#123#0" expanded="true" />
               </folding>
@@ -114,10 +104,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/azuredevops/azuredevops-project.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+            <state relative-caret-position="136">
+              <caret line="8" column="54" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="54" />
               <folding>
-                <element signature="e#21#256#0" expanded="true" />
+                <element signature="n#!!block;n#resourceProjectCreate#0" />
+                <element signature="n#!!block;n#getProcessByName#0" />
+                <element signature="n#!!block;n#resourceProjectRead#0" />
+                <element signature="n#!!block;n#resourceProjectUpdate#0" />
               </folding>
             </state>
           </provider>
@@ -159,7 +152,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/main.go" />
-        <option value="$PROJECT_DIR$/azuredevops/provider.go" />
         <option value="$PROJECT_DIR$/../go-azuredevops-sdk/core/5.1-preview/models.go" />
         <option value="$PROJECT_DIR$/../go-azuredevops-sdk/operation/5.1-preview.1/client.go" />
         <option value="$PROJECT_DIR$/../go-azuredevops-sdk/build/5.1-preview/client.go" />
@@ -170,14 +162,20 @@
         <option value="$PROJECT_DIR$/azuredevops/azuredevops-project.go" />
         <option value="$PROJECT_DIR$/azuredevops/config.go" />
         <option value="$PROJECT_DIR$/azuredevops/provider_test.go" />
+        <option value="$PROJECT_DIR$/azuredevops/azuredevops_build.go" />
+        <option value="$PROJECT_DIR$/azuredevops/azuredevops-build.go" />
+        <option value="$PROJECT_DIR$/azuredevops/azuredevops-build_test.go" />
+        <option value="$PROJECT_DIR$/azuredevops/azuredevops-build-definition_test.go" />
+        <option value="$PROJECT_DIR$/azuredevops/provider.go" />
+        <option value="$PROJECT_DIR$/azuredevops/azuredevops-build-definition.go" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1616" />
-    <option name="height" value="876" />
+    <option name="x" value="-10" />
+    <option name="y" value="-10" />
+    <option name="width" value="1618" />
+    <option name="height" value="878" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -191,6 +189,11 @@
             <path>
               <item name="terraform-provider-azuredevops" type="b2602c69:ProjectViewProjectNode" />
               <item name="terraform-provider-azuredevops" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="terraform-provider-azuredevops" type="b2602c69:ProjectViewProjectNode" />
+              <item name="terraform-provider-azuredevops" type="462c0819:PsiDirectoryNode" />
+              <item name="azuredevops" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -220,13 +223,24 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.Test_projectCheck in terraform-provider-azuredevops/azuredevops">
+  <component name="RunManager" selected="Go Test.Test_buildDefinitionCheck in terraform-provider-azuredevops/azuredevops">
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="terraform-provider-azuredevops" />
       <working_directory value="$PROJECT_DIR$/" />
       <kind value="FILE" />
       <filePath value="$PROJECT_DIR$/main.go" />
       <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test_buildDefinitionCheck in terraform-provider-azuredevops/azuredevops" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="terraform-provider-azuredevops" />
+      <working_directory value="$PROJECT_DIR$/azuredevops" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="terraform-provider-azuredevops/azuredevops" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^Test_buildDefinitionCheck$" />
       <method v="2" />
     </configuration>
     <configuration name="Test_projectCheck in terraform-provider-azuredevops/azuredevops" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -249,27 +263,17 @@
     <list>
       <item itemvalue="Go Build.go build main.go" />
       <item itemvalue="Go Test.Test_projectCheck in terraform-provider-azuredevops/azuredevops" />
+      <item itemvalue="Go Test.Test_buildDefinitionCheck in terraform-provider-azuredevops/azuredevops" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.Test_buildDefinitionCheck in terraform-provider-azuredevops/azuredevops" />
         <item itemvalue="Go Test.Test_projectCheck in terraform-provider-azuredevops/azuredevops" />
         <item itemvalue="Go Build.go build main.go" />
       </list>
     </recent_temporary>
   </component>
   <component name="TestHistory">
-    <history-entry file="Test_projectCheck_in_terraform-provider-azuredevops_azuredevops - 2019.03.04 at 13h 20m 31s.xml">
-      <configuration name="Test_projectCheck in terraform-provider-azuredevops/azuredevops" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="Test_projectCheck_in_terraform-provider-azuredevops_azuredevops - 2019.03.04 at 13h 24m 51s.xml">
-      <configuration name="Test_projectCheck in terraform-provider-azuredevops/azuredevops" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="Test_projectCheck_in_terraform-provider-azuredevops_azuredevops - 2019.03.04 at 13h 32m 23s.xml">
-      <configuration name="Test_projectCheck in terraform-provider-azuredevops/azuredevops" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="Test_projectCheck_in_terraform-provider-azuredevops_azuredevops - 2019.03.04 at 13h 53m 19s.xml">
-      <configuration name="Test_projectCheck in terraform-provider-azuredevops/azuredevops" configurationId="GoTestRunConfiguration" />
-    </history-entry>
     <history-entry file="Test_projectCheck_in_terraform-provider-azuredevops_azuredevops - 2019.03.04 at 15h 22m 08s.xml">
       <configuration name="Test_projectCheck in terraform-provider-azuredevops/azuredevops" configurationId="GoTestRunConfiguration" />
     </history-entry>
@@ -288,24 +292,35 @@
     <history-entry file="Test_projectCheck_in_terraform-provider-azuredevops_azuredevops - 2019.03.04 at 15h 55m 27s.xml">
       <configuration name="Test_projectCheck in terraform-provider-azuredevops/azuredevops" configurationId="GoTestRunConfiguration" />
     </history-entry>
+    <history-entry file="Test_projectCheck_in_terraform-provider-azuredevops_azuredevops - 2019.03.06 at 16h 57m 59s.xml">
+      <configuration name="Test_projectCheck in terraform-provider-azuredevops/azuredevops" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="Test_buildDefinitionCheck_in_terraform-provider-azuredevops_azuredevops - 2019.03.06 at 18h 24m 34s.xml">
+      <configuration name="Test_buildDefinitionCheck in terraform-provider-azuredevops/azuredevops" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="Test_buildDefinitionCheck_in_terraform-provider-azuredevops_azuredevops - 2019.03.07 at 17h 34m 43s.xml">
+      <configuration name="Test_buildDefinitionCheck in terraform-provider-azuredevops/azuredevops" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="Test_buildDefinitionCheck_in_terraform-provider-azuredevops_azuredevops - 2019.03.07 at 17h 38m 13s.xml">
+      <configuration name="Test_buildDefinitionCheck in terraform-provider-azuredevops/azuredevops" configurationId="GoTestRunConfiguration" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4858681" visible="true" weight="0.16195373" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4858681" visible="true" weight="0.25771812" />
       <window_info id="Structure" order="1" sideWeight="0.5141319" side_tool="true" weight="0.23971723" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.31090176" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32839838" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3101983" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32719547" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39838493" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="9" visible="true" weight="0.30417228" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.30311614" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32839838" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -314,28 +329,6 @@
       <window_info anchor="right" id="Database" order="3" weight="0.32969153" />
       <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.3295302" />
     </layout>
-    <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4858681" visible="true" weight="0.16195373" />
-      <window_info id="Structure" order="1" sideWeight="0.5141319" side_tool="true" weight="0.23971723" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.31224763" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32839838" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39838493" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" order="8" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.30417228" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.3286119" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.3286119" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" weight="0.32969153" />
-      <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.3295302" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -424,50 +417,47 @@
         <line-breakpoint type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/../go-azuredevops-sdk/core/5.1-preview/client.go</url>
           <line>411</line>
-          <properties />
           <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/../github.com/Azure/go-autorest/autorest/responder.go</url>
           <line>165</line>
-          <properties />
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/../go-azuredevops-sdk/core/5.1-preview/client.go</url>
           <line>978</line>
-          <properties />
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/../go-azuredevops-sdk/core/5.1-preview/client.go</url>
           <line>991</line>
-          <properties />
           <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/azuredevops/azuredevops-project.go</url>
           <line>126</line>
-          <properties />
           <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/azuredevops/azuredevops-project.go</url>
           <line>117</line>
-          <properties />
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/azuredevops/azuredevops-project.go</url>
           <line>146</line>
-          <properties />
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/azuredevops/azuredevops-project.go</url>
           <line>86</line>
-          <properties />
           <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/azuredevops/azuredevops-project_test.go</url>
+          <line>34</line>
+          <option name="timeStamp" value="40" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -595,27 +585,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/github.com/hashicorp/terraform/helper/schema/resource.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4692">
-          <caret line="285" column="27" selection-start-line="285" selection-start-column="23" selection-end-line="285" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/exclude.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="90" selection-start-line="4" selection-start-column="90" selection-end-line="4" selection-end-column="90" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/github.com/Azure/go-autorest/autorest/authorization.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -637,40 +606,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/azuredevops/azuredevops-project.go">
+    <entry file="file://$PROJECT_DIR$/exclude.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
-          <folding>
-            <element signature="e#21#256#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="68">
+          <caret line="4" column="90" selection-start-line="4" selection-start-column="90" selection-end-line="4" selection-end-column="90" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/azuredevops/azuredevops-project_test.go">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
-          <folding>
-            <element signature="e#21#256#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="34">
+          <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/azuredevops/azuredevops_build.go" />
+    <entry file="file://$PROJECT_DIR$/vendor/github.com/Azure/go-autorest/tracing/tracing.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="143" column="5" selection-start-line="143" selection-start-column="5" selection-end-line="143" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/github.com/mikaelkrief/go-azuredevops-sdk/build/5.1-preview/client.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="53618">
+          <caret line="3163" column="115" selection-start-line="3163" selection-start-column="97" selection-end-line="3163" selection-end-column="115" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/azuredevops/config.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="45" selection-start-line="45" selection-end-line="45" />
+        <state relative-caret-position="442">
+          <caret line="33" column="27" selection-start-line="33" selection-start-column="27" selection-end-line="33" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/azuredevops/azuredevops-project.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="54" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="54" />
           <folding>
-            <element signature="e#21#287#0" expanded="true" />
+            <element signature="n#!!block;n#resourceProjectCreate#0" />
+            <element signature="n#!!block;n#getProcessByName#0" />
+            <element signature="n#!!block;n#resourceProjectRead#0" />
+            <element signature="n#!!block;n#resourceProjectUpdate#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/github.com/hashicorp/terraform/helper/schema/resource.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4692">
+          <caret line="285" column="27" selection-start-line="285" selection-start-column="23" selection-end-line="285" selection-end-column="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/azuredevops/provider.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+        <state relative-caret-position="561">
+          <caret line="33" column="1" lean-forward="true" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
           <folding>
             <element signature="e#21#123#0" expanded="true" />
           </folding>
@@ -679,11 +674,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/azuredevops/provider_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+        <state relative-caret-position="561">
+          <caret line="33" column="54" selection-start-line="33" selection-start-column="54" selection-end-line="33" selection-end-column="54" />
           <folding>
             <element signature="e#21#141#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/azuredevops/azuredevops-project_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/azuredevops/azuredevops-build-definition_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="37" column="38" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/azuredevops/azuredevops-build-definition.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="18" column="27" lean-forward="true" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
         </state>
       </provider>
     </entry>

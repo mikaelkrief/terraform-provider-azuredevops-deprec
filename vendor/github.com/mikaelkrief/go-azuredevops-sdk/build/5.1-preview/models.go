@@ -5,9 +5,10 @@ package build
 
 import (
 	"encoding/json"
+
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/date"
-	"github.com/satori/go.uuid"
+	uuid "github.com/satori/go.uuid"
 )
 
 // The package's fully qualified name.
@@ -749,6 +750,15 @@ func (d Definition) MarshalJSON() ([]byte, error) {
 	if d.Process != nil {
 		objectMap["process"] = d.Process
 	}
+
+	/*if d.DockerProcess != nil {
+		objectMap["process"] = d.DockerProcess
+	}
+
+	if d.YamlProcess != nil {
+		objectMap["process"] = d.YamlProcess
+	}*/
+
 	if d.ProcessParameters != nil {
 		objectMap["processParameters"] = d.ProcessParameters
 	}
@@ -2154,10 +2164,10 @@ type PhaseTarget struct {
 }
 
 // Process represents a build process.
-type Process struct {
+//type Process struct {
 	// Type - The type of the process.
-	Type *int32 `json:"type,omitempty"`
-}
+//	Type *int32 `json:"type,omitempty"`
+//}
 
 // ProcessParameters ...
 type ProcessParameters struct {
@@ -3182,4 +3192,18 @@ type YamlProcess struct {
 	YamlFilename *string `json:"yamlFilename,omitempty"`
 	// Type - The type of the process.
 	Type *int32 `json:"type,omitempty"`
+}
+
+type Process struct {
+	Errors *[]string `json:"errors,omitempty"`
+	// Resources - The resources used by the build definition.
+	Resources *ProcessResources `json:"resources,omitempty"`
+	// YamlFilename - The YAML filename.
+	YamlFilename *string `json:"yamlFilename,omitempty"`
+	// Type - The type of the process.
+	Type *int32 `json:"type,omitempty"`
+
+	Phases *[]Phase `json:"phases,omitempty"`
+	// Target - The target for the build process.
+	Target *DesignerProcessTarget `json:"target,omitempty"`
 }

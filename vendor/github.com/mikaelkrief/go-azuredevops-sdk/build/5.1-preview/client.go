@@ -1037,7 +1037,7 @@ func (client BaseClient) DeleteDefinitionResponder(resp *http.Response) (result 
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK),
+		azure.WithErrorUnlessStatusCode(http.StatusNoContent),
 		autorest.ByClosing())
 	result.Response = resp
 	return
@@ -3559,7 +3559,7 @@ func (client BaseClient) GetDefinitionRevisionsResponder(resp *http.Response) (r
 		resp,
 		client.ByInspecting(),
 		azure.WithErrorUnlessStatusCode(http.StatusOK),
-		autorest.ByUnmarshallingJSON(&result.Value),
+		autorest.ByUnmarshallingJSON(&result),
 		autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
 	return
