@@ -9,7 +9,7 @@ variables:
   GOPATH: '$(system.defaultWorkingDirectory)/gopath' # Go workspace path
   modulePath: '$(GOPATH)/src/terraform-provider-azuredevops' # Path to the module's code
 
-name: 0.3$(Rev:.r)
+name: 0.4$(Rev:.r)
 
 steps:
 - script: |
